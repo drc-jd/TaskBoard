@@ -1,0 +1,20 @@
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  	  <style>
+svg#Capa_1 path#Path_3, svg#Capa_1 path#Path_4 {
+    fill: #ffffff;
+}
+</style>
+  <defs>
+    <clipPath id="clip-_3">
+      <rect width="30" height="30"/>
+    </clipPath>
+  </defs>
+
+  <g id="_3" data-name="3" clip-path="url(#clip-_3)">
+    <g id="_3-2" data-name="3" transform="translate(-30.46 -28.93)">
+      <path id="Path_3" data-name="Path 3" d="M59.138,29.9a3.275,3.275,0,0,0-2.321-.966H33.747a3.347,3.347,0,0,0-2.321.966,3.224,3.224,0,0,0-.966,2.321V55.292a3.285,3.285,0,0,0,.966,2.306v.015a3.325,3.325,0,0,0,2.321.951H56.822a3.3,3.3,0,0,0,3.272-3.272V32.217A3.315,3.315,0,0,0,59.138,29.9Zm-2.6,25.115H45.282V53.336a9.584,9.584,0,1,1,0-19.168V32.493H56.541Z" transform="translate(0 0)" fill-rule="evenodd"/>
+      <path id="Path_4" data-name="Path 4" d="M60.54,39.57a9.584,9.584,0,0,1,0,19.168Z" transform="translate(-15.258 -5.397)" stroke="#000" stroke-miterlimit="10" stroke-width="0.028" fill-rule="evenodd"/>
+      <path id="Path_5" data-name="Path 5" d="M50.674,58.728a9.584,9.584,0,0,1,0-19.168Z" transform="translate(-5.392 -5.392)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="0.028"/>
+    </g>
+  </g>
+</svg>

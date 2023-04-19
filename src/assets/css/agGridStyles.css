@@ -1,0 +1,426 @@
+ .txtRed {
+     color: red;
+     font-weight: bold;
+ }
+
+ .txtGreen {
+     color: green;
+     font-weight: bold;
+ }
+
+ .wordBreak-normal {
+     word-break: normal;
+ }
+
+ .verticalAlign {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .txtBlue {
+     color: blue;
+ }
+
+ .LightGoldenrodYellow {
+     background-color: LightGoldenrodYellow;
+ }
+
+ .txtMaroon {
+     color: maroon;
+     font-size: 16px;
+     font-weight: bold;
+ }
+
+ .LightSkyBlue {
+     background-color: rgb(180, 220, 233) !important;
+ }
+
+ .gold {
+     background-color: gold !important;
+ }
+
+ .bgCream {
+     background-color: #FFE0C0 !important;
+ }
+
+ .orange {
+     background-color: orange !important;
+ }
+
+ .oliveGreen {
+     background-color: #bcc9c9 !important;
+ }
+
+ .darkPink {
+     background-color: #fa8072 !important;
+ }
+
+ .salmonPink {
+     background-color: #ffe4e1 !important;
+ }
+
+ .brown {
+     background-color: #deb887 !important;
+ }
+
+ .txtDarkBrown {
+     color: #c02222 !important;
+ }
+
+ .txtDarkBlue {
+     color: #143d59 !important;
+ }
+
+ .txtDarkRed {
+     color: #a0525b !important;
+ }
+
+ .borderRightBlack {
+     border-right: 2px solid black !important;
+ }
+
+ .lightPurple {
+     background-color: #d8bfd8 !important;
+ }
+
+ .lightBlue {
+     background-color: #8CC8F7 !important;
+ }
+
+ .lighViolet {
+     background-color: #e6e6fa !important;
+ }
+
+ .lightYellow {
+     background-color: #f5f5dc !important;
+ }
+
+ .Yellow {
+     background-color: #ebeb71 !important;
+ }
+
+ .bg-Yellow {
+     background-color: yellow !important;
+ }
+
+ .lightAzure {
+     background-color: #f0ffff !important;
+ }
+
+ .azure {
+     background-color: azure !important;
+ }
+
+ .mistyRose {
+     background-color: #ffe4e1 !important;
+ }
+
+ .qcStockDarkRed {
+     color: #990000 !important;
+ }
+
+ .cream {
+     background-color: #f9db9299;
+     font-weight: bolder;
+ }
+
+ .polishAllStockTitle {
+     background-color: #143d59cc;
+     font-weight: bolder;
+     color: white;
+ }
+
+ .polishAllTotal {
+     background-color: #dfdad1d6;
+     font-weight: bolder;
+     color: #143d59;
+ }
+
+ .qcStockTitles {
+     background-color: #f8f8ff !important;
+     color: #c02222;
+     font-weight: 700;
+ }
+
+ .fontWeight500 {
+     font-weight: 500;
+ }
+
+ .fontWeight600 {
+     font-weight: 600;
+ }
+
+ .fontWeight700 {
+     font-weight: 700;
+ }
+
+ .SkyBlue {
+     background-color: #d3eeff !important;
+     font-weight: 700;
+ }
+
+ .LightSkyBlueAndRed {
+     background-color: rgb(180, 220, 233) !important;
+     color: red;
+     font-weight: bold;
+ }
+
+ .antiquewhite {
+     background-color: antiquewhite;
+ }
+
+ .khaki {
+     background-color: khaki;
+ }
+
+ .lightGreen {
+     background-color: #b7f3df;
+ }
+
+ .LeaveApplyCompany {
+     background-color: lightblue;
+ }
+
+ .LeaveApplyClinic {
+     background-color: #E9B9B4;
+ }
+
+ .CsMistake {
+     background-color: #00C000;
+ }
+
+ .bankdetailgreen {
+     background-color: #98FB98;
+ }
+
+ .bankdetailpink {
+     background-color: #FFC0CB;
+ }
+
+ .antiquewhiteWithBottomBorder {
+     background-color: antiquewhite;
+     border-bottom: 1px solid black !important;
+ }
+
+ .showcell {
+     background-color: rgb(255, 250, 205) !important;
+     border-left: 1px solid lightgrey !important;
+     border-right: 1px solid lightgrey !important;
+     border-bottom: 1px solid lightgrey !important;
+ }
+
+ .ORow {
+     background-color: #ffffff;
+ }
+
+ .ERow {
+     background-color: #f5f5f5;
+ }
+
+ .borderTop {
+     border-top: 1px solid #4a4a4a !important;
+ }
+
+ .borderBottom {
+     border-bottom: 1px solid #4a4a4a !important;
+ }
+
+ .LightGreen {
+     background-color: #75ed7594;
+ }
+
+ .LightRed {
+     background-color: #ff000069;
+ }
+
+ .outstandingHeader {
+     background-color: #d3d3d3;
+     color: #3b00ff;
+     font-weight: 700;
+ }
+
+ .outstandingCells {
+     background-color: #fff5ee;
+     font-weight: 700;
+ }
+
+ .outstandingFooter {
+     background-color: #ffe4e1;
+     color: #ff0000;
+     font-weight: 700;
+ }
+
+ .Green {
+     background-color: #28a745 !important;
+ }
+
+ .kapanAssesmentHeaders {
+     background-color: #4a4a4ac9;
+     font-weight: bolder;
+     color: #ffffff;
+ }
+
+ .cardAtdYellow {
+     background-color: #F0E6B9;
+ }
+
+ .cardAtdLightGrey {
+     background-color: #F0F0F0;
+ }
+
+ .cardAtdLimeGreen {
+     background-color: #996600;
+     color: white;
+ }
+
+ .cardAtdcsOrchidOt {
+     background-color: #FFC0C0;
+ }
+
+ .cardAtdHol {
+     background-color: #8080FF;
+ }
+
+ .cardAtdcsPinkAbs {
+     background-color: #FF8080;
+ }
+
+ .cardAtdcsAbsentGreen {
+     background-color: #00C000;
+ }
+
+ .cardAtdcsExtraLeave {
+     background-color: #EBA6EB;
+ }
+
+ .cardAtdcsHalfLeave {
+     background-color: #00E8ED;
+ }
+
+
+ .cardAtdcsPaidHoliday {
+     background-color: #B22222;
+     color: white;
+ }
+
+ .cardAtdcsOutReason {
+     background-color: #FFCC66;
+     color: blue;
+ }
+
+ .cardAtdcsFullLeave {
+     background-color: #008080;
+     color: white;
+ }
+
+ .cardAtdcsFullOT {
+     background-color: Indigo;
+     color: white;
+ }
+
+ .cardAtdcsHalfOT {
+     background-color: #0A0082;
+     color: white;
+ }
+
+ .cardAtdcsFhour {
+     background-color: yellow;
+     color: blue;
+ }
+
+ .cardAtdFontRed {
+     color: red;
+ }
+
+ .cardAtdFontBlue {
+     color: blue;
+ }
+
+ .cardAtdFontGrey {
+     color: grey;
+ }
+
+ .empcardeditgolden {
+     background-color: #F1E3AC;
+ }
+
+ .empcardeditgrey {
+     background-color: #C0C0C0;
+     color: #FFFFFF
+ }
+
+ .boxstockgolden {
+     background-color: #E6CF77;
+ }
+
+ .cstxtBlue {
+     color: blue;
+     font-weight: 500;
+ }
+
+ .csgray {
+     font-weight: 500;
+ }
+
+ .csOrchid {
+     color: orchid;
+     font-weight: 500;
+ }
+
+ .csBurlyWood {
+     font-weight: 500;
+ }
+
+ .csFhour {
+     background-color: yellow;
+     color: blue;
+ }
+
+ .csWeekEnd {
+     background-color: #8080FF;
+ }
+
+ .csPinkAbs {
+     background-color: #FF8080;
+ }
+
+ .csEven {
+     background-color: white;
+ }
+
+ .csOdd {
+     background-color: #EEEEEE;
+ }
+
+ .csmonthL {
+     background-color: #A3F5F5;
+ }
+
+ .csmonthH {
+     background-color: #A6A6E9;
+ }
+
+ .csmonthPH {
+     background-color: #E0E080;
+ }
+
+ .csmonthRPL {
+     background-color: #FFE080;
+ }
+
+ .csmonthPL {
+     background-color: #C0FFC0;
+ }
+
+ .csmonthLPL {
+     background-color: #FF8080;
+ }
+
+ .csmonthEL {
+     background-color: #EBA6EB;
+ }
+
+ .csECode {
+     background-color: #F5F5DC;
+ }

@@ -1,0 +1,119 @@
+.contain {
+    height: 100%;
+    position: relative;
+}
+.filterpnl {
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+    margin-top: 5px;
+}
+.fscreen {
+    background: url("../../../../assets/images/grid/fscreen.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    transform: rotate(45deg);
+}
+
+#fullscreen-wrap:hover .fscreen {
+    background: url("../../../../assets/images/grid/fscreen_ovr.svg");
+}
+
+.feye {
+    background: url("../../../../assets/images/grid/eye.svg");
+    width: 22px;
+    height: 14px;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+}
+
+#eye-wrap:hover .feye {
+    background: url("../../../../assets/images/grid/eye_ovr.svg");
+}
+
+.fexpand {
+    background: url("../../../../assets/images/grid/expand.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+
+#expand-wrap:hover .fexpand {
+    background: url("../../../../assets/images/grid/expand_ovr.svg");
+}
+
+.fcollapse {
+    background: url("../../../../assets/images/grid/Collapse.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+
+#collapse-wrap:hover .fcollapse {
+    background: url("../../../../assets/images/grid/Collapse_ovr.svg");
+}
+
+.fselect {
+    background: url("../../../../assets/images/grid/select_All.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+
+#select-wrap:hover .fselect {
+    background: url("../../../../assets/images/grid/select_All_ovr.svg");
+}
+
+.fdselect {
+    background: url("../../../../assets/images/grid/deselect.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+#dselect-wrap:hover .fdselect {
+    background: url("../../../../assets/images/grid/deselect_ovr.svg");
+}
+
+.fiselect {
+    background: url("../../../../assets/images/grid/ISelect.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+
+#iselect-wrap:hover .fiselect {
+    background: url("../../../../assets/images/grid/ISelect_ovr.svg");
+}
+
+.search {
+    width: 166px;
+}
+
+.QuickSearch {
+    padding: 0;
+    margin-left: 6px !important;
+    margin-right: 3px;
+    border: none;
+}
+
+.QuickSearch:hover {
+    background-color: transparent !important;
+}
+.QuickSearchtxt {
+    height: 20px;
+}
+
+.contain .ag-gridcls {
+    width: 100%;
+    height: 100%;
+}
+
+::ng-deep .ag-header-group-cell-label {
+    justify-content: center !important;
+}

@@ -1,0 +1,25 @@
+.hours {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 20% !important;
+}
+
+.menu {
+    cursor: pointer;
+}
+
+.greenborder {
+    border-color: green !important;
+}
+
+.orangeborder {
+    border-color: orange !important;
+}
+
+.redborder {
+    border-color: red !important;
+}
+
+.drag-item:hover {
+    cursor: all-scroll !important;
+}

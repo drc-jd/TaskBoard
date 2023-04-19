@@ -1,0 +1,521 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
+                        <h5><a routerLink="/Projects" style="color: #5773ff;font-weight: 700;">Projects</a> <i
+                                class="las la-angle-right"></i>
+                            {{projectName}}</h5>
+                        <div class="d-flex flex-wrap align-items-center">
+                            <ng-container *ngIf="UserInfo.role == 'Approval Authority'">
+                                <label class=" h5 mr-2" style="margin-bottom: 0;">Type</label>
+                                <div class="dropdown dropdown-project mr-3">
+                                    <div class="form-group mb-0">
+                                        <select tooltip id="Users" name="Users" [(ngModel)]="selectedUsers"
+                                            class="form-control" data-style="py-0" (ngModelChange)="GetPendingTask()">
+                                            <option *ngFor="let user of ddlUsers" [value]="user.value">
+                                                {{user.text}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <ng-container *ngIf="tblTaskList.length>0;else NoData">
+                            <ng-container *ngIf="UserInfo.role == 'Developer'">
+                                <div class="col-lg-12" *ngFor="let task of tblTaskList">
+                                    <div class="card card-widget task-card">
+                                        <a data-toggle="collapse"
+                                            [href]="(UserInfo.role == 'Task Incharge' && task.received == false)? '':'#details'+task.id "
+                                            aria-expanded="false" role="button"
+                                            [aria-controls]="(UserInfo.role == 'Task Incharge' && task.received == false)? '':'#details'+task.id">
+                                            <div class="card-body">
+                                                <div
+                                                    class="d-flex flex-wrap align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <h4 class="mb-2" style="font-weight: 700;">{{task.taskName}}
+                                                            </h4>
+                                                            <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
+                                                                {{task.taskDescription}}</h6>
+                                                            <div class="media align-items-center">
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #d3d3d3;">
+                                                                    <svg class="svg-icon" width="20" height="20"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 1 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path
+                                                                            d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                                                                        </path>
+                                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                                    </svg> {{task.incharge}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #d3d3d3;">
+                                                                    <i style="font-size: 24px;"
+                                                                        class="las la-code"></i>{{task.developer}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #b55f44;">
+                                                                    <span>T :</span> {{task.TotalHours}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #0023d0;">
+                                                                    <span>W :</span> {{task.UtilizeHours}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3" [ngClass]='{
+                                                                    "orangeborder" : task.totalPendingMinutes > 0,
+                                                                    "greenborder" : task.totalPendingMinutes == 0,
+                                                                    "redborder" : task.totalPendingMinutes < 0
+                                                                    }' style="border: 1px solid">
+                                                                    <span>D :</span> {{task.PendingHours}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="media mt-1 align-items-center"
+                                                                *ngIf="task.Files.length > 0">
+                                                                <div class="btn bg-body mr-3"
+                                                                    *ngFor="let file of task.Files"
+                                                                    style="border: 1px solid #d3d3d3;"
+                                                                    (click)="DownloadFile(file)">
+                                                                    <i class="las la-download"
+                                                                        style="font-size: 24px;"></i>{{file}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media align-items-center mt-md-0 mt-3">
+                                                        <!-- <div class="btn mr-3">
+                                                            <div
+                                                                class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                {{task.TotalHours}}
+                                                            </div>
+                                                            <div
+                                                                class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                {{task.UtilizeHours}}
+                                                            </div>
+                                                            <div
+                                                                class="bg-success-light rounded-circle iq-card-icon-small hours">
+                                                                {{task.PendingHours}}
+                                                            </div>
+                                                        </div> -->
+                                                        <span class="btn mr-3" [ngClass]='{
+                                                            "priority-high" : task.priority == 1,
+                                                            "priority-medium" : task.priority == 2,
+                                                            "priority-low" : task.priority == 3
+                                                            }'>
+                                                        </span>
+                                                        <button [disabled]="task.disableComplete"
+                                                            *ngIf="UserInfo.userId == task.developerID"
+                                                            class="btn btn-success" title="Complete"
+                                                            (click)="ConfirmTaskComplete(task.id)"
+                                                            style="float: right;">Complete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class=" collapse" id="details{{task.id}}">
+                                        <div class="card card-list task-card">
+                                            <div class="card-body">
+                                                <div *ngIf="UserInfo.role == 'Developer'" class="card mb-3">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="table-responsive rounded bg-white mb-4">
+                                                                    <table
+                                                                        class="table mb-0 table-borderless tbl-server-info">
+                                                                        <tbody>
+                                                                            <tr *ngFor="let data of task.devData">
+                                                                                <td style="width: 50%;">
+                                                                                    <div
+                                                                                        class="media align-items-center">
+                                                                                        <h5 class="ml-3">
+                                                                                            {{data.comment}}
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width: 15%;">
+                                                                                    <img _ngcontent-ult-c58="" alt=""
+                                                                                        class="img-fluid avatar-40 rounded-circle"
+                                                                                        src="data:image/jpeg;base64,{{data.profileImg}}">
+                                                                                    {{data.devName}}
+                                                                                </td>
+                                                                                <td style="width: 15%;">
+                                                                                    <div
+                                                                                        class="media align-items-center">
+                                                                                        <div
+                                                                                            class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                                            {{data.totalTime}}
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                                            {{data.usedTime}}
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="bg-success-light rounded-circle iq-card-icon-small hours">
+                                                                                            {{data.pendingTime}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width: 20%;">
+                                                                                    <button
+                                                                                        *ngIf="data.completeDate == null && UserInfo.userId == data.developerId"
+                                                                                        class="btn btn-primary"
+                                                                                        (click)="addComment(data)"
+                                                                                        data-target="#new-task-modal"
+                                                                                        data-toggle="modal">Add
+                                                                                        Comment</button>
+                                                                                    <button
+                                                                                        *ngIf="data.completeDate == null"
+                                                                                        class="btn btn-success"
+                                                                                        (click)="ConfirmDevComment(data.srNo)"
+                                                                                        style="float: right;">Complete</button>
+                                                                                    <label
+                                                                                        *ngIf="data.completeDate != null"
+                                                                                        style="float: right;color: green;
+                                                                                        font-weight: 500;">Done
+                                                                                        on {{data.completeDate}}</label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="UserInfo.role == 'Approval Authority'">
+                                <div class="col-lg-12">
+                                    <div class="row" dragula="COLUMNS" [(dragulaModel)]="tblTaskList">
+                                        <div class="col-lg-12" *ngFor="let task of tblTaskList">
+                                            <div class="card card-widget task-card drag-item">
+                                                <a data-toggle="collapse" aria-expanded="false" role="button">
+                                                    <div class="card-body">
+                                                        <div
+                                                            class="d-flex flex-wrap align-items-center justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <h4 class="mb-2" style="font-weight: 700;">
+                                                                        {{task.taskName}}
+                                                                    </h4>
+                                                                    <h6 class="mb-1"
+                                                                        style="font-weight: 500;color: #605C8D;">
+                                                                        {{task.taskDescription}}</h6>
+                                                                    <div class="media align-items-center">
+                                                                        <div class="btn bg-body mr-3"
+                                                                            style="border: 1px solid #d3d3d3;">
+                                                                            <svg class="svg-icon" width="20" height="20"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                viewBox="0 1 24 24" fill="none"
+                                                                                stroke="currentColor" stroke-width="2"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round">
+                                                                                <path
+                                                                                    d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                                                                                </path>
+                                                                                <circle cx="12" cy="7" r="4"></circle>
+                                                                            </svg> {{task.incharge}}
+                                                                        </div>
+                                                                        <div class="btn bg-body mr-3"
+                                                                            style="border: 1px solid #d3d3d3;">
+                                                                            <i style="font-size: 24px;"
+                                                                                class="las la-code"></i>{{task.developer}}
+                                                                        </div>
+                                                                        <div class="btn bg-body mr-3"
+                                                                            style="border: 1px solid #b55f44;">
+                                                                            <span>T :</span> {{task.TotalHours}}
+                                                                        </div>
+                                                                        <div class="btn bg-body mr-3"
+                                                                            style="border: 1px solid #0023d0;">
+                                                                            <span>W :</span> {{task.UtilizeHours}}
+                                                                        </div>
+                                                                        <div class="btn bg-body mr-3" [ngClass]='{
+                                                                            "orangeborder" : task.totalPendingMinutes > 0,
+                                                                            "greenborder" : task.totalPendingMinutes == 0,
+                                                                            "redborder" : task.totalPendingMinutes < 0
+                                                                            }' style="border: 1px solid">
+                                                                            <span>D :</span> {{task.PendingHours}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="media mt-1 align-items-center"
+                                                                        *ngIf="task.Files.length > 0">
+                                                                        <div class="btn bg-body mr-3"
+                                                                            *ngFor="let file of task.Files"
+                                                                            style="border: 1px solid #d3d3d3;"
+                                                                            (click)="DownloadFile(file)">
+                                                                            <i class="las la-download"
+                                                                                style="font-size: 24px;"></i>{{file}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media align-items-center mt-md-0 mt-3">
+                                                                <!-- <div class="btn mr-3">
+                                                                    <div
+                                                                        class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                        {{task.TotalHours}}
+                                                                    </div>
+                                                                    <div
+                                                                        class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                        {{task.UtilizeHours}}
+                                                                    </div>
+                                                                    <div
+                                                                        class="bg-success-light rounded-circle iq-card-icon-small hours">
+                                                                        {{task.PendingHours}}
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="UserInfo.role == 'Manager'">
+                                <div class="col-lg-12" *ngFor="let task of tblTaskList">
+                                    <div class="card card-widget task-card">
+                                        <a data-toggle="collapse" aria-expanded="false" role="button">
+                                            <div class="card-body">
+                                                <div
+                                                    class="d-flex flex-wrap align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <h4 class="mb-2" style="font-weight: 700;">{{task.taskName}}
+                                                            </h4>
+                                                            <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
+                                                                {{task.taskDescription}}</h6>
+                                                            <div class="media align-items-center">
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #d3d3d3;">
+                                                                    <svg class="svg-icon" width="20" height="20"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 1 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path
+                                                                            d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                                                                        </path>
+                                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                                    </svg> {{task.incharge}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #d3d3d3;">
+                                                                    <i style="font-size: 24px;"
+                                                                        class="las la-code"></i>{{task.developer}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #b55f44;">
+                                                                    <span>T :</span> {{task.TotalHours}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #0023d0;">
+                                                                    <span>W :</span> {{task.UtilizeHours}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3" [ngClass]='{
+                                                                    "orangeborder" : task.totalPendingMinutes > 0,
+                                                                    "greenborder" : task.totalPendingMinutes == 0,
+                                                                    "redborder" : task.totalPendingMinutes < 0
+                                                                    }' style="border: 1px solid">
+                                                                    <span>D :</span> {{task.PendingHours}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="media mt-1 align-items-center"
+                                                                *ngIf="task.Files.length > 0">
+                                                                <div class="btn bg-body mr-3"
+                                                                    *ngFor="let file of task.Files"
+                                                                    style="border: 1px solid #d3d3d3;"
+                                                                    (click)="DownloadFile(file)">
+                                                                    <i class="las la-download"
+                                                                        style="font-size: 24px;"></i>{{file}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media align-items-center mt-md-0 mt-3">
+                                                        <!-- <div class="btn mr-3">
+                                                            <div
+                                                                class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                {{task.TotalHours}}
+                                                            </div>
+                                                            <div
+                                                                class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                {{task.UtilizeHours}}
+                                                            </div>
+                                                            <div
+                                                                class="bg-success-light rounded-circle iq-card-icon-small hours">
+                                                                {{task.PendingHours}}
+                                                            </div>
+                                                        </div> -->
+                                                        <span class="btn mr-3" [ngClass]='{
+                                                            "priority-high" : task.priority == 1,
+                                                            "priority-medium" : task.priority == 2,
+                                                            "priority-low" : task.priority == 3
+                                                            }'>
+                                                        </span>
+                                                        <button [disabled]="task.disableComplete"
+                                                            *ngIf="UserInfo.userId == task.developerID"
+                                                            class="btn btn-success" title="Complete"
+                                                            (click)="ConfirmTaskComplete(task.id)"
+                                                            style="float: right;">Complete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #NoData>
+                            <div class="col-lg-12" style="text-align: center;">
+                                <h5>No Task..!</h5>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page end  -->
+</div>
+<div class="modal fade bd-example-modal-xl" data-backdrop="static" role="dialog" aria-modal="true" id="new-task-modal">
+    <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block text-center pb-3 border-bttom">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h3 class="modal-title" id="exampleModalCenterTitle" style="float: left;">Add Comment</h3>
+                    </div>
+                    <div class="col-lg-6" style="float: right;display: flex;">
+                        <img style="border: 1px solid #979797;;height: 50px;width: 50px;"
+                            src="data:image/jpeg;base64,{{UserInfo.profileImg}}" class="mr-2 img-fluid rounded-circle
+                                                        avatar-40" alt="image">
+                        <h3 style="color: #979797;">
+                            {{UserInfo.firstName}} {{UserInfo.lastName}}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6" style="border-right: 1px solid #e0e2db;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="exampleInputText040" class="h5">Comment</label>
+                                    <textarea tooltip class="form-control" id="comment" [(ngModel)]="comment"
+                                        rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-0">
+                                    <label class="dynamiclabel">Hours</label>
+                                    <input tooltip type="number" min="0" class="form-control" [(ngModel)]="hours"
+                                        id="hours">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-0">
+                                    <label class="dynamiclabel">Minutes</label>
+                                    <input tooltip type="number" min="0" class="form-control" [(ngModel)]="minutes"
+                                        id="minutes">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-0">
+                                    <label for="exampleInputText01" class="h5">Attachments</label>
+                                    <div class="custom-file">
+                                        <input #FileInput type="file" class="custom-file-input"
+                                            accept=".jpg,.jpeg,.png,.xlsx,.xlx,.csv,.zip"
+                                            (click)="selectedFiles=[];FileInput.files=null" (input)="upload($event)"
+                                            multiple>
+                                        <label class="custom-file-label"
+                                            for="inputGroupFile003">{{selectedFiles.length}}
+                                            File(s)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex flex-wrap mt-4">
+                                    <div class="btn btn-primary mr-3" (click)="InsertComment()">Save</div>
+                                    <div class="btn btn-primary" data-dismiss="modal" (click)="closeDiag()">Cancel</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="max-height: 310px;overflow: auto;">
+                        <ng-container *ngIf="tblComments.length>0;else NoComments">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ng-container *ngFor="let data of tblComments">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="media align-items-center">
+                                                    <div>
+                                                        <p class="mb-0">{{data.comment}}</p>
+                                                        <h6 style="color: #5773ff;">{{data.duration}} <i
+                                                                class="menu las la-trash-alt" style=" vertical-align: baseline;color: maroon;
+                                                                font-size: 18px;"
+                                                                (click)="ConfirmDelete(data.srNo)"></i></h6>
+                                                        <p class="mb-0" style="color: #999999;font-size: 11px;">
+                                                            {{data.crDate}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </ng-container>
+
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #NoComments>
+                            <h5 style="text-align: center;">No Comments Yet..!</h5>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button hidden id="openModal" type="button" class="btn btn-primary mt-2" data-toggle="modal"
+    data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">{{confirmText.Header}}</h5>
+            </div>
+            <div class="modal-body">
+                {{confirmText.Body}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="yesClick()">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="srNo = 0">No</button>
+            </div>
+        </div>
+    </div>
+</div>

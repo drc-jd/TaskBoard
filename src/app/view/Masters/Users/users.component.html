@@ -1,0 +1,118 @@
+<div class="card-body">
+    <div class="new-user-info">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="fname">First Name:</label>
+                                <input tooltip type="text" [(ngModel)]="firstName" class="form-control" id="fname"
+                                    placeholder="First Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="lname">Last Name:</label>
+                                <input tooltip type="text" [(ngModel)]="lastName" class="form-control" id="lname"
+                                    placeholder="Last Name">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="email">Email:</label>
+                                <input tooltip type="email" [(ngModel)]="email" class="form-control" id="email"
+                                    placeholder="Email">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="Username">Username:</label>
+                                <input tooltip type="Username" [(ngModel)]="username" class="form-control" id="Username"
+                                    placeholder="Username">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="mobno">Mobile Number:</label>
+                                <input type="text" [(ngModel)]="mobileNo" class="form-control" id="mobno"
+                                    placeholder="Mobile Number">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="mobno">Ext Number:</label>
+                                <input type="text" [(ngModel)]="extNo" class="form-control" id="mobno"
+                                    placeholder="Extension Number">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Role:</label>
+                                <select tooltip id="role" name="role" [(ngModel)]="selectedRole" class="form-control"
+                                    data-style="py-0">
+                                    <option *ngFor="let role of ddlRole">{{role}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Project List:</label>
+                                <angular2-multiselect tooltip id="ProjectList" name="ProjectList"
+                                    [data]="ddlProjectList" [(ngModel)]="selectedProjectList"
+                                    [settings]="dropdownSettings">
+                                </angular2-multiselect>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <div class="crm-profile-img-edit position-relative">
+                            <img style="height: 160px !important;width: 170px !important;"
+                                class="crm-profile-pic rounded avatar-100" src="data:image/jpeg;base64,{{profileImg}}"
+                                alt="profile-pic">
+                            <div (click)="file.click()" class="crm-p-image bg-primary">
+                                <i class="las la-pen upload-button"></i>
+                                <input (input)="upload($event)" type="file" accept=".jpg,.jpeg"
+                                    onclick="this.value = null" #file hidden>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="form-group col-md-6">
+                    <label for="altconno">Alternate Contact:</label>
+                    <input type="text" class="form-control" id="altconno" placeholder="Alternate Contact">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="pno">Pin Code:</label>
+                    <input type="text" class="form-control" id="pno" placeholder="Pin Code">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="city">Town/City:</label>
+                    <input type="text" class="form-control" id="city" placeholder="Town/City">
+                </div> -->
+        <button class="btn btn-primary mr-2" (click)="Insert()">{{mode}} User</button>
+        <button class="btn btn-secondary mr-2" (click)="Clear()">Clear</button>
+        <hr>
+        <div class="row">
+            <div class="col-md-12" style="min-height: calc(100vh - 540px);
+            min-height: calc(100vh - 540px)">
+                <app-ag-grid (_gridApi)='setGrid($event)' [_gridOptions]=" gridOptions">
+                </app-ag-grid>
+            </div>
+        </div>
+    </div>
+</div>
+<button hidden id="openModal" type="button" class="btn btn-primary mt-2" data-toggle="modal"
+    data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Delete?</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this entry?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="Delete()" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="userId = 0" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>

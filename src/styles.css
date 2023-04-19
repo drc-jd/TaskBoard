@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/css/backend-plugin.min.css";
+@import "./assets/css/backend.css";
+@import "./assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css";
+@import "./assets/vendor/remixicon/fonts/remixicon.css";
+@import "./assets/vendor/tui-calendar/tui-calendar/dist/tui-calendar.css";
+@import "./assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.css";
+@import "./assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css";
+@import "./assets/css/agGridStyles.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import "./assets/css/AgStyles.css";
+@import '../node_modules/css-star-rating/css/star-rating.min.css';
+
+/* @import "./assets/css/fonts.css"; */
+.pointer {
+    cursor: pointer;
+}
+
+.dynamiclabel {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0 !important;
+}

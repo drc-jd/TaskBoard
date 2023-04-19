@@ -1,0 +1,1204 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url('../fonts/icomoon.eot?vcx7h2');
+  src: url('../fonts/icomoon.eot?vcx7h2#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?vcx7h2') format('truetype'),
+    url('../fonts/icomoon.woff?vcx7h2') format('woff'),
+    url('../fonts/icomoon.svg?vcx7h2#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-broadcast:before {
+  content: "\e919";
+}
+
+.icon-subprocess:before {
+  content: "\e943";
+}
+
+.icon-dot-nav:before {
+  content: "\e916";
+}
+
+.icon-exit-group:before {
+  content: "\e915";
+}
+
+.icon-groupadd:before {
+  content: "\e913";
+}
+
+.icon-msg-read:before {
+  content: "\e910";
+}
+
+.icon-actions:before {
+  content: "\ac02";
+}
+
+.icon-add:before {
+  content: "\ac03";
+}
+
+.icon-Add_Child_Packet:before {
+  content: "\ac04";
+}
+
+.icon-Add_Packet:before {
+  content: "\ac05";
+}
+
+.icon-addkapan:before {
+  content: "\ac06";
+}
+
+.icon-addkapan1:before {
+  content: "\ac07";
+}
+
+.icon-rejecttops:before {
+  content: "\ac08";
+}
+
+.icon-addpacket:before {
+  content: "\ac09";
+}
+
+.icon-rejectpacket:before {
+  content: "\ac10";
+}
+
+.icon-addpacket4:before {
+  content: "\ac11";
+}
+
+.icon-admin_department:before {
+  content: "\e948";
+}
+
+.icon-admin_main:before {
+  content: "\e92e";
+}
+
+.icon-admin_owner:before {
+  content: "\ac15";
+}
+
+.icon-approve:before {
+  content: "\e947";
+}
+
+.icon-assignment_large:before {
+  content: "\ac17";
+}
+
+.icon-Auto_Issue_Packet:before {
+  content: "\ac18";
+}
+
+.icon-backoffice:before {
+  content: "\ac19";
+}
+
+.icon-balance:before {
+  content: "\ac20";
+}
+
+.icon-Calculater:before {
+  content: "\ac21";
+}
+
+.icon-candidates:before {
+  content: "\ac22";
+}
+
+.icon-edit:before {
+  content: "\ac23";
+}
+
+.icon-editentry_editpacket:before {
+  content: "\ac24";
+}
+
+.icon-editentry_edittops:before {
+  content: "\ac25";
+}
+
+.icon-editentry_main:before {
+  content: "\ac26";
+}
+
+.icon-emergency:before {
+  content: "\ac27";
+}
+
+.icon-empl_charecterreport:before {
+  content: "\ac28";
+}
+
+.icon-employee:before {
+  content: "\ac29";
+}
+
+.icon-employee_black:before {
+  content: "\ac30";
+}
+
+.icon-employee_black1:before {
+  content: "\ac31";
+}
+
+.icon-employeecriteria:before {
+  content: "\ac32";
+}
+
+.icon-employeedetails:before {
+  content: "\e93d";
+}
+
+.icon-employeerating:before {
+  content: "\ac34";
+}
+
+.icon-employeeschedule:before {
+  content: "\ac35";
+}
+
+.icon-entry_barcodeprint:before {
+  content: "\ac36";
+}
+
+.icon-entry_box:before {
+  content: "\ac37";
+}
+
+.icon-entry_kapan:before {
+  content: "\ac38";
+}
+
+.icon-icon-entry_box:before {
+  content: "\ac37";
+}
+
+.icon-export:before {
+  content: "\ac40";
+}
+
+.icon-filter:before {
+  content: "\ac41";
+}
+
+.icon-Final_Receive:before {
+  content: "\ac42";
+}
+
+.icon-finalreceive:before {
+  content: "\ac43";
+}
+
+.icon-hold:before {
+  content: "\ac44";
+}
+
+.icon-icon_Add_Kapan:before {
+  content: "\ac45";
+}
+
+.icon-icon_Damage_Plan:before {
+  content: "\ac47";
+}
+
+.icon-Issue_Packet:before {
+  content: "\ac48";
+}
+
+.icon-issuepacket:before {
+  content: "\ac49";
+}
+
+.icon-issuetops:before {
+  content: "\ac50";
+}
+
+.icon-kapanfinish:before {
+  content: "\ac51";
+}
+
+.icon-leavereport:before {
+  content: "\ac52";
+}
+
+.icon-checker:before {
+  content: "\ac53";
+}
+
+.icon-Packet_Rej:before {
+  content: "\ac54";
+}
+
+.icon-plan_kapanest:before {
+  content: "\ac55";
+}
+
+.icon-plan_main:before {
+  content: "\ac56";
+}
+
+.icon-plan_result:before {
+  content: "\ac57";
+}
+
+.icon-plandelete:before {
+  content: "\ac58";
+}
+
+.icon-usercredential:before {
+  content: "\ac59";
+}
+
+.icon-pmfile:before {
+  content: "\ac60";
+}
+
+.icon-point_articlestudy:before {
+  content: "\ac61";
+}
+
+.icon-point_checkarticlestudy:before {
+  content: "\ac62";
+}
+
+.icon-points_main:before {
+  content: "\ac63";
+}
+
+.icon-qcfile:before {
+  content: "\ac64";
+}
+
+.icon-Rej_Tops:before {
+  content: "\ac65";
+}
+
+.icon-Repair_Packet:before {
+  content: "\ac66";
+}
+
+.icon-user_permissions:before {
+  content: "\ac67";
+}
+
+.icon-accounting:before {
+  content: "\acd1";
+}
+
+.icon-xls:before {
+  content: "\acd2";
+}
+
+.icon-weightscale:before {
+  content: "\acd3";
+}
+
+.icon-verify:before {
+  content: "\acd4";
+}
+
+.icon-txt:before {
+  content: "\acd5";
+}
+
+.icon-twitter_icon:before {
+  content: "\acd6";
+}
+
+.icon-trash:before {
+  content: "\acd7";
+}
+
+.icon-transfer:before {
+  content: "\acd8";
+}
+
+.icon-storepoint:before {
+  content: "\acd9";
+}
+
+.icon-merge:before {
+  content: "\e900";
+}
+
+.icon-machine-shift:before {
+  content: "\e931";
+}
+
+.icon-machine-config:before {
+  content: "\e932";
+}
+
+.icon-add-bulk:before {
+  content: "\e933";
+}
+
+.icon-file-download:before {
+  content: "\e934";
+}
+
+.icon-files-download:before {
+  content: "\e93f";
+}
+
+.icon-navigatesearch:before {
+  content: "\e936";
+}
+
+.icon-color-filter:before {
+  content: "\e937";
+}
+
+.icon-generate:before {
+  content: "\e938";
+}
+
+.icon-packet-search:before {
+  content: "\e939";
+}
+
+.icon-rightarrow:before {
+  content: "\ed02";
+}
+
+.icon-leftarrow:before {
+  content: "\ed05";
+}
+
+.icon-close:before {
+  content: "\ed07";
+}
+
+.icon-copy:before {
+  content: "\ed09";
+}
+
+.icon-filter-new:before {
+  content: "\ed10";
+}
+
+.icon-right-new:before {
+  content: "\ed11";
+}
+
+.icon-left-new:before {
+  content: "\ed12";
+}
+
+.icon-uparrow:before {
+  content: "\ed13";
+}
+
+.icon-rating:before {
+  content: "\ed14";
+}
+
+.icon-status:before {
+  content: "\ed15";
+}
+
+.icon-history:before {
+  content: "\ed16";
+}
+
+.icon-discussion:before {
+  content: "\ed17";
+}
+
+.icon-attachament:before {
+  content: "\ed18";
+}
+
+.icon-pin-new:before {
+  content: "\ed19";
+}
+
+.icon-view:before {
+  content: "\ed20";
+}
+
+.icon-rounding:before {
+  content: "\ed21";
+}
+
+.icon-laboursetup:before {
+  content: "\e94c";
+}
+
+.icon-cost:before {
+  content: "\ed23";
+}
+
+.icon-pricing:before {
+  content: "\ed24";
+}
+
+.icon-workinprogress:before {
+  content: "\ed25";
+}
+
+.icon-security:before {
+  content: "\ed26";
+}
+
+.icon-workschedule1:before {
+  content: "\e927";
+}
+
+.icon-quality:before {
+  content: "\ed27";
+}
+
+.icon-portfolio:before {
+  content: "\ed28";
+}
+
+.icon-innovation:before {
+  content: "\ed29";
+}
+
+.icon-help:before {
+  content: "\ed30";
+}
+
+.icon-belive:before {
+  content: "\ed31";
+}
+
+.icon-automation:before {
+  content: "\ed32";
+}
+
+.icon-analysis:before {
+  content: "\ed33";
+}
+
+.icon-aboutus:before {
+  content: "\ed34";
+}
+
+.icon-xml:before {
+  content: "\ed35";
+}
+
+.icon-type:before {
+  content: "\ed36";
+}
+
+.icon-labourtransfer:before {
+  content: "\ed37";
+}
+
+.icon-salary:before {
+  content: "\ed38";
+}
+
+.icon-bonussalary:before {
+  content: "\ed39";
+}
+
+.icon-rateupdate:before {
+  content: "\ed40";
+}
+
+.icon-labresult:before {
+  content: "\ed41";
+}
+
+.icon-refresh1:before {
+  content: "\ed42";
+}
+
+.icon-inclusionconfig:before {
+  content: "\ed43";
+}
+
+.icon-registeruser:before {
+  content: "\ed44";
+}
+
+.icon-openreport:before {
+  content: "\ed46";
+}
+
+.icon-setuprules:before {
+  content: "\ed47";
+}
+
+.icon-discussion1:before {
+  content: "\ed48";
+}
+
+.icon-send:before {
+  content: "\ed49";
+}
+
+.icon-addchat:before {
+  content: "\ed50";
+}
+
+.icon-image:before {
+  content: "\ed51";
+}
+
+.icon-adress:before {
+  content: "\ed52";
+}
+
+.icon-uploafqcfile:before {
+  content: "\ed53";
+}
+
+.icon-uploafpmfile:before {
+  content: "\ed54";
+}
+
+.icon-receivejangad:before {
+  content: "\ed55";
+}
+
+.icon-issuejangad:before {
+  content: "\e943";
+}
+
+.icon-addemployee:before {
+  content: "\ed57";
+}
+
+.icon-party:before {
+  content: "\ed58";
+}
+
+.icon-genraterequest:before {
+  content: "\ed59";
+}
+
+.icon-dashboard:before {
+  content: "\ed60";
+}
+
+.icon-rattingdetail:before {
+  content: "\e945";
+}
+
+.icon-formula:before {
+  content: "\ed62";
+}
+
+.icon-masterconfig:before {
+  content: "\ed63";
+}
+
+.icon-criteria:before {
+  content: "\ed64";
+}
+
+.icon-secondarycolor:before {
+  content: "\ed65";
+}
+
+.icon-rfid:before {
+  content: "\ed66";
+}
+
+.icon-slotconfig:before {
+  content: "\ed67";
+}
+
+.icon-sentence:before {
+  content: "\ed68";
+}
+
+.icon-sentencetype:before {
+  content: "\ed69";
+}
+
+.icon-original:before {
+  content: "\ed70";
+}
+
+.icon-reply:before {
+  content: "\ed71";
+}
+
+.icon-forward:before {
+  content: "\ed72";
+}
+
+.icon-discountGIA:before {
+  content: "\ed73";
+}
+
+.icon-discountIGI:before {
+  content: "\ed74";
+}
+
+.icon-discountNONE:before {
+  content: "\ed75";
+}
+
+.icon-manageemployeestock:before {
+  content: "\ed76";
+}
+
+.icon-allowmkbplan:before {
+  content: "\e92f";
+}
+
+.icon-ruletemplate:before {
+  content: "\ed78";
+}
+
+.icon-csv:before {
+  content: "\ed79";
+}
+
+.icon-Manual_Issue_Packet:before {
+  content: "\ed80";
+}
+
+.icon-Send_Request:before {
+  content: "\ed81";
+}
+
+.icon-packettotops:before {
+  content: "\ed82";
+}
+
+.icon-Auto_Issue_packet:before {
+  content: "\ed83";
+}
+
+.icon-bulk-number:before {
+  content: "\ed84";
+}
+
+.icon-bulk-process:before {
+  content: "\ed85";
+}
+
+.icon-bulk-rate:before {
+  content: "\e93a";
+}
+
+.icon-sms:before {
+  content: "\acd10";
+}
+
+.icon-shorting:before {
+  content: "\acd11";
+}
+
+.icon-setting:before {
+  content: "\e92d";
+}
+
+.icon-selectall:before {
+  content: "\acd13";
+}
+
+.icon-searchuser:before {
+  content: "\acd14";
+}
+
+.icon-search:before {
+  content: "\acd15";
+}
+
+.icon-save:before {
+  content: "\acd16";
+}
+
+.icon-rtf:before {
+  content: "\acd17";
+}
+
+.icon-reports_main:before {
+  content: "\acd18";
+}
+
+.icon-refresh:before {
+  content: "\e946";
+}
+
+.icon-recycling:before {
+  content: "\acd20";
+}
+
+.icon-priority:before {
+  content: "\acd21";
+}
+
+.icon-print:before {
+  content: "\acd22";
+}
+
+.icon-point_workresult:before {
+  content: "\acd23";
+}
+
+.icon-point_workpoint:before {
+  content: "\acd24";
+}
+
+.icon-play:before {
+  content: "\acd25";
+}
+
+.icon-planmaker:before {
+  content: "\acd26";
+}
+
+.icon-plan_incereport:before {
+  content: "\acd27";
+}
+
+.icon-plan_inceaccount:before {
+  content: "\acd28";
+}
+
+.icon-plan_checkerestimation:before {
+  content: "\acd29";
+}
+
+.icon-plan_admin:before {
+  content: "\acd30";
+}
+
+.icon-phone:before {
+  content: "\acd31";
+}
+
+.icon-pdf:before {
+  content: "\acd32";
+}
+
+.icon-pause:before {
+  content: "\acd33";
+}
+
+.icon-Notify_2:before {
+  content: "\acd34";
+}
+
+.icon-notificationalert:before {
+  content: "\acd35";
+}
+
+.icon-notification:before {
+  content: "\acd36";
+}
+
+.icon-next:before {
+  content: "\acd37";
+}
+
+.icon-mobile_phone:before {
+  content: "\acd38";
+}
+
+.icon-inventory_vendor:before {
+  content: "\acd39";
+}
+
+.icon-inventory_unit:before {
+  content: "\acd40";
+}
+
+.icon-inventory_stockissue:before {
+  content: "\acd41";
+}
+
+.icon-inventory_stockdetails:before {
+  content: "\acd42";
+}
+
+.icon-inventory_purchase:before {
+  content: "\acd43";
+}
+
+.icon-inventory_main:before {
+  content: "\acd44";
+}
+
+.icon-inventory_item:before {
+  content: "\acd45";
+}
+
+.icon-inventory_godown:before {
+  content: "\acd46";
+}
+
+.icon-inventory_category:before {
+  content: "\acd47";
+}
+
+.icon-import:before {
+  content: "\acd48";
+}
+
+.icon-icon_world:before {
+  content: "\acd49";
+}
+
+.icon-icon_warning_large:before {
+  content: "\acd50";
+}
+
+.icon-icon_task:before {
+  content: "\acd51";
+}
+
+.icon-icon_stop:before {
+  content: "\acd52";
+}
+
+.icon-icon_settings:before {
+  content: "\acd53";
+}
+
+.icon-icon_save_large:before {
+  content: "\acd54";
+}
+
+.icon-icon_sales:before {
+  content: "\acd55";
+}
+
+.icon-icon_rupees:before {
+  content: "\acd56";
+}
+
+.icon-icon_report:before {
+  content: "\acd57";
+}
+
+.icon-icon_refresh_large:before {
+  content: "\acd58";
+}
+
+.icon-icon_QR_Code:before {
+  content: "\acd59";
+}
+
+.icon-icon_print_large:before {
+  content: "\e942";
+}
+
+.icon-icon_pinmap:before {
+  content: "\acd61";
+}
+
+.icon-icon_pin:before {
+  content: "\e941";
+}
+
+.icon-icon_pencil:before {
+  content: "\acd63";
+}
+
+.icon-icon_order_large:before {
+  content: "\acd64";
+}
+
+.icon-icon_new_window:before {
+  content: "\acd65";
+}
+
+.icon-icon_new_large:before {
+  content: "\acd66";
+}
+
+.icon-icon_message:before {
+  content: "\acd67";
+}
+
+.icon-icon_lock:before {
+  content: "\acd68";
+}
+
+.icon-icon_employee_large:before {
+  content: "\acd69";
+}
+
+.icon-icon_email:before {
+  content: "\acd70";
+}
+
+.icon-icon_download:before {
+  content: "\acd71";
+}
+
+.icon-icon_documents_upload:before {
+  content: "\e927";
+}
+
+.icon-icon_documents_upload_1:before {
+  content: "\acd72";
+}
+
+.icon-icon_documents_download:before {
+  content: "\e925";
+}
+
+.icon-icon_document_edit_large:before {
+  content: "\acd74";
+}
+
+.icon-icon_document_delete_large:before {
+  content: "\acd75";
+}
+
+.icon-icon_customer_large:before {
+  content: "\e940";
+}
+
+.icon-icon_assignment_large:before {
+  content: "\acd77";
+}
+
+.icon-home:before {
+  content: "\acd78";
+}
+
+.icon-folder:before {
+  content: "\acd79";
+}
+
+.icon-fingerprint:before {
+  content: "\acd80";
+}
+
+.icon-fax:before {
+  content: "\acd81";
+}
+
+.icon-erroricon:before {
+  content: "\acd82";
+  color: #ffa500;
+}
+
+.icon-entry_taskremove:before {
+  content: "\e93e";
+}
+
+.icon-entry_taskmanager:before {
+  content: "\acd84";
+}
+
+.icon-entry_tally:before {
+  content: "\acd85";
+}
+
+.icon-doc:before {
+  content: "\acd86";
+}
+
+.icon-delete:before {
+  content: "\acd87";
+}
+
+.icon-deactiveuser:before {
+  content: "\acd88";
+}
+
+.icon-clock:before {
+  content: "\acd89";
+}
+
+.icon-check:before {
+  content: "\acd90";
+}
+
+.icon-changeuser:before {
+  content: "\acd91";
+}
+
+.icon-change:before {
+  content: "\e93b";
+}
+
+.icon-bell_with_count:before {
+  content: "\acd93";
+}
+
+.icon-bell:before {
+  content: "\acd94";
+}
+
+.icon-arrow_up:before {
+  content: "\acd95";
+}
+
+.icon-arrow_right:before {
+  content: "\acd96";
+}
+
+.icon-arrow_down:before {
+  content: "\acd97";
+}
+
+.icon-active:before {
+  content: "\e901";
+}
+
+.icon-appearance:before {
+  content: "\e902";
+}
+
+.icon-arrowleft:before {
+  content: "\e903";
+}
+
+.icon-award:before {
+  content: "\e904";
+}
+
+.icon-bank:before {
+  content: "\e905";
+}
+
+.icon-cancelsellstone:before {
+  content: "\e906";
+}
+
+.icon-clear:before {
+  content: "\e907";
+}
+
+.icon-comments:before {
+  content: "\e908";
+}
+
+.icon-contact:before {
+  content: "\e909";
+}
+
+.icon-courier:before {
+  content: "\e90a";
+}
+
+.icon-cross:before {
+  content: "\e90b";
+}
+
+.icon-deactive:before {
+  content: "\e90c";
+}
+
+.icon-department:before {
+  content: "\e90d";
+}
+
+.icon-diamond:before {
+  content: "\e90e";
+}
+
+.icon-dollar:before {
+  content: "\e90f";
+}
+
+.icon-workresult:before {
+  content: '\e91e';
+}
+
+.icon-editnotes:before {
+  content: "\e911";
+}
+
+.icon-email:before {
+  content: "\e912";
+}
+
+.icon-graderreport:before {
+  content: "\e914";
+}
+
+.icon-kapan:before {
+  content: "\e917";
+}
+
+.icon-lab:before {
+  content: "\e918";
+}
+
+.icon-logout:before {
+  content: "\e91a";
+}
+
+.icon-management:before {
+  content: "\e91b";
+}
+
+.icon-mapmarker:before {
+  content: "\e91c";
+}
+
+.icon-menu:before {
+  content: "\e91d";
+}
+
+.icon-organization:before {
+  content: "\e91f";
+}
+
+.icon-packet:before {
+  content: "\e944";
+}
+
+.icon-plus:before {
+  content: "\e921";
+}
+
+.icon-pricecalculator:before {
+  content: "\e922";
+}
+
+.icon-profile:before {
+  content: "\e923";
+}
+
+.icon-schedule:before {
+  content: "\e926";
+}
+
+.icon-sentence1:before {
+  content: "\e928";
+}
+
+.icon-socialprofile:before {
+  content: "\e92a";
+}
+
+.icon-stonelocation:before {
+  content: "\e92b";
+}
+
+.icon-diamond_1:before {
+  content: "\e91e";
+}
+
+.icon-download_qc_1:before {
+  content: "\e924";
+}

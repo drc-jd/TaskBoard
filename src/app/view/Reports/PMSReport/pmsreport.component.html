@@ -1,0 +1,223 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <div class="dropdown status-dropdown mr-3">
+                            <div class="dropdown-toggle" id="dropdownMenuButton03" data-toggle="dropdown">
+                                <div class="btn bg-body"><span class="h6">Status :</span> In Progress<i
+                                        class="ri-arrow-down-s-line ml-2 mr-0"></i></div>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton03">
+                                <a class="dropdown-item">In Progress</a>
+                                <a class="dropdown-item">Priority</a>
+                                <a class="dropdown-item">Category</a>
+                            </div>
+                        </div> -->
+                    <div #top class="row">
+                        <label class="col-md-1">Filters:</label>
+                        <div class="col-md-2">
+                            <select tooltip id="Type" name="Type" [(ngModel)]="selectedType" class="form-control"
+                                data-style="py-0">
+                                <option *ngFor="let Type of ddlType">{{Type}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" *ngIf="selectedType == 'ProjectWise'">
+                            <select tooltip id="ProjectId" name="ProjectId" [(ngModel)]="selectedProjectId"
+                                class="form-control" data-style="py-0">
+                                <option *ngFor="let Project of ddlProjectId" [value]="Project.value">{{Project.text}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" *ngIf="selectedType == 'UserWise'">
+                            <select tooltip id="UserId" name="UserId" [(ngModel)]="selectedUserId" class="form-control"
+                                data-style="py-0">
+                                <option *ngFor="let User of ddlUserId" [value]="User.value">{{User.text}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" [(ngModel)]="SDate" id="SDate">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" [(ngModel)]="EDate" id="EDate">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mr-2" (click)="Find()">Find</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 report" *ngIf="tblData.length>0">
+            <div class=" table-responsive-sm">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Week</th>
+                            <th class="text-center" scope="col">Sun</th>
+                            <th class="text-center" scope="col">Mon</th>
+                            <th class="text-center" scope="col">Tue</th>
+                            <th class="text-center" scope="col">Wed</th>
+                            <th class="text-center" scope="col">Thu</th>
+                            <th class="text-center" scope="col">Fri</th>
+                            <th class="text-center" scope="col">Sat</th>
+                            <th class="text-center" scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of tblData">
+                            <td class="text-center pl-2" style="width: 20%">{{data.week}}</td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.sunDate)" title="{{data.sunDate}}">{{data.sun}}</span></td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.monDate)" title="{{data.monDate}}">{{data.mon}}</span></td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.tueDate)" title="{{data.tueDate}}">{{data.tue}}</span></td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.wedDate)" title="{{data.wedDate}}">{{data.wed}}</span></td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.thuDate)" title="{{data.thuDate}}">{{data.thu}}</span></td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.friDate)" title="{{data.friDate}}">{{data.fri}}</span></td>
+                            <td class="text-center" style="width: 10%;"><span class="menu"
+                                    (click)="scroll(data.satDate)" title="{{data.satDate}}">{{data.sat}}</span></td>
+                            <td class="text-center" style="width: 10%;">{{data.total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-12" *ngIf="tblDetail.length > 0">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h4 class="card-title">{{timeLineText}}</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="iq-timeline0 m-0 d-flex align-items-center justify-content-between position-relative">
+                        <ul class="list-inline p-0 m-0" style="width: 50%;">
+                            <li *ngFor="let card of tblDetail" id="{{card.formatDate}}" class="timeline">
+                                <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
+                                <h5 class="float-left mb-1 header">{{card.date | date}} - <span
+                                        style="text-decoration: underline;">{{card.hours}}
+                                        Hours</span></h5>
+                                <hr style="margin-top: 2.25rem !important;margin-bottom: 0.25rem !important;">
+                                <div class="ml-2 d-inline-block w-100" *ngFor="let project of card.projects">
+                                    <h6 class="project-header"
+                                        (click)="openProjects(project.projectID,project.projectName)">
+                                        {{project.projectName}}
+                                        -
+                                        {{project.hours}} Hours</h6>
+                                    <div *ngFor="let detail of project.details" class="taskcard"
+                                        (click)="OpenCommentPop(detail)">
+                                        <div class="tasktitle">
+                                            <span style="font-weight: 500;">{{detail.taskName}}</span>
+                                            <span class="float-right mr-2 timeinfo">{{detail.hours}} Hours</span>
+                                        </div>
+                                        <div class="detail">{{detail.comment}}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-xl" data-backdrop="static" role="dialog" aria-modal="true" id="new-task-modal">
+    <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block text-center pb-3 border-bttom">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h3 class="modal-title" id="exampleModalCenterTitle" style="float: left;">Add Comment</h3>
+                    </div>
+                    <div class="col-lg-6" style="float: right;display: flex;">
+                        <img style="border: 1px solid #979797;;height: 50px;width: 50px;"
+                            src="data:image/jpeg;base64,{{profileImg}}" class="mr-2 img-fluid rounded-circle
+                                                        avatar-40" alt="image">
+                        <h3 style="color: #979797;">
+                            {{profileName}}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6" style="border-right: 1px solid #e0e2db;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="exampleInputText040" class="h5">Comment</label>
+                                    <textarea [disabled]="disableControlls" tooltip class="form-control" id="comment"
+                                        [(ngModel)]="comment" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-0">
+                                    <label class="dynamiclabel">Hours</label>
+                                    <input [disabled]="disableControlls" tooltip type="number" min="0"
+                                        class="form-control" [(ngModel)]="hours" id="hours">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-0">
+                                    <label class="dynamiclabel">Minutes</label>
+                                    <input [disabled]="disableControlls" tooltip type="number" min="0"
+                                        class="form-control" [(ngModel)]="minutes" id="minutes">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex flex-wrap mt-4">
+                                    <button class="btn btn-primary mr-3" (click)="InsertComment()"
+                                        [disabled]="disableControlls">Save</button>
+                                    <div class="btn btn-primary" data-dismiss="modal" (click)="closeDiag()">Cancel</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="max-height: 310px;overflow: auto;">
+                        <ng-container *ngIf="tblComments.length>0;else NoComments">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ng-container *ngFor="let data of tblComments">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="media align-items-center">
+                                                    <div>
+                                                        <p class="mb-0">{{data.comment}}</p>
+                                                        <h6 style="color: #5773ff;">{{data.duration}}
+                                                            <!-- <i class="menu las la-trash-alt" style=" vertical-align: baseline;color: maroon;
+                                                                font-size: 18px;"
+                                                                (click)="ConfirmDelete(data.srNo)"></i> -->
+                                                        </h6>
+                                                        <p class="mb-0" style="color: #999999;font-size: 11px;">
+                                                            {{data.crDate}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </ng-container>
+
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #NoComments>
+                            <h5 style="text-align: center;">No Comments Yet..!</h5>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button hidden id="openModal" data-target="#new-task-modal" data-toggle="modal"></button>
+<div class="to-top" (click)="scrollToTop(top)" [ngClass]="{ 'show-scrollTop': windowScrolled }">
+    <i class="las la-angle-up" style="background-color: #5773ff;color: white;;border-radius: 50%;padding: 5px;"></i>
+</div>

@@ -1,0 +1,95 @@
+<div class="card-body">
+    <div class="new-user-info">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label>Project Name:</label>
+                        <input tooltip type="text" [(ngModel)]="projectName" class="form-control" id="ProjectName"
+                            placeholder="Project Name">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="HeadPerson">Head Person:</label>
+                        <input tooltip type="text" [(ngModel)]="headPerson" class="form-control" id="HeadPerson"
+                            placeholder="Head Person">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Impact">Impact:</label>
+                        <angular2-multiselect tooltip id="Impact" name="Impact" [data]="ddlImpact"
+                            [(ngModel)]="selectedImpact" [settings]="dropdownSettings">
+                        </angular2-multiselect>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="fname">Description:</label>
+                        <textarea class="form-control" id="description" [(ngModel)]="description" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <!-- <div class="crm-profile-img-edit position-relative">
+                            <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png"
+                                alt="profile-pic">
+                            <div class="crm-p-image bg-primary">
+                                <i class="las la-pen upload-button"></i>
+                                <input class="file-upload" type="file" accept="image/*">
+                            </div>
+                        </div> -->
+                    <!-- <div class="img-extension mt-3">
+                            <div class="d-inline-block align-items-center">
+                                <span>Only</span>
+                                <a href="javascript:void();">.jpg</a>
+                                <a href="javascript:void();">.png</a>
+                                <a href="javascript:void();">.jpeg</a>
+                                <span>allowed</span>
+                            </div>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="form-group col-md-6">
+                    <label for="altconno">Alternate Contact:</label>
+                    <input type="text" class="form-control" id="altconno" placeholder="Alternate Contact">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="pno">Pin Code:</label>
+                    <input type="text" class="form-control" id="pno" placeholder="Pin Code">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="city">Town/City:</label>
+                    <input type="text" class="form-control" id="city" placeholder="Town/City">
+                </div> -->
+        <button class="btn btn-primary mr-2" (click)="Insert()">{{mode}} Project</button>
+        <button class="btn btn-secondary mr-2" (click)="Clear()">Clear</button>
+        <hr>
+        <div class="row">
+            <div class="col-md-12" style="min-height: calc(100vh - 630px);
+            min-height: calc(100vh - 630px)">
+                <app-ag-grid (_gridApi)='setGridproj($event)' [_gridOptions]=" gridOptionsProj">
+                </app-ag-grid>
+            </div>
+        </div>
+    </div>
+</div>
+<button hidden id="openModal" type="button" class="btn btn-primary mt-2" data-toggle="modal"
+    data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Delete?</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this entry?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="Delete()" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="srNo = 0" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>

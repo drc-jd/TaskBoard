@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <ul class="d-flex nav nav-pills mb-3 text-center profile-tab" id="profile-pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show pointer" data-toggle="pill" (click)="changeTab('USERS')"
+                                role="tab" aria-selected="false">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pointer" data-toggle="pill" (click)="changeTab('PROJECTLIST')" role="tab"
+                                aria-selected="false">Project List</a>
+                        </li>
+                    </ul>
+                    <div class="profile-content tab-content">
+                        <div *ngIf="visibleUser" id="profile1" class="tab-pane fade" [ngClass]='{
+                            "active show" : visibleUser == true
+                        }'>
+                            <app-users></app-users>
+                        </div>
+                        <div *ngIf="visibleProjectList" id="profile3" class="tab-pane fade" [ngClass]='{
+                            "active show" : visibleProjectList == true
+                        }'>
+                            <app-projectlist></app-projectlist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

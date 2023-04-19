@@ -1,0 +1,19 @@
+<svg  id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="30" viewBox="0 0 34 30">
+  
+    	  <style>
+svg#Capa_1 path {
+    fill: #ffffff;
+}
+</style>
+
+  <defs>
+    <clipPath id="clip-_1">
+      <rect width="34" height="30"/>
+    </clipPath>
+  </defs>
+  <g id="_1" data-name="1" clip-path="url(#clip-_1)">
+    <g id="Testicon">
+      <path id="Path_1" data-name="Path 1" d="M3.36,0H26.9a3.349,3.349,0,0,1,1.725.474l-3.3,3.142H3.649V26.383H26.622V12.273l3.649-3.419V26.67a3.385,3.385,0,0,1-.987,2.352A3.422,3.422,0,0,1,26.911,30H3.36a3.447,3.447,0,0,1-2.373-.978h0A3.347,3.347,0,0,1,0,26.67V3.33A3.211,3.211,0,0,1,.987.978,3.3,3.3,0,0,1,3.36,0Zm8.4,8.735,4.806,5.632L31.487.257,34,2.866,16.252,19.575,8.984,11.067Z"/>
+    </g>
+  </g>
+</svg>

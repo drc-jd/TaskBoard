@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TaskBoard';
+
+  constructor(private http: HttpClient) { }
+
+  async ngOnInit() {
+    let obj = await this.http.get('./../assets/variable.json').toPromise() as any;
+    if (obj && obj.apiBaseUrl) {
+      environment.apiBaseUrl = obj.apiBaseUrl;
+    }
+    // if (sessionStorage.getItem("fxCredentials") != null) {
+    //   await this.appreload.getGSuser();
+    // }
+  }
+
 }

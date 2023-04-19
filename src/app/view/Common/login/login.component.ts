@@ -1,0 +1,86 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { ApiResponse } from 'src/app/Class/Common/ApiResponse';
+import { TooltipDirective } from 'src/app/Directive/tooltip.directive';
+import { ErrorDialogueService } from 'src/app/Services/Common/ErrorDiag.service';
+import { LoginService } from 'src/app/Services/Common/Login.service';
+import { Helper, MessageType } from 'src/environments/Helper';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  //#region Declaration
+  @ViewChild(TooltipDirective) ToolTip;
+  public username: string;
+  public password: string;
+  //#endregion
+
+  constructor(private service: LoginService,
+    private spinnerService: NgxSpinnerService,
+    private errorService: ErrorDialogueService,
+    private toastr: ToastrService,
+    private router: Router,
+    private helper: Helper) { }
+
+  async ngOnInit() {
+    if (sessionStorage.getItem("UserInfo"))
+      this.router.navigate(["Dashboard"]);
+  }
+
+  //#region API Methods
+  public async Login() {
+    try {
+      this.spinnerService.show();
+      if (await this.Validate()) {
+        let paramList = {
+          Type: 'Login',
+          UserName: this.username,
+          Password: this.password
+        }
+        let response: ApiResponse = await this.service.Data(paramList);
+        if (response.isValidUser) {
+          if (response.messageType == MessageType.success) {
+            if (Object.keys(response.dataList['tblData'][0]).includes("result")) {
+              this.toastr.error(response.dataList['tblData'][0]['result']);
+            }
+            else {
+              sessionStorage.setItem("UserInfo", JSON.stringify(response.dataList['tblData'][0]))
+              this.router.navigate(["Dashboard"]);
+            }
+          }
+          else if (response.messageType == MessageType.error)
+            this.toastr.error(response.message);
+          else
+            this.toastr.warning('Something Went Wrong');
+        }
+      }
+      this.spinnerService.hide();
+    }
+    catch (error) {
+      this.spinnerService.hide();
+      this.errorService.error(error);
+    }
+  }
+  //#endregion
+
+  //#region Other Methods
+  private async Validate(): Promise<boolean> {
+    if (this.helper.getStringOrEmpty(this.username) == "") {
+      this.ToolTip.show(document.getElementById("ProjectName"), "Enter Project Name");
+      return false;
+    }
+    if (this.helper.getStringOrEmpty(this.password) == "") {
+      this.ToolTip.show(document.getElementById("ProjectName"), "Enter Project Name");
+      return false;
+    }
+    return true;
+  }
+  //#endregion
+
+}

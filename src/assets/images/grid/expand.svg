@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <clipPath id="clip-_5">
+      <rect width="30" height="30"/>
+    </clipPath>
+  </defs>
+  <g id="_5" data-name="5" clip-path="url(#clip-_5)">
+    <g id="_7" data-name="7" transform="translate(-24.96 -23.44)">
+      <path id="Path_8" data-name="Path 8" d="M47.524,34.41H27.773a2.827,2.827,0,0,0-1.986.827,2.781,2.781,0,0,0-.827,1.986V56.97a2.865,2.865,0,0,0,.827,1.986,2.811,2.811,0,0,0,1.986.827H47.524a2.812,2.812,0,0,0,1.974-.827l.013-.013a2.793,2.793,0,0,0,.814-1.974V37.219a2.815,2.815,0,0,0-2.8-2.809Zm-.24,22.32H28.014V37.459h19.27Z" transform="translate(0 -6.343)" fill-rule="evenodd"/>
+      <path id="Path_9" data-name="Path 9" d="M55.935,28.85H36.184a2.037,2.037,0,0,0-1.974,1.518H55.935a.533.533,0,0,1,.527.527V52.62a1.984,1.984,0,0,0,.919-.54,2.014,2.014,0,0,0,.6-1.434V30.9a2.045,2.045,0,0,0-2.046-2.046Z" transform="translate(-5.349 -3.128)" fill-rule="evenodd"/>
+      <path id="Path_10" data-name="Path 10" d="M62.871,24.039a2.014,2.014,0,0,0-1.434-.6H41.686a2.044,2.044,0,0,0-1.447.6,2.121,2.121,0,0,0-.54.919H61.437a.533.533,0,0,1,.527.527V47.21a2.024,2.024,0,0,0,.919-.527,2.044,2.044,0,0,0,.6-1.447V25.486A2,2,0,0,0,62.871,24.039Z" transform="translate(-8.523 0)" fill-rule="evenodd"/>
+      <path id="Path_11" data-name="Path 11" d="M47.615,64.051h5.736V61.71H44.22v2.341h3.4Z" transform="translate(-11.137 -22.129)" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

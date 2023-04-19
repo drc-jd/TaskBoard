@@ -1,0 +1,129 @@
+.table td {
+    padding: 2px !important;
+    border: 1px solid #d3d3d3;
+    border-bottom: 1px solid #E0E2DB;
+    color: #140F49;
+}
+
+.report .table {
+    border-radius: 0px !important;
+}
+
+.report .table thead {
+    background: #d1d1d1;
+}
+
+.report .table thead th {
+    border: 0;
+}
+
+.report .table th {
+    border: 0;
+}
+
+.report .table th,
+.table td {
+    padding: 0.35rem;
+
+}
+
+.report .table td {
+    border-top: 0;
+    font-weight: 500;
+}
+
+.report .table tr {
+    border-top: 1px solid #d1d1d1;
+}
+
+.report .table tr:first-child {
+    border-top: 0;
+}
+
+.iq-timeline0 li .timeline-dots {
+    position: absolute;
+    top: 31px;
+    left: -24px;
+    border: 3px solid #5773FF;
+    border-radius: 120px;
+    padding: 6px;
+    background: #ffffff;
+    height: 12px;
+    width: 12px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.timeline .header {
+    font-weight: 700;
+    color: #FAA701;
+}
+
+.timeline .project-header {
+    color: #2c7ea1;
+}
+
+.timeline .project-header:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.timeline .taskcard {
+    border: 1px solid #c7c7c7;
+    background-color: #5773ff08;
+    padding: 5px 5px 11px 5px;
+    margin: 4px 7px 8px 6px;
+}
+
+.timeline .taskcard:hover {
+    background-color: #5773ff18;
+    cursor: pointer;
+}
+
+.timeline .timeinfo {
+    background-color: #21a9e1;
+    color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 0px 5px 0px 5px;
+}
+
+.timeline .detail {
+    line-height: 8px;
+    font-size: 13px;
+}
+
+.highlight {
+    animation: zoomInZoomOut;
+    animation-duration: 1.5s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+@keyframes zoomInZoomOut {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1.2, 1.2);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.to-top {
+    bottom: 0;
+    cursor: pointer;
+    margin: 0 8px 12px 0;
+    position: fixed;
+    right: 0;
+    opacity: 0;
+}
+
+.show-scrollTop {
+    opacity: 1 !important;
+    transition: all 0.2s ease-in-out;
+}

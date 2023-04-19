@@ -1,0 +1,452 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between breadcrumb-content">
+                        <h5>Your Task</h5>
+                        <div class="d-flex flex-wrap align-items-center">
+                            <ng-container *ngIf="UserInfo.role == 'Task Incharge'">
+                                <label class=" h5 mr-2" style="margin-bottom: 0;">Type</label>
+                                <div class="dropdown dropdown-project mr-3">
+                                    <div class="form-group mb-0">
+                                        <select tooltip id="ReportType" name="ReportType"
+                                            [(ngModel)]="selectedReportType" class="form-control" data-style="py-0"
+                                            (ngModelChange)="GetTaskList()">
+                                            <option *ngFor="let Type of ddlReportType">
+                                                {{Type}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <a *ngIf="UserInfo.role=='Task Incharge'" href="#" (click)="OpenTaskPopup()"
+                                class="btn btn-primary" data-target="#new-task-modal" data-toggle="modal">New
+                                Task</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <ng-container *ngIf="tblTaskList.length>0;else NoData">
+                            <div class="col-lg-12" *ngFor="let task of tblTaskList">
+                                <div class="card card-widget task-card">
+                                    <a data-toggle="collapse"
+                                        [href]="(task.removeDetail == true)? '':'#details'+task.id "
+                                        aria-expanded="false" role="button"
+                                        [aria-controls]="(task.removeDetail == true)? '':'#details'+task.id">
+                                        <div class="card-body">
+                                            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h4 class="mb-2" style="font-weight: 700;">{{task.taskName}}
+                                                        </h4>
+                                                        <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
+                                                            {{task.taskDescription}}</h6>
+                                                        <div class="media align-items-center">
+                                                            <!-- <div class="btn bg-body mr-3"
+                                                                style="border: 1px solid #d3d3d3;">
+                                                                <i
+                                                                    class="ri-survey-line mr-2"></i>
+                                                            </div> -->
+                                                            <div class="btn bg-body mr-3"
+                                                                style="border: 1px solid #d3d3d3;">
+                                                                <svg class="svg-icon" width="20" height="20"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 1 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                                                                    </path>
+                                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                                </svg> {{task.incharge}}
+                                                            </div>
+                                                            <div class="btn bg-body mr-3"
+                                                                style="border: 1px solid #d3d3d3;">
+                                                                <i class="ri-survey-line mr-2"></i>{{task.projectName}}
+                                                            </div>
+                                                            <div class="btn bg-body mr-3"
+                                                                style="border: 1px solid #d3d3d3;">
+                                                                <i style="font-size: 24px;"
+                                                                    class="las la-code"></i>{{task.developer}}
+                                                            </div>
+                                                            <div *ngIf="task.status" class="btn bg-body mr-3"
+                                                                style="border: 1px solid #d3d3d3;">
+                                                                {{task.status}}
+                                                            </div>
+                                                            <ng-container
+                                                                *ngIf="UserInfo.role == 'Task Incharge' && selectedReportType=='In Progess'">
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #b55f44;">
+                                                                    <span>T :</span> {{task.TotalHours}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3"
+                                                                    style="border: 1px solid #0023d0;">
+                                                                    <span>W :</span> {{task.UtilizeHours}}
+                                                                </div>
+                                                                <div class="btn bg-body mr-3" [ngClass]='{
+                                                                    "greenborder" : task.totalPendingMinutes > 0,
+                                                                    "orangeborder" : task.totalPendingMinutes == 0,
+                                                                    "redborder" : task.totalPendingMinutes < 0
+                                                                    }' style="border: 1px solid">
+                                                                    <span>D :</span> {{task.PendingHours}}
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                        <div class="media mt-1 align-items-center"
+                                                            *ngIf="task.Files.length > 0">
+                                                            <div class="btn bg-body mr-3"
+                                                                *ngFor="let file of task.Files"
+                                                                style="border: 1px solid #d3d3d3;"
+                                                                (click)="DownloadFile(file)">
+                                                                <i class="las la-download"
+                                                                    style="font-size: 24px;"></i>{{file}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="media align-items-center mt-md-0 mt-3">
+                                                    <div class="mr-5"
+                                                        *ngIf="UserInfo.role == 'Task Incharge' && selectedReportType=='Rating Pending'">
+                                                        <star-rating-control size="large" [hoverEnabled]="true"
+                                                            [starType]="'svg'" [rating]="0"
+                                                            (starClickChange)="onRatingChanged($event)">
+                                                        </star-rating-control>
+                                                    </div>
+                                                    <button class="btn btn-primary"
+                                                        *ngIf="UserInfo.role == 'Task Incharge' && selectedReportType=='Rating Pending';else prior"
+                                                        (click)="SubmitRating(task.id)">Submit</button>
+                                                    <ng-template #prior>
+                                                        <span *ngIf="selectedReportType!='Completed'" class=" btn"
+                                                            [ngClass]='{
+                                                            "priority-high" : task.priority == 1,
+                                                            "priority-medium" : task.priority == 2,
+                                                            "priority-low" : task.priority == 3
+                                                            }'>
+                                                        </span>
+                                                    </ng-template>
+                                                    <ng-container *ngIf="selectedReportType=='Completed'">
+                                                        <star-rating-control size="large" [starType]="'svg'"
+                                                            [rating]="task.rating" [readOnly]="true">
+                                                        </star-rating-control>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="collapse" id="details{{task.id}}">
+                                    <div class="card card-list task-card">
+                                        <div class="card-body">
+                                            <div *ngIf="UserInfo.role != 'Developer'" class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 auth-details">
+                                                            <!-- <h5 class="mb-2">Description</h5>
+                                                            <p class="mb-0">.</p> -->
+                                                            <div class="table-responsive-sm">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center" scope="col">#</th>
+                                                                            <th scope="col">Developer</th>
+                                                                            <th class="text-center" scope="col">Hours
+                                                                            </th>
+                                                                            <th class="text-center" scope="col">Minutes
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr *ngFor="let data of task.devData">
+                                                                            <th class="text-center" scope="row">
+                                                                                {{data.index}}</th>
+                                                                            <td>
+                                                                                <h6 class="mb-0">{{data.name}}</h6>
+                                                                                <p class="mb-0">{{data.comment}}
+                                                                                </p>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <b>{{data.hours}}</b>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <b>{{data.minutes}}</b>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr *ngIf="UserInfo.role == 'Approval Authority'">
+                                                    <div class="row" *ngIf="UserInfo.role == 'Approval Authority'">
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group mb-0">
+                                                                <label class="dynamiclabel">Comment</label>
+                                                                <input tooltip type="text" [(ngModel)]="aComment"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <button style="bottom: 0;position: absolute;"
+                                                                class="btn btn-primary mr-2 mt-2"
+                                                                (click)="ConfirmApprove(task.id)">Approve</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="UserInfo.role == 'Developer'" class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="row">
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group mb-0">
+                                                                        <label class="h5">Start Date</label>
+                                                                        <input type="date" class="form-control"
+                                                                            [(ngModel)]="task.taskStartDate"
+                                                                            id="taskStartDate{{task.id}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group mb-0">
+                                                                        <label class="h5">Total Hours</label>
+                                                                        <input type="number" min="0"
+                                                                            class="form-control" disabled
+                                                                            [(ngModel)]="task.taskHours"
+                                                                            id="taskHours{{task.id}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group mb-0">
+                                                                        <label class="h5">Total Minutes</label>
+                                                                        <input type="number" min="1" max="59"
+                                                                            class="form-control" disabled
+                                                                            [(ngModel)]="task.taskMinutes"
+                                                                            id="taskMinutes{{task.id}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group mb-0">
+                                                                        <label class="h5">Task Type</label>
+                                                                        <select tooltip id="ddlType{{task.id}}"
+                                                                            name="ddlType{{task.id}}"
+                                                                            [(ngModel)]="task.selectedType"
+                                                                            class="form-control" data-style="py-0">
+                                                                            <option *ngFor="let Type of ddlType">
+                                                                                {{Type}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <button id="addDev{{task.id}}"
+                                                                        class="btn btn-primary mt-2"
+                                                                        style="bottom: 0;position: absolute;"
+                                                                        (click)="addNewComment(task)">Add
+                                                                        Comments</button>
+                                                                </div>
+                                                            </div>
+                                                            <hr *ngIf="task.DevComments.length>0">
+                                                            <div class="row">
+                                                                <ng-container *ngFor="let dev of task.DevComments">
+                                                                    <div class="col-lg-2">
+                                                                        <div class="form-group mb-0">
+                                                                            <label
+                                                                                class="dynamiclabel">Developer</label>
+                                                                            <select tooltip
+                                                                                id="Developer{{dev.taskId}}-{{dev.seqNo}}"
+                                                                                name="Developer{{dev.taskId}}-{{dev.seqNo}}"
+                                                                                [(ngModel)]="dev.developer"
+                                                                                class="form-control" data-style="py-0">
+                                                                                <option
+                                                                                    *ngFor="let reqDev of ddlReqDeveloper"
+                                                                                    [value]="reqDev.value">
+                                                                                    {{reqDev.text}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2">
+                                                                        <div class="form-group mb-0">
+                                                                            <label class="dynamiclabel">Approx
+                                                                                Hours</label>
+                                                                            <input tooltip type="number" min="0"
+                                                                                class="form-control"
+                                                                                [(ngModel)]="dev.approxHours"
+                                                                                (ngModelChange)="calculateHours(task)"
+                                                                                id="approxHours{{dev.taskId}}-{{dev.seqNo}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2">
+                                                                        <div class="form-group mb-0">
+                                                                            <label class="dynamiclabel">Approx
+                                                                                Minutes</label>
+                                                                            <input tooltip type="number" min="0"
+                                                                                max="59" class="form-control"
+                                                                                [(ngModel)]="dev.approxMinutes"
+                                                                                (ngModelChange)="calculateHours(task)"
+                                                                                id="approxMinutes{{dev.taskId}}-{{dev.seqNo}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-5">
+                                                                        <div class="form-group mb-0">
+                                                                            <label class="dynamiclabel">Comment</label>
+                                                                            <input tooltip type="text"
+                                                                                [(ngModel)]="dev.comment"
+                                                                                class="form-control"
+                                                                                id="comment{{dev.taskId}}-{{dev.seqNo}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-1">
+                                                                        <button type="button" class="close mt-5"
+                                                                            data-dismiss="modal" aria-label="Close"
+                                                                            style="position: absolute;"
+                                                                            (click)="deleteDev(task,dev.seqNo)">
+                                                                            <span aria-hidden="true"
+                                                                                class="menu">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </ng-container>
+                                                            </div>
+                                                            <hr *ngIf="task.DevComments.length>0">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <button class="btn btn-primary mr-2 mt-2"
+                                                                        (click)="Receive(task)">Receive</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #NoData>
+                            <div class="col-lg-12" style="text-align: center;">
+                                <h5>No Task..!</h5>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page end  -->
+</div>
+<div class="modal fade bd-example-modal-lg" data-backdrop="static" role="dialog" aria-modal="true" id="new-task-modal">
+    <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block text-center pb-3 border-bttom">
+                <h3 class="modal-title" id="exampleModalCenterTitle">New Task</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label for="exampleInputText02" class="h5">Task Name</label>
+                            <input tooltip type="text" [(ngModel)]="taskName" class="form-control" id="taskName"
+                                placeholder="Enter Task Name">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="exampleInputText2" class="h5">Project Name</label>
+                            <select tooltip id="Project" name="Project" [(ngModel)]="selectedProject"
+                                (ngModelChange)="ProjectChanged()" class="form-control" data-style="py-0">
+                                <option *ngFor="let Project of ddlProject" [value]="Project.value">{{Project.text}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="exampleInputText2" class="h5">Developer</label>
+                            <select tooltip id="Developer" name="Developer" [(ngModel)]="selectedDeveloper"
+                                class="form-control" data-style="py-0">
+                                <option *ngFor="let Developer of ddlDeveloper" [value]="Developer.value">
+                                    {{Developer.text}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="exampleInputText2" class="h5">Priority</label>
+                            <select tooltip id="Priority" name="Priority" [(ngModel)]="selectedPriority"
+                                class="form-control" data-style="py-0">
+                                <option *ngFor="let Priority of ddlPriority" [value]="Priority.value">
+                                    {{Priority.text}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label for="exampleInputText05" class="h5">Due Dates*</label>
+                                <input type="date" class="form-control" id="exampleInputText05" value="">
+                            </div>
+                        </div> -->
+                    <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label for="exampleInputText040" class="h5">Description</label>
+                            <textarea tooltip class="form-control" id="description" [(ngModel)]="description"
+                                rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group mb-0">
+                            <label for="exampleInputText01" class="h5">Attachments</label>
+                            <div class="custom-file">
+                                <!-- <input type="file" accept=".jpg,.jpeg" #file hidden> -->
+                                <input #FileInput type="file" class="custom-file-input"
+                                    accept=".jpg,.jpeg,.png,.xlsx,.xlx,.csv,.zip"
+                                    (click)="selectedFiles=[];FileInput.files=null" (input)="upload($event)" multiple>
+                                <label class="custom-file-label" for="inputGroupFile003">{{selectedFiles.length}}
+                                    File(s)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        Only <span style="color: #5773ff;">.jpg | .jpeg | .png | .xlsx | .xlx | .csv | .zip</span>
+                        allowed
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="d-flex flex-wrap align-items-ceter justify-content-center mt-4">
+                            <div class="btn btn-primary mr-3" (click)="AddByIncharge()">Save</div>
+                            <div class="btn btn-primary" data-dismiss="modal" (click)="Clear()">Cancel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button hidden id="openModal" type="button" class="btn btn-primary mt-2" data-toggle="modal"
+    data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Approve?</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to approve this task?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="Approve()" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="taskId=0" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
