@@ -147,15 +147,16 @@ export class PendingtaskComponent implements OnInit, OnDestroy {
           this.tblTaskList.forEach(element => {
             element['devData'] = response.dataList['ds']['table1'].filter(f => f['taskId'] == element['id']);
             element['disableComplete'] = element['devData'].find(f => f['completeDate'] == null) == undefined ? false : true;
-            element['UtilHours'] = this.helper.getInt(response.dataList['tblDuration'].filter(f => f['taskID'] == element['id'])[0]['hours']);
-            element['UtilMinutes'] = this.helper.getInt(response.dataList['tblDuration'].filter(f => f['taskID'] == element['id'])[0]['minutes']);
-            element['TotalHours'] = element['totalHours'] + (this.helper.getInt(element['totalMinutes']) > 0 ? ":" + element['totalMinutes'] : "");
-            element['UtilizeHours'] = element['UtilHours'] + (this.helper.getInt(element['UtilMinutes']) > 0 ? ":" + element['UtilMinutes'] : "");
-            let totalPendingMinutes: number = ((this.helper.getInt(element['totalHours']) * 60) + this.helper.getInt(element['totalMinutes'])) - ((this.helper.getInt(element['UtilHours']) * 60) + this.helper.getInt(element['UtilMinutes']));
-            element['totalPendingMinutes'] = totalPendingMinutes;
-            element['PenHours'] = this.helper.getInt(Math.abs(totalPendingMinutes) / 60);
-            element['PenMinutes'] = Math.abs(totalPendingMinutes) % 60;
-            element['PendingHours'] = (totalPendingMinutes >= 0 ? "" : "-") + this.helper.getInt(element['PenHours']) + (this.helper.getInt(element['PenMinutes']) > 0 ? ":" + element['PenMinutes'] : "");
+            // element['UtilHours'] = this.helper.getInt(response.dataList['tblDuration'].filter(f => f['taskID'] == element['id'])[0]['hours']);
+            // element['UtilMinutes'] = this.helper.getInt(response.dataList['tblDuration'].filter(f => f['taskID'] == element['id'])[0]['minutes']);
+            // element['TotalHours'] = element['totalHours'] + (this.helper.getInt(element['totalMinutes']) > 0 ? ":" + element['totalMinutes'] : "");
+            // let totalPendingMinutes: number = ((this.helper.getInt(element['totalHours']) * 60) + this.helper.getInt(element['totalMinutes'])) - ((this.helper.getInt(element['UtilHours']) * 60) + this.helper.getInt(element['UtilMinutes']));
+            // element['totalPendingMinutes'] = totalPendingMinutes;
+            // element['PenHours'] = this.helper.getInt(Math.abs(totalPendingMinutes) / 60);
+            // element['PenMinutes'] = Math.abs(totalPendingMinutes) % 60;
+            element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
+            element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
+            element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
             element['Files'] = [];
             if (this.helper.getStringOrEmpty(element['fileList']) != "") {
               element['fileList'].split("|").forEach(f => {

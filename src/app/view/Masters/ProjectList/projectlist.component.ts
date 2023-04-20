@@ -25,8 +25,17 @@ export class ProjectlistComponent implements OnInit {
   public headPerson: string;
 
   public ddlImpact: object[] = [{ "id": 0, "itemName": "Surat" }, { "id": 1, "itemName": "Mumbai" }, { "id": 2, "itemName": "Abroad" }];
+  public ddlDeveloper: object[] = [];
+  public ddlManager: object[] = [];
+  public ddlIncharge: object[] = [];
+  public ddlAuth: object[] = [];
 
   public selectedImpact: object[] = [];
+  public selectedDeveloper: object[] = [];
+  public selectedManager: string;
+  public selectedIncharge: object[] = [];
+  public selectedAuth: string;
+
   public description: string;
 
   public dropdownSettings = {
@@ -52,9 +61,36 @@ export class ProjectlistComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.FillCombo();
   }
 
   //#region API Methods
+  private async FillCombo() {
+    try {
+      this.spinnerService.show();
+      let paraList = {
+        Type: 'FILLCOMBO'
+      }
+      let response: ApiResponse = await this.Service.Data(paraList);
+      if (response.isValidUser) {
+        if (response.messageType == MessageType.success) {
+          this.ddlDeveloper = response.dataList['tblDeveloper']
+          this.ddlAuth = response.dataList['tblAuth']
+          this.ddlManager = response.dataList['tblManager']
+          this.ddlIncharge = response.dataList['tblTaskIncharge']
+        }
+        else if (response.messageType == MessageType.error)
+          this.errorService.warning(response.message);
+        else
+          this.errorService.warning('Something Went Wrong');
+      }
+      this.spinnerService.hide();
+    }
+    catch (error) {
+      this.spinnerService.hide();
+      this.errorService.error(error);
+    }
+  }
   private async Crud(mode: string): Promise<ApiResponse> {
     let res: ApiResponse = new ApiResponse();
     try {
@@ -65,7 +101,11 @@ export class ProjectlistComponent implements OnInit {
         ProjectName: this.helper.getString(this.projectName),
         HeadPerson: this.helper.getString(this.headPerson),
         Impact: this.selectedImpact.map(f => f['itemName']).join(","),
-        Description: this.helper.getString(this.description)
+        Description: this.helper.getString(this.description),
+        Developers: this.selectedDeveloper.length > 0 ? this.selectedDeveloper.map(f => f['id']).join(",") : "",
+        Incharge: this.selectedIncharge.length > 0 ? this.selectedIncharge.map(f => f['id']).join(",") : "",
+        Manager: this.helper.getStringOrEmpty(this.selectedManager),
+        Auth: this.helper.getStringOrEmpty(this.selectedAuth)
       }
       res = await this.Service.Data(paraList);
     }
@@ -100,6 +140,29 @@ export class ProjectlistComponent implements OnInit {
             impact.push(this.ddlImpact.find(f => f['itemName'] == element));
         });
         this.selectedImpact = impact;
+        if (this.helper.getStringOrEmpty(params.data['users']) != "") {
+          let dev: object[] = [];
+          let inc: object[] = [];
+          params.data['users'].split(",").forEach(element => {
+            let user: string[] = element.split("#");
+            switch (user[1].toUpperCase()) {
+              case 'DEVELOPER':
+                dev.push(this.ddlDeveloper.find(f => f['id'] == user[0]))
+                break;
+              case 'TASK INCHARGE':
+                inc.push(this.ddlIncharge.find(f => f['id'] == user[0]))
+                break;
+              case 'MANAGER':
+                this.selectedManager = user[0];
+                break;
+              case 'APPROVAL AUTHORITY':
+                this.selectedAuth = user[0];
+                break;
+            }
+          });
+          this.selectedDeveloper = dev;
+          this.selectedIncharge = inc;
+        }
         this.mode = "Update";
       }
     }
@@ -139,7 +202,7 @@ export class ProjectlistComponent implements OnInit {
       //   colObj['type'] = ['date', 'text'];
       // if (_.indexOf(["ORDERPLACEDATE", "ORDERRECEIVEDATE"], columns[i].toUpperCase()) > -1)
       //   colObj['type'] = ['dateType', 'text'];
-      if (_.indexOf(["SRNO", "CRDATE"], columns[i].toUpperCase()) > -1)
+      if (_.indexOf(["SRNO", "CRDATE", "USERS"], columns[i].toUpperCase()) > -1)
         colObj['hide'] = true;
       if (colObj != undefined)
         this.gridcolumnDefs.push(colObj);
@@ -213,6 +276,10 @@ export class ProjectlistComponent implements OnInit {
     this.selectedImpact = [];
     this.description = null;
     this.srNo = 0;
+    this.selectedDeveloper = [];
+    this.selectedIncharge = [];
+    this.selectedManager = null;
+    this.selectedAuth = null;
     this.mode = "Add";
   }
   public async Delete() {

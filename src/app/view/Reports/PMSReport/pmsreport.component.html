@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div #top class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -14,7 +14,7 @@
                                 <a class="dropdown-item">Category</a>
                             </div>
                         </div> -->
-                    <div #top class="row">
+                    <div class="row">
                         <label class="col-md-1">Filters:</label>
                         <div class="col-md-2">
                             <select tooltip id="Type" name="Type" [(ngModel)]="selectedType" class="form-control"
@@ -135,13 +135,19 @@
                     <div class="col-lg-6">
                         <h3 class="modal-title" id="exampleModalCenterTitle" style="float: left;">Add Comment</h3>
                     </div>
-                    <div class="col-lg-6" style="float: right;display: flex;">
-                        <img style="border: 1px solid #979797;;height: 50px;width: 50px;"
-                            src="data:image/jpeg;base64,{{profileImg}}" class="mr-2 img-fluid rounded-circle
-                                                        avatar-40" alt="image">
-                        <h3 style="color: #979797;">
-                            {{profileName}}
-                        </h3>
+                    <div class="col-lg-6" style="display: flex;">
+                        <div style="display: flex;">
+                            <img style="border: 1px solid #979797;;height: 50px;width: 50px;"
+                                src="data:image/jpeg;base64,{{profileImg}}" class="mr-2 img-fluid rounded-circle
+                                                            avatar-40" alt="image">
+                            <h3 style="color: #979797;">
+                                {{profileName}}
+                            </h3>
+                        </div>
+                        <button type="button" class="close" aria-label="Close" style="font-size: 32px;"
+                            data-dismiss="modal" (click)="closeDiag()">
+                            <span aria-hidden="true" class="menu">×</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -176,7 +182,6 @@
                                 <div class="d-flex flex-wrap mt-4">
                                     <button class="btn btn-primary mr-3" (click)="InsertComment()"
                                         [disabled]="disableControlls">Save</button>
-                                    <div class="btn btn-primary" data-dismiss="modal" (click)="closeDiag()">Cancel</div>
                                 </div>
                             </div>
                         </div>
@@ -219,5 +224,6 @@
 </div>
 <button hidden id="openModal" data-target="#new-task-modal" data-toggle="modal"></button>
 <div class="to-top" (click)="scrollToTop(top)" [ngClass]="{ 'show-scrollTop': windowScrolled }">
-    <i class="las la-angle-up" style="background-color: #5773ff;color: white;;border-radius: 50%;padding: 5px;"></i>
+    <i class="las la-angle-up"
+        style="background-color: #5773ff;font-size: 35px;color: white;border-radius: 50%;padding: 10px;"></i>
 </div>

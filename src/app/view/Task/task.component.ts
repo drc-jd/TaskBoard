@@ -63,8 +63,8 @@ export class TaskComponent implements OnInit {
 
   async ngOnInit() {
     this.UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
-    await this.GetTaskList();
     await this.GetReqDevelopers();
+    await this.GetTaskList();
   }
 
   //#region API Methods
@@ -100,6 +100,7 @@ export class TaskComponent implements OnInit {
       if (response.isValidUser) {
         if (response.messageType == MessageType.success) {
           this.tblTaskList = response.dataList['tblData'].map(f => {
+            f['ReqDeveloper'] = this.ddlReqDeveloper.filter(d => d['projectId'] == f['projectID']);
             f['DevComments'] = [];
             f['removeDetail'] = false;
             if (this.UserInfo.role == 'Task Incharge' || this.UserInfo.role == 'Manager')

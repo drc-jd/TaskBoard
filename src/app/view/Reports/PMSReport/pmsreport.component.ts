@@ -97,53 +97,55 @@ export class PmsreportComponent implements OnInit {
   public async Find() {
     try {
       this.spinnerService.show();
-      let paraList = {
-        Type: 'GetData',
-        ProType: this.helper.getString(this.selectedType),
-        UserId: this.helper.getInt(this.selectedUserId),
-        ProjectId: this.helper.getInt(this.selectedProjectId),
-        SDate: this.SDate,
-        EDate: this.EDate,
-      }
-      let response: ApiResponse = await this.Service.Data(paraList);
-      if (response.isValidUser) {
-        if (response.messageType == MessageType.success) {
-          this.tblData = response.dataList['tblData'];
-          this.tblDetail = [];
-          this.tblData.forEach(element => {
-            element['SDate'] = this.getDateOfWeek(element['weekNo'], this.helper.getInt(element['week'].slice(element['week'].length - 4)));
-            element['sunDate'] = formatDate(element['SDate'], 'MMM dd,yyyy', this.locale)
-            element['monDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 1)), 'MMM dd,yyyy', this.locale)
-            element['tueDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 2)), 'MMM dd,yyyy', this.locale)
-            element['wedDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 3)), 'MMM dd,yyyy', this.locale)
-            element['thuDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 4)), 'MMM dd,yyyy', this.locale)
-            element['friDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 5)), 'MMM dd,yyyy', this.locale)
-            element['satDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 6)), 'MMM dd,yyyy', this.locale)
-          });
-          if (response.dataList['tblDates'].length > 0) {
-            let details: object[] = response.dataList['tblDetails'];
-            let projects: object[] = response.dataList['tblProjects'];
-            response.dataList['tblDates'].forEach((element, index) => {
-              this.tblDetail.push({
-                date: new Date(element['date']),
-                formatDate: formatDate(new Date(element['date']), 'MMM dd,yyyy', this.locale),
-                hours: element['hours'],
-                projects: projects.filter(f => f['date'] == element['date'])
-              });
-              this.tblDetail[index]["projects"].forEach((proj, i) => {
-                this.tblDetail[index]["projects"][i]['details'] = details.filter(f => f['date'] == element['date'] && f['projectID'] == proj['projectID'])
-              });
-            });
-          }
-          if (this.selectedType == "UserWise")
-            this.timeLineText = this.selectedType + " - " + this.ddlUserId.find(f => f['value'] == this.selectedUserId)['text']
-          else if (this.selectedType == "ProjectWise")
-            this.timeLineText = this.selectedType + " - " + this.ddlProjectId.find(f => f['value'] == this.selectedProjectId)['text'];
+      if (await this.ValidateSearch()) {
+        let paraList = {
+          Type: 'GetData',
+          ProType: this.helper.getString(this.selectedType),
+          UserId: this.helper.getInt(this.selectedUserId),
+          ProjectId: this.helper.getInt(this.selectedProjectId),
+          SDate: this.SDate,
+          EDate: this.EDate,
         }
-        else if (response.messageType == MessageType.error)
-          this.toastr.error(response.message);
-        else
-          this.toastr.error('Something Went Wrong');
+        let response: ApiResponse = await this.Service.Data(paraList);
+        if (response.isValidUser) {
+          if (response.messageType == MessageType.success) {
+            this.tblData = response.dataList['tblData'];
+            this.tblDetail = [];
+            this.tblData.forEach(element => {
+              element['SDate'] = this.getDateOfWeek(element['weekNo'], this.helper.getInt(element['week'].slice(element['week'].length - 4)));
+              element['sunDate'] = formatDate(element['SDate'], 'MMM dd,yyyy', this.locale)
+              element['monDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 1)), 'MMM dd,yyyy', this.locale)
+              element['tueDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 2)), 'MMM dd,yyyy', this.locale)
+              element['wedDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 3)), 'MMM dd,yyyy', this.locale)
+              element['thuDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 4)), 'MMM dd,yyyy', this.locale)
+              element['friDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 5)), 'MMM dd,yyyy', this.locale)
+              element['satDate'] = formatDate(new Date(new Date(element['SDate']).setDate(new Date(element['SDate']).getDate() + 6)), 'MMM dd,yyyy', this.locale)
+            });
+            if (response.dataList['tblDates'].length > 0) {
+              let details: object[] = response.dataList['tblDetails'];
+              let projects: object[] = response.dataList['tblProjects'];
+              response.dataList['tblDates'].forEach((element, index) => {
+                this.tblDetail.push({
+                  date: new Date(element['date']),
+                  formatDate: formatDate(new Date(element['date']), 'MMM dd,yyyy', this.locale),
+                  hours: element['hours'],
+                  projects: projects.filter(f => f['date'] == element['date'])
+                });
+                this.tblDetail[index]["projects"].forEach((proj, i) => {
+                  this.tblDetail[index]["projects"][i]['details'] = details.filter(f => f['date'] == element['date'] && f['projectID'] == proj['projectID'])
+                });
+              });
+            }
+            if (this.selectedType == "UserWise")
+              this.timeLineText = this.selectedType + " - " + this.ddlUserId.find(f => f['value'] == this.selectedUserId)['text']
+            else if (this.selectedType == "ProjectWise")
+              this.timeLineText = this.selectedType + " - " + this.ddlProjectId.find(f => f['value'] == this.selectedProjectId)['text'];
+          }
+          else if (response.messageType == MessageType.error)
+            this.toastr.error(response.message);
+          else
+            this.toastr.error('Something Went Wrong');
+        }
       }
       this.spinnerService.hide();
     }
@@ -155,6 +157,21 @@ export class PmsreportComponent implements OnInit {
   //#endregion
 
   //#region Other Methods
+  private async ValidateSearch(): Promise<boolean> {
+    if (this.helper.getStringOrEmpty(this.selectedType) == "ProjectWise") {
+      if (this.helper.getStringOrEmpty(this.selectedProjectId) == "") {
+        this.ToolTip.show(document.getElementById("ProjectId"), "Select Project");
+        return false;
+      }
+    }
+    if (this.helper.getStringOrEmpty(this.selectedType) == "UserWise") {
+      if (this.helper.getStringOrEmpty(this.selectedUserId) == "") {
+        this.ToolTip.show(document.getElementById("UserId"), "Select User");
+        return false;
+      }
+    }
+    return true;
+  }
   private getDateOfWeek(w: number, y: number) {
     var d: number = (1 + (w - 1) * 7); // 1st of January + 7 days for each week
 

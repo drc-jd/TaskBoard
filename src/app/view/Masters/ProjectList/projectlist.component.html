@@ -1,7 +1,7 @@
 <div class="card-body">
     <div class="new-user-info">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label>Project Name:</label>
@@ -19,15 +19,43 @@
                             [(ngModel)]="selectedImpact" [settings]="dropdownSettings">
                         </angular2-multiselect>
                     </div>
+                    <div class="form-group col-md-6">
+                        <label>Developers:</label>
+                        <angular2-multiselect tooltip id="Developer" name="Developer" [data]="ddlDeveloper"
+                            [(ngModel)]="selectedDeveloper" [settings]="dropdownSettings">
+                        </angular2-multiselect>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Impact">Incharge:</label>
+                        <angular2-multiselect tooltip id="Incharge" name="Incharge" [data]="ddlIncharge"
+                            [(ngModel)]="selectedIncharge" [settings]="dropdownSettings">
+                        </angular2-multiselect>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="HeadPerson">Manager:</label>
+                        <select tooltip id="Manager" name="Manager" [(ngModel)]="selectedManager" class="form-control"
+                            data-style="py-0">
+                            <option *ngFor="let Manager of ddlManager" [value]="Manager.value">{{Manager.text}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Impact">Authority:</label>
+                        <select tooltip id="Auth" name="Auth" [(ngModel)]="selectedAuth" class="form-control"
+                            data-style="py-0">
+                            <option *ngFor="let Auth of ddlAuth" [value]="Auth.value">{{Auth.text}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
                     <div class="form-group col-md-8">
                         <label for="fname">Description:</label>
                         <textarea class="form-control" id="description" [(ngModel)]="description" rows="4"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <!-- <div class="crm-profile-img-edit position-relative">
+            <!-- <div class="crm-profile-img-edit position-relative">
                             <img class="crm-profile-pic rounded avatar-100" src="../assets/images/user/11.png"
                                 alt="profile-pic">
                             <div class="crm-p-image bg-primary">
@@ -35,7 +63,7 @@
                                 <input class="file-upload" type="file" accept="image/*">
                             </div>
                         </div> -->
-                    <!-- <div class="img-extension mt-3">
+            <!-- <div class="img-extension mt-3">
                             <div class="d-inline-block align-items-center">
                                 <span>Only</span>
                                 <a href="javascript:void();">.jpg</a>
@@ -44,8 +72,6 @@
                                 <span>allowed</span>
                             </div>
                         </div> -->
-                </div>
-            </div>
         </div>
         <!-- <div class="form-group col-md-6">
                     <label for="altconno">Alternate Contact:</label>

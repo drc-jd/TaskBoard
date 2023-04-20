@@ -79,7 +79,7 @@
                                                                     "greenborder" : task.totalPendingMinutes == 0,
                                                                     "redborder" : task.totalPendingMinutes < 0
                                                                     }' style="border: 1px solid">
-                                                                    <span>D :</span> {{task.PendingHours}}
+                                                                    <span>P :</span> {{task.PendingHours}}
                                                                 </div>
                                                             </div>
                                                             <div class="media mt-1 align-items-center"
@@ -403,13 +403,19 @@
                     <div class="col-lg-6">
                         <h3 class="modal-title" id="exampleModalCenterTitle" style="float: left;">Add Comment</h3>
                     </div>
-                    <div class="col-lg-6" style="float: right;display: flex;">
-                        <img style="border: 1px solid #979797;;height: 50px;width: 50px;"
-                            src="data:image/jpeg;base64,{{UserInfo.profileImg}}" class="mr-2 img-fluid rounded-circle
-                                                        avatar-40" alt="image">
-                        <h3 style="color: #979797;">
-                            {{UserInfo.firstName}} {{UserInfo.lastName}}
-                        </h3>
+                    <div class="col-lg-6" style="display:flex ;">
+                        <div style=" display:flex ;">
+                            <img style="border: 1px solid #979797;;height: 50px;width: 50px;"
+                                src="data:image/jpeg;base64,{{UserInfo.profileImg}}" class="mr-2 img-fluid rounded-circle
+                                                            avatar-40" alt="image">
+                            <h3 style="color: #979797;">
+                                {{UserInfo.firstName}} {{UserInfo.lastName}}
+                            </h3>
+                        </div>
+                        <button type="button" class="close" aria-label="Close" style="font-size: 32px;"
+                            data-dismiss="modal" (click)="closeDiag()">
+                            <span aria-hidden="true" class="menu">×</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -457,7 +463,6 @@
                             <div class="col-lg-12">
                                 <div class="d-flex flex-wrap mt-4">
                                     <div class="btn btn-primary mr-3" (click)="InsertComment()">Save</div>
-                                    <div class="btn btn-primary" data-dismiss="modal" (click)="closeDiag()">Cancel</div>
                                 </div>
                             </div>
                         </div>
