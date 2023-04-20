@@ -154,9 +154,11 @@ export class PendingtaskComponent implements OnInit, OnDestroy {
             // element['totalPendingMinutes'] = totalPendingMinutes;
             // element['PenHours'] = this.helper.getInt(Math.abs(totalPendingMinutes) / 60);
             // element['PenMinutes'] = Math.abs(totalPendingMinutes) % 60;
-            element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
-            element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
-            element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
+            if (response.dataList['ds']['table2'].length > 0) {
+              element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
+              element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
+              element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
+            }
             element['Files'] = [];
             if (this.helper.getStringOrEmpty(element['fileList']) != "") {
               element['fileList'].split("|").forEach(f => {

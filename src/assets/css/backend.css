@@ -32933,3 +32933,7 @@ ul.iq-contact-rest li a p {
   color: #2f8f81;
   content: "LOW";
 }
+
+.percentage {
+  width: attr(data-content) +'%' !important;
+}

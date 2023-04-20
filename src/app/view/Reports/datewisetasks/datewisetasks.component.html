@@ -1,0 +1,50 @@
+<div #top class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <div class="dropdown status-dropdown mr-3">
+                            <div class="dropdown-toggle" id="dropdownMenuButton03" data-toggle="dropdown">
+                                <div class="btn bg-body"><span class="h6">Status :</span> In Progress<i
+                                        class="ri-arrow-down-s-line ml-2 mr-0"></i></div>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton03">
+                                <a class="dropdown-item">In Progress</a>
+                                <a class="dropdown-item">Priority</a>
+                                <a class="dropdown-item">Category</a>
+                            </div>
+                        </div> -->
+                    <div class="row">
+                        <label class="mr-2 ml-2">Date :</label>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" [(ngModel)]="SDate" id="SDate">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" [(ngModel)]="EDate" id="EDate">
+                        </div>
+                        <label class="mr-2 ml-2">Users :</label>
+                        <div class="col-md-2">
+                            <select tooltip id="Projects" name="Projects" [(ngModel)]="selectedProjects"
+                                class="form-control" data-style="py-0">
+                                <option *ngFor="let Project of ddlProjects" [value]="Project.value">{{Project.text}}
+                                </option>
+                            </select>
+                        </div>
+                        <label class="mr-2 ml-2">Projects :</label>
+                        <div class="col-md-2">
+                            <select tooltip id="Users" name="Users" [(ngModel)]="selectedUsers" class="form-control"
+                                data-style="py-0">
+                                <option *ngFor="let User of ddlUsers" [value]="User.value">{{User.text}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button (document:keydown.control.shift.f)="Find()" class="btn btn-primary mr-2"
+                                (click)="Find()">Find</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
