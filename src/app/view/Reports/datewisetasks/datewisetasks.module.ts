@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DatewisetasksRoutingModule } from './datewisetasks-routing.module';
 import { DatewisetasksComponent } from './datewisetasks.component';
 import { FormsModule } from '@angular/forms';
+import { AgModule } from '../../Common/ag-grid/ag-grid.module';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { FormsModule } from '@angular/forms';
     DatewisetasksComponent
   ],
   imports: [
+    AgModule,
     CommonModule,
     FormsModule,
     DatewisetasksRoutingModule

@@ -22,21 +22,11 @@
                         <div class="col-md-2">
                             <input type="date" class="form-control" [(ngModel)]="EDate" id="EDate">
                         </div>
-                        <label class="mr-2 ml-2">Users :</label>
-                        <div class="col-md-2">
-                            <select tooltip id="Projects" name="Projects" [(ngModel)]="selectedProjects"
-                                class="form-control" data-style="py-0">
-                                <option *ngFor="let Project of ddlProjects" [value]="Project.value">{{Project.text}}
-                                </option>
-                            </select>
-                        </div>
-                        <label class="mr-2 ml-2">Projects :</label>
-                        <div class="col-md-2">
-                            <select tooltip id="Users" name="Users" [(ngModel)]="selectedUsers" class="form-control"
-                                data-style="py-0">
-                                <option *ngFor="let User of ddlUsers" [value]="User.value">{{User.text}}
-                                </option>
-                            </select>
+                        <div class="col-md-1">
+                            <div class="custom-control custom-checkbox" style="padding-top: 5px;">
+                                <input [(ngModel)]="pending" type="checkbox" class="custom-control-input" id="Pending">
+                                <label class="custom-control-label control-label-1" for="Pending">Pending</label>
+                            </div>
                         </div>
                         <div class="col-md-2">
                             <button (document:keydown.control.shift.f)="Find()" class="btn btn-primary mr-2"
@@ -46,5 +36,49 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12" style="min-height: calc(100vh - 240px);">
+            <app-ag-grid (_gridApi)='setGrid($event)' [_gridOptions]=" gridOptions">
+            </app-ag-grid>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h3>Overall</h3>
+                    </div>
+                    <h5><span class="counter">{{totalHours}} Hours</span></h5>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                        <span class="">Total Tasks : {{totalTasks}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h3>Individual</h3>
+                    </div>
+                    <div style="display: grid;">
+                        <span>In Progress : {{individualProgess}}</span>
+                        <span>Completed : {{individualCompletedTasks}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h3>Final</h3>
+                    </div>
+                    <div style="display: grid;">
+                        <span>In Progress : {{inProgress}}</span>
+                        <span>Completed : {{completedTasks}}</span>
+                        <span>Pending : {{pendingTasks}}</span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </div>
 </div>

@@ -424,3 +424,43 @@
  .csECode {
      background-color: #F5F5DC;
  }
+
+ .typebug {
+     background-color: #FABF8F;
+ }
+
+ .typenew {
+     background-color: #76933C;
+ }
+
+ .typechange {
+     background-color: #B7DEE8;
+ }
+
+ ::ng-deep.progress-bar.active,
+ .progress1.active .progress-bar {
+     animation: progress-bar-stripes 2s linear infinite;
+     font-size: 14px;
+ }
+
+ ::ng-deep.progress1 {
+     width: 100% !important;
+     height: 16px !important;
+     margin-top: 5px !important;
+     overflow: hidden !important;
+     background-color: #f5f5f5;
+     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+ }
+
+ ::ng-deep.parent {
+     min-width: 80px !important;
+     width: 100% !important;
+ }
+
+ ::ng-deep.progress-bar.active:hover {
+     font-size: 14px !important;
+     -o-animation: none !important;
+     animation: none !important;
+     box-shadow: none !important;
+ }

@@ -363,9 +363,9 @@ export class AgGridComponent implements OnInit {
         cellRenderer: params => {
           if (params.data != undefined && params.data != null && !params.node.rowPinned) {
             if (params.value == true)
-              return `<i style="color: green; opacity: 0.6" class="icon-check pr-0"></i>`;
+              return `<i style="font-size: 22px;color: green;" class="las la-check"></i>`;
             else if (params.value == false)
-              return `<i style="color: red; opacity: 0.6" class="icon-delete pr-0"></i>`;
+              return `<i style="font-size: 22px;color: red;" class="las la-times"></i>`;
           }
         }
       },

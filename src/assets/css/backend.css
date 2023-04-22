@@ -32898,6 +32898,27 @@ ul.iq-contact-rest li a p {
   padding: 8px 10px;
 }
 
+.priorityhigh {
+  background-color: #fccfc1;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  color: #b53209;
+}
+
+.prioritymedium {
+  background-color: #fff2cf;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  color: #cf9700;
+}
+
+.prioritylow {
+  background-color: #ceefea;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  color: #2f8f81;
+}
+
 .priority-high {
   background-color: #fccfc1;
   font-weight: 400;

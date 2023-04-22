@@ -179,8 +179,8 @@ export class UsersComponent implements OnInit {
         }
         colObj['type'] = [''];
       }
-      // if (_.indexOf(["SELECT", "APPROVALAUTHORITY", "ITEMIMAGE", "DEPTID", "SRNO", "ITEMID", "SEQNO", "ROWSTYLE", "NOTIFYTO"], columns[i].toUpperCase()) > -1)
-      //   colObj['hide'] = true;
+      if (_.indexOf(["PROJECTS"], columns[i].toUpperCase()) > -1)
+        colObj['hide'] = true;
       if (colObj != undefined)
         this.gridcolumnDefs.push(colObj);
     }
