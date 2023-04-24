@@ -30,6 +30,14 @@
                                     for="Pending">Pending</label>
                             </div>
                         </div>
+                        <div class="col-md-1 pl-0" *ngIf="!pending">
+                            <div class="custom-control custom-checkbox" style="padding-top: 5px;">
+                                <input style="cursor: pointer;" [(ngModel)]="details" type="checkbox"
+                                    class="custom-control-input" id="details" (ngModelChange)="onPendingChange()">
+                                <label style="cursor: pointer;" class="custom-control-label control-label-1"
+                                    for="details">With Details</label>
+                            </div>
+                        </div>
                         <div class="col-md-2">
                             <button (document:keydown.control.shift.f)="Find()" class="btn btn-primary mr-2"
                                 (click)="Find()">Find</button>

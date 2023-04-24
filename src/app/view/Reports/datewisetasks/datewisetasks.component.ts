@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { formatDate, TitleCasePipe } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
@@ -23,6 +23,7 @@ export class DatewisetasksComponent implements OnInit {
   //#region Declaration
   public SDate: string;
   public EDate: string;
+  public details: boolean = false;
   public pending: boolean = false;
 
   // public totalHours: string = "0";
@@ -46,6 +47,7 @@ export class DatewisetasksComponent implements OnInit {
     private Service: DatewiseTasksReportService,
     private spinnerService: NgxSpinnerService,
     @Inject(LOCALE_ID) private locale: string,
+    private titleCase: TitleCasePipe,
     private toastr: ToastrService,
     private router: Router,
     private helper: Helper) { header.NewHeaderName("Datewise Tasks Report"); }
@@ -62,7 +64,8 @@ export class DatewisetasksComponent implements OnInit {
         Type: 'GetData',
         SDate: this.SDate,
         EDate: this.EDate,
-        Pending: this.pending
+        Pending: this.pending,
+        Details: this.details
       }
       let response: ApiResponse = await this.Service.Data(paraList);
       if (response.isValidUser) {
@@ -113,7 +116,7 @@ export class DatewisetasksComponent implements OnInit {
     for (var i = 0; i < columns.length; i++) {
       switch (columns[i]) {
         default: colObj = {
-          headerName: columns[i],
+          headerName: this.titleCase.transform(columns[i]),
           field: columns[i]
         }
       }
@@ -166,9 +169,23 @@ export class DatewisetasksComponent implements OnInit {
       //       return 'prioritylow';
       //   }
       // }
+      if (_.indexOf(["ESTIMATE TIME", "DURATION"], columns[i].toUpperCase()) > -1) {
+        colObj['pdfExportOptions'] = {
+          styles: {
+            alignment: "right",
+          }
+        }
+      }
+      if (_.indexOf(["PROGRESS"], columns[i].toUpperCase()) > -1) {
+        colObj['pdfExportOptions'] = {
+          styles: {
+            alignment: "center",
+          }
+        }
+      }
       if (_.indexOf(["COMMENT"], columns[i].toUpperCase()) > -1)
         colObj['type'] = ['text'];
-      if (_.indexOf(["REFSRNO"], columns[i].toUpperCase()) > -1)
+      if (_.indexOf(["REFSRNO", "ISCOMPLETE"], columns[i].toUpperCase()) > -1)
         colObj['hide'] = true;
       if (_.indexOf(["ISCOMPLETE"], columns[i].toUpperCase()) > -1)
         colObj['type'] = ['chkBoxWithImage'];
@@ -215,7 +232,7 @@ export class DatewisetasksComponent implements OnInit {
         PDF_WITH_COLUMNS_AS_LINKS: this.PDF_WITH_COLUMNS_AS_LINKS,
         PDF_SELECTED_ROWS_ONLY: this.PDF_SELECTED_ROWS_ONLY
       };
-      let width: string[] = this.pending ? ['8%', '*', '12%', '15%', '*', '*', '*', '*', '*', '*', '*', '*'] : ['*', '*', '35%', '*', '*', '*', '*', '*', '*', '*', '*', '*'];
+      let width: string[] = this.pending ? ['8%', '*', '12%', '15%', '*', '*', '*', '*', '*', '*', '*', '*'] : ['*', '*', '35%', '*', '*', '*', '*', '*', '*', '*', '*'];
       printDoc(printParams, this.gridOptions.api, this.gridOptions.columnApi, width);
     }
     else

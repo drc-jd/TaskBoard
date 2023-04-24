@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 
 import { DatewisetasksRoutingModule } from './datewisetasks-routing.module';
 import { DatewisetasksComponent } from './datewisetasks.component';
@@ -16,6 +16,7 @@ import { AgModule } from '../../Common/ag-grid/ag-grid.module';
     CommonModule,
     FormsModule,
     DatewisetasksRoutingModule
-  ]
+  ],
+  providers: [TitleCasePipe]
 })
 export class DatewisetasksModule { }
