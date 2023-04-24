@@ -1,5 +1,4 @@
 import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiResponse } from 'src/app/Class/Common/ApiResponse';
@@ -7,7 +6,6 @@ import { UserInfo } from 'src/app/Class/Common/UserInfo';
 import { TooltipDirective } from 'src/app/Directive/tooltip.directive';
 import { DashboardService } from 'src/app/Services/Common/Dashboard.service';
 import { ErrorDialogueService } from 'src/app/Services/Common/ErrorDiag.service';
-import { HeaderNameService } from 'src/app/Services/Common/HeaderName';
 import { ProjectsService } from 'src/app/Services/Projects/Projects.service';
 import { TaskService } from 'src/app/Services/Task/Task.service';
 import { Helper, MessageType } from 'src/environments/Helper';
@@ -45,15 +43,13 @@ export class DeveloperdashComponent implements OnInit {
   public UserInfo: UserInfo;
   //#endregion
 
-  constructor(private header: HeaderNameService,
-    private errorService: ErrorDialogueService,
+  constructor(private errorService: ErrorDialogueService,
     private spinnerService: NgxSpinnerService,
     @Inject(LOCALE_ID) private locale: string,
     private projectsService: ProjectsService,
     private Service: DashboardService,
     private taskService: TaskService,
     private toastr: ToastrService,
-    private router: Router,
     private helper: Helper) { }
 
   async ngOnInit() {

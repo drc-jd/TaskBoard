@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, GridOptions } from 'ag-grid-community';
+import { GridOptions } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiResponse } from 'src/app/Class/Common/ApiResponse';
@@ -117,7 +117,7 @@ export class DatewisetasksComponent implements OnInit {
           field: columns[i]
         }
       }
-      if (_.indexOf(["RATIO"], columns[i].toUpperCase()) > -1)
+      if (_.indexOf(["PROGRESS"], columns[i].toUpperCase()) > -1)
         colObj['cellRenderer'] = params => {
           if (params.value != null && params.value != undefined) {
             return '<div class="parent"> <div class="progress1" style="border-radius: 0px;box-shadow: none;background-color: transparent;"><div class="progress-bar active" role = "progressbar" aria - valuenow="40" aria - valuemin="0" aria - valuemax="100" style = "color:white;width:' + (this.helper.getInt(params.value) > 100 ? 100 : this.helper.getInt(params.value)) + '%;font-weight:600;background-color:' + (this.helper.getInt(params.value) > 100 ? (params.data['isComplete'] == false ? 'Red' : 'Orange') : 'Green') + ';" >' + this.helper.getInt(params.value) + '%</div></div></div>';
@@ -198,24 +198,28 @@ export class DatewisetasksComponent implements OnInit {
   PDF_WITH_COLUMNS_AS_LINKS = true;
   PDF_SELECTED_ROWS_ONLY = false;
   public pdfExp() {
-    const printParams = {
-      PDF_HEADER_COLOR: this.PDF_HEADER_COLOR,
-      PDF_INNER_BORDER_COLOR: this.PDF_INNER_BORDER_COLOR,
-      PDF_OUTER_BORDER_COLOR: this.PDF_OUTER_BORDER_COLOR,
-      PDF_LOGO: this.PDF_LOGO,
-      PDF_PAGE_ORITENTATION: this.PDF_PAGE_ORITENTATION,
-      PDF_WITH_HEADER_IMAGE: false,
-      PDF_WITH_FOOTER_PAGE_COUNT: this.PDF_WITH_FOOTER_PAGE_COUNT,
-      PDF_HEADER_HEIGHT: this.PDF_HEADER_HEIGHT,
-      PDF_ROW_HEIGHT: this.PDF_ROW_HEIGHT,
-      PDF_ODD_BKG_COLOR: this.PDF_ODD_BKG_COLOR,
-      PDF_EVEN_BKG_COLOR: this.PDF_EVEN_BKG_COLOR,
-      PDF_WITH_CELL_FORMATTING: this.PDF_WITH_CELL_FORMATTING,
-      PDF_WITH_COLUMNS_AS_LINKS: this.PDF_WITH_COLUMNS_AS_LINKS,
-      PDF_SELECTED_ROWS_ONLY: this.PDF_SELECTED_ROWS_ONLY
-    };
-    let width: string[] = this.pending ? ['8%', '*', '12%', '15%', '*', '*', '*', '*', '*', '*', '*', '*'] : ['*', '*', '35%', '*', '*', '*', '*', '*', '*', '*', '*', '*'];
-    printDoc(printParams, this.gridOptions.api, this.gridOptions.columnApi, width);
+    if (this.tblGridData.length > 0) {
+      const printParams = {
+        PDF_HEADER_COLOR: this.PDF_HEADER_COLOR,
+        PDF_INNER_BORDER_COLOR: this.PDF_INNER_BORDER_COLOR,
+        PDF_OUTER_BORDER_COLOR: this.PDF_OUTER_BORDER_COLOR,
+        PDF_LOGO: this.PDF_LOGO,
+        PDF_PAGE_ORITENTATION: this.PDF_PAGE_ORITENTATION,
+        PDF_WITH_HEADER_IMAGE: false,
+        PDF_WITH_FOOTER_PAGE_COUNT: this.PDF_WITH_FOOTER_PAGE_COUNT,
+        PDF_HEADER_HEIGHT: this.PDF_HEADER_HEIGHT,
+        PDF_ROW_HEIGHT: this.PDF_ROW_HEIGHT,
+        PDF_ODD_BKG_COLOR: this.PDF_ODD_BKG_COLOR,
+        PDF_EVEN_BKG_COLOR: this.PDF_EVEN_BKG_COLOR,
+        PDF_WITH_CELL_FORMATTING: this.PDF_WITH_CELL_FORMATTING,
+        PDF_WITH_COLUMNS_AS_LINKS: this.PDF_WITH_COLUMNS_AS_LINKS,
+        PDF_SELECTED_ROWS_ONLY: this.PDF_SELECTED_ROWS_ONLY
+      };
+      let width: string[] = this.pending ? ['8%', '*', '12%', '15%', '*', '*', '*', '*', '*', '*', '*', '*'] : ['*', '*', '35%', '*', '*', '*', '*', '*', '*', '*', '*', '*'];
+      printDoc(printParams, this.gridOptions.api, this.gridOptions.columnApi, width);
+    }
+    else
+      this.toastr.warning('No Data to export');
   }
   public async onPendingChange() {
     this.tblGridData = [];

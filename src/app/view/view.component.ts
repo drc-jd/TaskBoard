@@ -27,6 +27,8 @@ export class ViewComponent implements OnInit {
   public newPass: string;
   public confirmPass: string;
   public disableChangeButton: boolean = true;
+  public tblForm: object[] = [];
+  public tblReports: object[] = [];
   //#endregion
 
   constructor(private header: HeaderNameService,
@@ -43,6 +45,7 @@ export class ViewComponent implements OnInit {
 
   async ngOnInit() {
     this.UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+    await this.GetUserpermission();
   }
 
   //#region API Methods
@@ -67,6 +70,32 @@ export class ViewComponent implements OnInit {
           else
             this.toastr.error('Something Went Wrong');
         }
+      }
+      this.spinnerService.hide();
+    }
+    catch (error) {
+      this.spinnerService.hide();
+      this.errorService.error(error);
+    }
+  }
+  private async GetUserpermission() {
+    try {
+      this.spinnerService.show();
+      let paraList = {
+        Type: 'GetUserpermission',
+        UserId: this.UserInfo.userId
+      }
+      let response: ApiResponse = await this.Service.Data(paraList);
+      if (response.isValidUser) {
+        if (response.messageType == MessageType.success) {
+          this.tblForm = response.dataList['ds']['table'];
+          this.tblReports = response.dataList['ds']['table1'];
+          console.log(this.tblForm);
+        }
+        else if (response.messageType == MessageType.error)
+          this.toastr.error(response.message);
+        else
+          this.toastr.error('Something Went Wrong');
       }
       this.spinnerService.hide();
     }
