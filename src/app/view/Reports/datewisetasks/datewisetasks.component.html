@@ -17,27 +17,32 @@
                     <div class="row">
                         <label class="mr-2 ml-2">Date :</label>
                         <div class="col-md-2">
-                            <input type="date" class="form-control" [(ngModel)]="SDate" id="SDate">
+                            <input type="date" class="form-control" [(ngModel)]="SDate" id="SDate" [disabled]="pending">
                         </div>
                         <div class="col-md-2">
-                            <input type="date" class="form-control" [(ngModel)]="EDate" id="EDate">
+                            <input type="date" class="form-control" [(ngModel)]="EDate" id="EDate" [disabled]="pending">
                         </div>
                         <div class="col-md-1">
                             <div class="custom-control custom-checkbox" style="padding-top: 5px;">
-                                <input [(ngModel)]="pending" type="checkbox" class="custom-control-input" id="Pending">
-                                <label class="custom-control-label control-label-1" for="Pending">Pending</label>
+                                <input style="cursor: pointer;" [(ngModel)]="pending" type="checkbox"
+                                    class="custom-control-input" id="Pending" (ngModelChange)="onPendingChange()">
+                                <label style="cursor: pointer;" class="custom-control-label control-label-1"
+                                    for="Pending">Pending</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <button (document:keydown.control.shift.f)="Find()" class="btn btn-primary mr-2"
                                 (click)="Find()">Find</button>
                         </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mr-2" (click)="pdfExp()">PDF</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-12" style="min-height: calc(100vh - 240px);">
-            <app-ag-grid (_gridApi)='setGrid($event)' [_gridOptions]=" gridOptions">
+            <app-ag-grid (_gridApi)='setGrid($event)' [_gridOptions]=" gridOptions" excelTitle="DateWise">
             </app-ag-grid>
         </div>
         <!-- <div class="col-md-4">
