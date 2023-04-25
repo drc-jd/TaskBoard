@@ -111,7 +111,9 @@ export class TaskComponent implements OnInit {
                 f['Files'].push(element);
               });
             }
-            if (this.selectedReportType == "In Progess") {
+            if (response.dataList['tblDuration'].length > 0) {
+              let utMin: number = this.helper.getInt(response.dataList['tblDuration'].filter(d => d['taskID'] == f['id'])[0]['totalMins']);
+              f['Progress'] = this.helper.getDecimal((utMin * 100) / f['totalMins']).toFixed(2);
               f['UtilHours'] = this.helper.getInt(response.dataList['tblDuration'].filter(d => d['taskID'] == f['id'])[0]['hours']);
               f['UtilMinutes'] = this.helper.getInt(response.dataList['tblDuration'].filter(d => d['taskID'] == f['id'])[0]['minutes']);
               f['TotalHours'] = f['totalHours'] + (this.helper.getInt(f['totalMinutes']) > 0 ? ":" + f['totalMinutes'] : "");

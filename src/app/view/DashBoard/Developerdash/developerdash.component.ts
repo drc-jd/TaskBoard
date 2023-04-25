@@ -23,6 +23,15 @@ export class DeveloperdashComponent implements OnInit {
   public totalTask: string = "0";
   public CompletedTask: string = "0";
   public InProgress: string = "0";
+
+  public totalTime: string = "0";
+  public pendingTime: string = "0";
+  public actualTime: string = "0";
+
+  public averageRating: number = 0;
+  public totalRatedTask: number = 0;
+  public totalRating: number = 0;
+
   public ratio: number = 0;
   public tblTaskList: object[] = [];
 
@@ -79,6 +88,8 @@ export class DeveloperdashComponent implements OnInit {
               element['devData'] = response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id']);
               element['disableComplete'] = element['devData'].find(f => f['completeDate'] == null) == undefined ? false : true;
               if (response.dataList['ds']['table3'].length > 0) {
+                let utMin: Object = response.dataList['ds']['table3'].filter(d => d['taskId'] == element['id'])[0];
+                element['Progress'] = this.helper.getDecimal((utMin['usedMins'] * 100) / utMin['totalMins']).toFixed(2);
                 element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
                 element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
                 element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
@@ -90,7 +101,25 @@ export class DeveloperdashComponent implements OnInit {
                 });
               }
             });
-            console.log(response.dataList['ds']['table1']);
+          }
+          if (response.dataList['ds']['table5'].length > 0) {
+            this.averageRating = response.dataList['ds']['table5'][0]['average'];
+            this.totalRatedTask = response.dataList['ds']['table5'][0]['totalTask'];
+            this.totalRating = response.dataList['ds']['table5'][0]['totalRatings'];
+          } else {
+            this.averageRating = 0;
+            this.totalRatedTask = 0;
+            this.totalRating = 0;
+          }
+          if (response.dataList['ds']['table4'].length > 0) {
+            this.totalTime = response.dataList['ds']['table4'][0]['totalTime'];
+            this.pendingTime = response.dataList['ds']['table4'][0]['pendingTime'];
+            this.actualTime = response.dataList['ds']['table4'][0]['actualTime'];
+          }
+          else {
+            this.totalTime = "0";
+            this.pendingTime = "0";
+            this.actualTime = "0";
           }
         }
         else if (response.messageType == MessageType.error)
@@ -256,7 +285,6 @@ export class DeveloperdashComponent implements OnInit {
 
   //#region Other Methods
   public async addComment(data: object) {
-    debugger;
     this.refSrNo = data['srNo'];
     this.taskId = data['taskId'];
     await this.GetComments();
@@ -276,7 +304,6 @@ export class DeveloperdashComponent implements OnInit {
     $("#openModal")[0].click();
   }
   public async ConfirmDelete(srNo: number) {
-    debugger;
     this.srNo = srNo;
     this.confirmText = {
       Header: 'Delete?', Body: 'Are you sure you want to delete this comment?', Method: 'DeleteComment'

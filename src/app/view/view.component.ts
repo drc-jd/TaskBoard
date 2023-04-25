@@ -90,7 +90,6 @@ export class ViewComponent implements OnInit {
         if (response.messageType == MessageType.success) {
           this.tblForm = response.dataList['ds']['table'];
           this.tblReports = response.dataList['ds']['table1'];
-          console.log(this.tblForm);
         }
         else if (response.messageType == MessageType.error)
           this.toastr.error(response.message);

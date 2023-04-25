@@ -5,7 +5,6 @@
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Tasks</h5>
-                        <!-- <span class="badge badge-primary">Overall</span> -->
                     </div>
                     <h3><span class="counter">{{totalTask}}</span></h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
@@ -22,38 +21,35 @@
         </div>
         <div class="col-lg-4">
             <div class="card card-block card-stretch card-height">
-                <!-- <div class="card-body">
+                <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
-                        <h5>Sales</h5>
-                        <span class="badge badge-warning">Anual</span>
+                        <h5>Duration</h5>
                     </div>
-                    <h3>$<span class="counter">25100</span></h3>
+                    <h3><span class="counter">{{actualTime}} Hours</span></h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
-                        <p class="mb-0">Total Revenue</p>
-                        <span class="text-warning">35%</span>
+                        <span>Approx Time : {{totalTime}}</span>
+                        <span>Extra Time : {{pendingTime}}</span>
                     </div>
-                    <div class="iq-progress-bar bg-warning-light mt-2">
-                        <span class="bg-warning iq-progress progress-1" data-percent="35"></span>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="card card-block card-stretch card-height">
-                <!-- <div class="card-body">
+                <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
-                        <h5>Cost</h5>
-                        <span class="badge badge-success">Today</span>
+                        <h5>Rating</h5>
+                        <!-- <span class="badge badge-success">Today</span> -->
                     </div>
-                    <h3>$<span class="counter">33000</span></h3>
+                    <h3>
+                        <star-rating-control size="large" [hoverEnabled]="true" [readOnly]="true" [starType]="'svg'"
+                            [rating]="averageRating" [showHalfStars]="true" [labelText]="averageRating">
+                        </star-rating-control>
+                    </h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
-                        <p class="mb-0">Total Revenue</p>
-                        <span class="text-success">85%</span>
+                        <span>Total Task : {{totalRatedTask}}</span>
+                        <span>Overall Rating : {{totalRating}}</span>
                     </div>
-                    <div class="iq-progress-bar bg-success-light mt-2">
-                        <span class="bg-success iq-progress progress-1" data-percent="85"></span>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="col-md-12">
@@ -73,8 +69,17 @@
                                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <h4 class="mb-2" style="font-weight: 700;">{{task.taskName}}
-                                                    </h4>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h4 class="mb-2" style="font-weight: 700;">
+                                                            {{task.taskName}}
+                                                        </h4>
+                                                        <div class="btn bg-body mr-3" [ngClass]='{
+                                                        "priorityhigh" : task.Progress > 100,
+                                                        "prioritylow" : task.Progress <=100
+                                                        }' style="border: 1px solid #d3d3d3;text-align: right;">
+                                                            {{task.Progress}}%
+                                                        </div>
+                                                    </div>
                                                     <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
                                                         {{task.taskDescription}}</h6>
                                                     <div class="media align-items-center">

@@ -19,6 +19,8 @@
                                         </select>
                                     </div>
                                 </div>
+                                <button class="btn btn-primary mr-2" (click)="GetTaskList()"><i
+                                        class="las la-search mr-0" style="font-size: 18px;"></i></button>
                             </ng-container>
                             <a *ngIf="UserInfo.role=='Task Incharge'" href="#" (click)="OpenTaskPopup()"
                                 class="btn btn-primary" data-target="#new-task-modal" data-toggle="modal">New
@@ -43,8 +45,18 @@
                                             <div class="d-flex flex-wrap align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
                                                     <div>
-                                                        <h4 class="mb-2" style="font-weight: 700;">{{task.taskName}}
-                                                        </h4>
+                                                        <div class="d-flex justify-content-between">
+                                                            <h4 class="mb-2" style="font-weight: 700;">{{task.taskName}}
+                                                            </h4>
+                                                            <div *ngIf="task.Progress && task.totalHours"
+                                                                class="btn bg-body mr-3" [ngClass]='{
+                                                                "priorityhigh" : task.Progress > 100,
+                                                                "prioritylow" : task.Progress <=100
+                                                                }'
+                                                                style="border: 1px solid #d3d3d3;text-align: right;">
+                                                                {{task.Progress}}%
+                                                            </div>
+                                                        </div>
                                                         <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
                                                             {{task.taskDescription}}</h6>
                                                         <div class="media align-items-center">
@@ -79,8 +91,8 @@
                                                                 {{task.status}}
                                                             </div>
                                                             <ng-container
-                                                                *ngIf="UserInfo.role == 'Task Incharge' && selectedReportType=='In Progess'">
-                                                                <div class="btn bg-body mr-3"
+                                                                *ngIf="UserInfo.role == 'Task Incharge' && task.totalHours">
+                                                                <div class=" btn bg-body mr-3"
                                                                     style="border: 1px solid #b55f44;">
                                                                     <span>T :</span> {{task.TotalHours}}
                                                                 </div>

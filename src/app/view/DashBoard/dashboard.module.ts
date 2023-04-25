@@ -7,6 +7,7 @@ import { DeveloperdashComponent } from './Developerdash/developerdash.component'
 import { ManagerdashComponent } from './Managerdash/managerdash.component';
 import { AuthoritydashComponent } from './Authoritydash/authoritydash.component';
 import { FormsModule } from '@angular/forms';
+import { StarRatingModule } from 'angular-star-rating';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    StarRatingModule,
     DashboardRoutingModule
   ]
 })

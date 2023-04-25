@@ -155,6 +155,8 @@ export class PendingtaskComponent implements OnInit, OnDestroy {
             // element['PenHours'] = this.helper.getInt(Math.abs(totalPendingMinutes) / 60);
             // element['PenMinutes'] = Math.abs(totalPendingMinutes) % 60;
             if (response.dataList['ds']['table2'].length > 0) {
+              let utMin: Object = response.dataList['ds']['table2'].filter(d => d['taskId'] == element['id'])[0];
+              element['Progress'] = this.helper.getDecimal((utMin['usedMins'] * 100) / utMin['totalMins']).toFixed(2);
               element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
               element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
               element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
@@ -166,7 +168,6 @@ export class PendingtaskComponent implements OnInit, OnDestroy {
               });
             }
           });
-          console.log(this.tblTaskList);
         }
         else if (response.messageType == MessageType.error)
           this.toastr.error(response.message);
@@ -390,7 +391,6 @@ export class PendingtaskComponent implements OnInit, OnDestroy {
     await this.GetPendingTask();
   }
   public async ConfirmDelete(srNo: number) {
-    debugger;
     this.srNo = srNo;
     this.confirmText = {
       Header: 'Delete?', Body: 'Are you sure you want to delete this comment?', Method: 'DeleteComment'
