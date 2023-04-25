@@ -132,6 +132,27 @@ export default function getDocDefinition(
         },
         tableCell: {
           // margin: [0, 15, 0, 0]
+        },
+        priorityhigh: {
+          color: '#D27254',
+          fillColor: '#FCCFC1'
+        },
+        prioritylow: {
+          color: '#5FACA1',
+          fillColor: '#CEEFEA'
+        },
+        prioritymedium: {
+          color: '#D7A621',
+          fillColor: '#FFF2CF'
+        },
+        New: {
+          fillColor: '#76933C'
+        },
+        Change: {
+          fillColor: '#B7DEE8'
+        },
+        Bug: {
+          fillColor: '#FABF8F'
         }
       },
       pageMargins
@@ -247,10 +268,27 @@ export default function getDocDefinition(
   }
 
   function createTableCell(cellValue, colId) {
+    let cellstyle = "";
+    if (colId == "priority") {
+      if (cellValue == 'MEDIUM')
+        cellstyle = "prioritymedium";
+      if (cellValue == 'HIGH')
+        cellstyle = "priorityhigh";
+      if (cellValue == 'LOW')
+        cellstyle = "prioritylow";
+    }
+    if (colId == "taskType") {
+      if (cellValue == 'New')
+        cellstyle = "New";
+      if (cellValue == 'Bug')
+        cellstyle = "Bug";
+      if (cellValue == 'Change')
+        cellstyle = "Change";
+    }
     const tableCell = {
       text: cellValue !== undefined ? cellValue : "",
       // noWrap: PDF_PAGE_ORITENTATION === "landscape",
-      style: "tableCell"
+      style: cellstyle
     };
 
     const pdfExportOptions = getPdfExportOptions(colId);
