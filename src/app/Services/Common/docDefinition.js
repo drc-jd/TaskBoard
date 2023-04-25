@@ -153,6 +153,12 @@ export default function getDocDefinition(
         },
         Bug: {
           fillColor: '#FABF8F'
+        },
+        Chktrue: {
+          fillColor: '#80D58D'
+        },
+        ChkFalse: {
+          fillColor: '#E1A2A8'
         }
       },
       pageMargins
@@ -284,6 +290,12 @@ export default function getDocDefinition(
         cellstyle = "Bug";
       if (cellValue == 'Change')
         cellstyle = "Change";
+    }
+    if (colId == "isComplete") {
+      if (cellValue == true)
+        cellstyle = "Chktrue";
+      if (cellValue == false)
+        cellstyle = "ChkFalse";
     }
     const tableCell = {
       text: cellValue !== undefined ? cellValue : "",

@@ -185,7 +185,7 @@ export class DatewisetasksComponent implements OnInit {
       }
       if (_.indexOf(["COMMENT"], columns[i].toUpperCase()) > -1)
         colObj['type'] = ['text'];
-      if (_.indexOf(["REFSRNO", "ISCOMPLETE"], columns[i].toUpperCase()) > -1)
+      if (_.indexOf(["REFSRNO"], columns[i].toUpperCase()) > -1)
         colObj['hide'] = true;
       if (_.indexOf(["ISCOMPLETE"], columns[i].toUpperCase()) > -1)
         colObj['type'] = ['chkBoxWithImage'];
@@ -232,7 +232,7 @@ export class DatewisetasksComponent implements OnInit {
         PDF_WITH_COLUMNS_AS_LINKS: this.PDF_WITH_COLUMNS_AS_LINKS,
         PDF_SELECTED_ROWS_ONLY: this.PDF_SELECTED_ROWS_ONLY
       };
-      let width: string[] = this.pending ? ['8%', '*', '12%', '15%', '*', '*', '*', '*', '*', '*', '*', '*'] : ['*', '*', '35%', '*', '*', '*', '*', '*', '*', '*', '*'];
+      let width: string[] = this.pending ? ['8%', '*', '12%', '15%', '*', '*', '*', '*', '*', '*', '*', '*', '*'] : ['*', '*', '35%', '*', '*', '*', '*', '*', '*', '*', '*', '*'];
       printDoc(printParams, this.gridOptions.api, this.gridOptions.columnApi, width);
     }
     else
