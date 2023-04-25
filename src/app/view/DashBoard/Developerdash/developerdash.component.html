@@ -56,7 +56,22 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h3 class="card-title">In Progress</h3>
+                        <h3 class="card-title">{{selectedReportType}}</h3>
+                    </div>
+                    <div class="d-flex">
+                        <label class=" h5 mr-2" style="margin-bottom: 0;">Type</label>
+                        <div class="dropdown dropdown-project mr-3">
+                            <div class="form-group mb-0">
+                                <select tooltip id="ReportType" name="ReportType" [(ngModel)]="selectedReportType"
+                                    class="form-control" data-style="py-0" (ngModelChange)="GetTask()">
+                                    <option *ngFor="let Type of ddlReportType">
+                                        {{Type}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mr-2"><i class="las la-search mr-0"
+                                style="font-size: 18px;"></i></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -145,15 +160,22 @@
                                                             {{task.PendingHours}}
                                                         </div>
                                                     </div> -->
-                                                <span class="btn mr-3" [ngClass]='{
+                                                <span *ngIf="selectedReportType!='Completed'" class="btn mr-3"
+                                                    [ngClass]='{
                                                         "priority-high" : task.priority == 1,
                                                         "priority-medium" : task.priority == 2,
                                                         "priority-low" : task.priority == 3
                                                         }'>
                                                 </span>
+                                                <ng-container *ngIf="selectedReportType=='Completed'">
+                                                    <star-rating-control size="large" [starType]="'svg'"
+                                                        [rating]="task.rating" [readOnly]="true">
+                                                    </star-rating-control>
+                                                </ng-container>
                                                 <button [disabled]="task.disableComplete"
-                                                    *ngIf="UserInfo.userId == task.developerID" class="btn btn-success"
-                                                    title="Complete" (click)="ConfirmTaskComplete(task.id)"
+                                                    *ngIf="UserInfo.userId == task.developerID && selectedReportType=='In Progess'"
+                                                    class="btn btn-success" title="Complete"
+                                                    (click)="ConfirmTaskComplete(task.id)"
                                                     style="float: right;">Complete</button>
                                             </div>
                                         </div>

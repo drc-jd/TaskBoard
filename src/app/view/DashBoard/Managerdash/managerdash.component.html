@@ -1,1 +1,291 @@
-<p>managerdash works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h5>Tasks</h5>
+                    </div>
+                    <h3><span class="counter">{{totalTask}}</span></h3>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                        <span class="">In Progress : {{InProgress}}</span>
+                        <span class="">Completed : {{CompletedTask}}</span>
+                        <span class="text-primary">{{ratio}}%</span>
+                    </div>
+                    <div class="iq-progress-bar bg-primary-light mt-2">
+                        <span class="bg-primary iq-progress progress-1" style="transition: width 2s ease 0s;"
+                            [ngStyle]="{'width':ratio +'%'}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h5>Duration</h5>
+                    </div>
+                    <h3><span class="counter">{{actualTime}} Hours</span></h3>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                        <span>Approx Time : {{totalTime}}</span>
+                        <span>Extra Time : {{pendingTime}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h5>Rating</h5>
+                        <!-- <span class="badge badge-success">Today</span> -->
+                    </div>
+                    <!-- <h3>
+                        <star-rating-control size="large" [hoverEnabled]="true" [readOnly]="true" [starType]="'svg'"
+                            [rating]="averageRating" [showHalfStars]="true" [labelText]="averageRating">
+                        </star-rating-control>
+                    </h3>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                        <span>Total Task : {{totalRatedTask}}</span>
+                        <span>Overall Rating : {{totalRating}}</span>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" *ngIf="developerID==0">
+            <div class="row">
+                <div class="col-lg-4 col-md-6" *ngFor="let user of tblUsers">
+                    <div class="card-transparent card-block card-stretch card-height">
+                        <div class="card-body text-center p-0">
+                            <div class="item">
+                                <div class="odr-img">
+                                    <img src="data:image/jpeg;base64,{{user.profileImg}}"
+                                        class="img-fluid rounded-circle avatar-90 m-auto" alt="image">
+                                </div>
+                                <div class="odr-content rounded usercard" (click)="DeveloperCardClick(user)">
+                                    <h4 class="mb-2">{{user.fullName}}</h4>
+                                    <p class="mb-3">
+                                        <star-rating-control size="medium" [hoverEnabled]="true" [readOnly]="true"
+                                            [starType]="'svg'" [rating]="user.rating" [showHalfStars]="true"
+                                            [labelText]="user.rating">
+                                        </star-rating-control>
+                                    </p>
+                                    <ul class="list-unstyled mb-3">
+                                        <li
+                                            class="bg-primary-light rounded-circle iq-card-icon-small manager-label mr-4">
+                                            <i class="las la-clipboard"></i>{{user.totalTasks}}
+                                        </li>
+                                        <li
+                                            class="bg-secondary-light rounded-circle iq-card-icon-small manager-label mr-4">
+                                            <i class="las la-hourglass-half"></i>{{user.inProgress}}
+                                        </li>
+                                        <li class="bg-success-light rounded-circle iq-card-icon-small manager-label">
+                                            <i class="las la-check"></i>{{user.completedTask}}
+                                        </li>
+                                    </ul>
+                                    <!-- <div class="pt-3 border-top">
+                                        <a href="#" class="btn btn-primary">Message</a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="developerID!=0">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h5><a style="color: #5773ff;font-weight: 700;cursor: pointer;" (click)="CloseUser()">Users</a>
+                            <i class="las la-angle-right"></i>
+                            {{developerName}}</h5>
+                    </div>
+                    <div class="d-flex">
+                        <label class=" h5 mr-2" style="margin-bottom: 0;">Type</label>
+                        <div class="dropdown dropdown-project mr-3">
+                            <div class="form-group mb-0">
+                                <select tooltip id="ReportType" name="ReportType" [(ngModel)]="selectedReportType"
+                                    class="form-control" data-style="py-0" (ngModelChange)="GetTask()">
+                                    <option *ngFor="let Type of ddlReportType">
+                                        {{Type}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mr-2"><i class="las la-search mr-0"
+                                style="font-size: 18px;"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12" *ngFor="let task of tblTaskList">
+                            <div class="card card-widget task-card">
+                                <a data-toggle="collapse" [href]="'#details'+task.id " aria-expanded="false"
+                                    role="button" [aria-controls]="'#details'+task.id">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h4 class="mb-2" style="font-weight: 700;">
+                                                            {{task.taskName}}
+                                                        </h4>
+                                                        <div class="btn bg-body mr-3" [ngClass]='{
+                                                        "priorityhigh" : task.Progress > 100,
+                                                        "prioritylow" : task.Progress <=100
+                                                        }' style="border: 1px solid #d3d3d3;text-align: right;">
+                                                            {{task.Progress}}%
+                                                        </div>
+                                                    </div>
+                                                    <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
+                                                        {{task.taskDescription}}</h6>
+                                                    <div class="media align-items-center">
+                                                        <div class="btn bg-body mr-3"
+                                                            style="border: 1px solid #d3d3d3;">
+                                                            <svg class="svg-icon" width="20" height="20"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 1 24 24"
+                                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round">
+                                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                                                                </path>
+                                                                <circle cx="12" cy="7" r="4"></circle>
+                                                            </svg> {{task.incharge}}
+                                                        </div>
+                                                        <div class="btn bg-body mr-3"
+                                                            style="border: 1px solid #d3d3d3;">
+                                                            <i class="ri-survey-line mr-2"></i>{{task.projectName}}
+                                                        </div>
+                                                        <div class="btn bg-body mr-3"
+                                                            style="border: 1px solid #d3d3d3;">
+                                                            <i style="font-size: 24px;"
+                                                                class="las la-code"></i>{{task.developer}}
+                                                        </div>
+                                                        <div class="btn bg-body mr-3"
+                                                            style="border: 1px solid #b55f44;">
+                                                            <span>T :</span> {{task.TotalHours}}
+                                                        </div>
+                                                        <div class="btn bg-body mr-3"
+                                                            style="border: 1px solid #0023d0;">
+                                                            <span>W :</span> {{task.UtilizeHours}}
+                                                        </div>
+                                                        <div class="btn bg-body mr-3" [ngClass]='{
+                                                                "orangeborder" : task.totalPendingMinutes > 0,
+                                                                "greenborder" : task.totalPendingMinutes == 0,
+                                                                "redborder" : task.totalPendingMinutes < 0
+                                                                }' style="border: 1px solid">
+                                                            <span>P :</span> {{task.PendingHours}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="media mt-1 align-items-center"
+                                                        *ngIf="task.Files.length > 0">
+                                                        <div class="btn bg-body mr-3" *ngFor="let file of task.Files"
+                                                            style="border: 1px solid #d3d3d3;"
+                                                            (click)="DownloadFile(file)">
+                                                            <i class="las la-download"
+                                                                style="font-size: 24px;"></i>{{file}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="media align-items-center mt-md-0 mt-3">
+                                                <!-- <div class="btn mr-3">
+                                                        <div
+                                                            class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                            {{task.TotalHours}}
+                                                        </div>
+                                                        <div
+                                                            class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                            {{task.UtilizeHours}}
+                                                        </div>
+                                                        <div
+                                                            class="bg-success-light rounded-circle iq-card-icon-small hours">
+                                                            {{task.PendingHours}}
+                                                        </div>
+                                                    </div> -->
+                                                <span *ngIf="selectedReportType!='Completed'" class="btn mr-3"
+                                                    [ngClass]='{
+                                                        "priority-high" : task.priority == 1,
+                                                        "priority-medium" : task.priority == 2,
+                                                        "priority-low" : task.priority == 3
+                                                        }'>
+                                                </span>
+                                                <ng-container *ngIf="selectedReportType=='Completed'">
+                                                    <star-rating-control size="large" [starType]="'svg'"
+                                                        [rating]="task.rating" [readOnly]="true">
+                                                    </star-rating-control>
+                                                </ng-container>
+                                                <button [disabled]="task.disableComplete"
+                                                    *ngIf="UserInfo.userId == task.developerID && selectedReportType=='In Progess'"
+                                                    class="btn btn-success" title="Complete"
+                                                    (click)="ConfirmTaskComplete(task.id)"
+                                                    style="float: right;">Complete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class=" collapse" id="details{{task.id}}">
+                                <div class="card card-list task-card">
+                                    <div class="card-body">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="table-responsive rounded bg-white mb-4">
+                                                            <table class="table mb-0 table-borderless tbl-server-info">
+                                                                <tbody>
+                                                                    <tr *ngFor="let data of task.devData">
+                                                                        <td style="width: 50%;">
+                                                                            <div class="media align-items-center">
+                                                                                <h5 class="ml-3">
+                                                                                    {{data.comment}}
+                                                                                </h5>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 15%;">
+                                                                            <img _ngcontent-ult-c58="" alt=""
+                                                                                class="img-fluid avatar-40 rounded-circle"
+                                                                                src="data:image/jpeg;base64,{{data.profileImg}}">
+                                                                            {{data.devName}}
+                                                                        </td>
+                                                                        <td style="width: 15%;">
+                                                                            <div class="media align-items-center">
+                                                                                <div
+                                                                                    class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                                    {{data.totalTime}}
+                                                                                </div>
+                                                                                <div
+                                                                                    class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
+                                                                                    {{data.usedTime}}
+                                                                                </div>
+                                                                                <div
+                                                                                    class="bg-success-light rounded-circle iq-card-icon-small hours">
+                                                                                    {{data.pendingTime}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width: 20%;">
+                                                                            <label *ngIf="data.completeDate != null"
+                                                                                style="float: right;color: green;
+                                                                                    font-weight: 500;">Done
+                                                                                on {{data.completeDate}}</label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

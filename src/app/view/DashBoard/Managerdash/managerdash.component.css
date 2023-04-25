@@ -1,0 +1,15 @@
+.manager-label {
+    border-radius: 10% !important;
+    width: 60px !important;
+}
+
+.hours {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 20% !important;
+}
+
+.usercard:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}

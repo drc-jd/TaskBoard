@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiResponse } from 'src/app/Class/Common/ApiResponse';
@@ -23,6 +23,7 @@ export class DeveloperdashComponent implements OnInit {
   public totalTask: string = "0";
   public CompletedTask: string = "0";
   public InProgress: string = "0";
+  public ratio: number = 0;
 
   public totalTime: string = "0";
   public pendingTime: string = "0";
@@ -32,7 +33,6 @@ export class DeveloperdashComponent implements OnInit {
   public totalRatedTask: number = 0;
   public totalRating: number = 0;
 
-  public ratio: number = 0;
   public tblTaskList: object[] = [];
 
   public comment: string;
@@ -42,6 +42,10 @@ export class DeveloperdashComponent implements OnInit {
   public taskId: number = 0;
   public srNo: number = 0;
   public selectedFiles: object[] = [];
+
+  public ddlReportType: string[] = ["In Progess", "Rating Pending", "Completed"]
+  public selectedReportType: string = "In Progess";
+
   public confirmText: { Header: string, Body: string, Method: string } = {
     Header: '',
     Body: '',
@@ -54,7 +58,6 @@ export class DeveloperdashComponent implements OnInit {
 
   constructor(private errorService: ErrorDialogueService,
     private spinnerService: NgxSpinnerService,
-    @Inject(LOCALE_ID) private locale: string,
     private projectsService: ProjectsService,
     private Service: DashboardService,
     private taskService: TaskService,
@@ -64,6 +67,7 @@ export class DeveloperdashComponent implements OnInit {
   async ngOnInit() {
     this.UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
     await this.GetData();
+    await this.GetTask();
   }
 
   //#region API Methods
@@ -73,7 +77,7 @@ export class DeveloperdashComponent implements OnInit {
       let paraList = {
         Type: 'GetData',
         Role: this.UserInfo.role,
-        DeveloperId: this.UserInfo.userId
+        UserId: this.UserInfo.userId
       }
       let response: ApiResponse = await this.Service.Data(paraList);
       if (response.isValidUser) {
@@ -83,34 +87,25 @@ export class DeveloperdashComponent implements OnInit {
             this.CompletedTask = response.dataList['ds']['table'][0]['complete'];
             this.InProgress = response.dataList['ds']['table'][0]['pending'];
             this.ratio = response.dataList['ds']['table'][0]['ratio'];
-            this.tblTaskList = response.dataList['ds']['table1'];
-            this.tblTaskList.forEach(element => {
-              element['devData'] = response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id']);
-              element['disableComplete'] = element['devData'].find(f => f['completeDate'] == null) == undefined ? false : true;
-              if (response.dataList['ds']['table3'].length > 0) {
-                let utMin: Object = response.dataList['ds']['table3'].filter(d => d['taskId'] == element['id'])[0];
-                element['Progress'] = this.helper.getDecimal((utMin['usedMins'] * 100) / utMin['totalMins']).toFixed(2);
-                element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
-                element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
-                element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
-              }
-              element['Files'] = [];
-              if (this.helper.getStringOrEmpty(element['fileList']) != "") {
-                element['fileList'].split("|").forEach(f => {
-                  element['Files'].push(f);
-                });
-              }
-            });
           }
-          if (response.dataList['ds']['table5'].length > 0) {
-            this.averageRating = response.dataList['ds']['table5'][0]['average'];
-            this.totalRatedTask = response.dataList['ds']['table5'][0]['totalTask'];
-            this.totalRating = response.dataList['ds']['table5'][0]['totalRatings'];
-          } else {
-            this.averageRating = 0;
-            this.totalRatedTask = 0;
-            this.totalRating = 0;
-          }
+          // this.tblTaskList = response.dataList['ds'][''];
+          // this.tblTaskList.forEach(element => {
+          //   element['devData'] = response.dataList['ds']['1'].filter(f => f['taskId'] == element['id']);
+          //   element['disableComplete'] = element['devData'].find(f => f['completeDate'] == null) == undefined ? false : true;
+          //   if (response.dataList['ds']['table3'].length > 0) {
+          //     let utMin: Object = response.dataList['ds']['table3'].filter(d => d['taskId'] == element['id'])[0];
+          //     element['Progress'] = this.helper.getDecimal((utMin['usedMins'] * 100) / utMin['totalMins']).toFixed(2);
+          //     element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
+          //     element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
+          //     element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table3'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
+          //   }
+          //   element['Files'] = [];
+          //   if (this.helper.getStringOrEmpty(element['fileList']) != "") {
+          //     element['fileList'].split("|").forEach(f => {
+          //       element['Files'].push(f);
+          //     });
+          //   }
+          // });
           if (response.dataList['ds']['table4'].length > 0) {
             this.totalTime = response.dataList['ds']['table4'][0]['totalTime'];
             this.pendingTime = response.dataList['ds']['table4'][0]['pendingTime'];
@@ -121,6 +116,59 @@ export class DeveloperdashComponent implements OnInit {
             this.pendingTime = "0";
             this.actualTime = "0";
           }
+          if (response.dataList['ds']['table5'].length > 0) {
+            this.averageRating = response.dataList['ds']['table5'][0]['average'];
+            this.totalRatedTask = response.dataList['ds']['table5'][0]['totalTask'];
+            this.totalRating = response.dataList['ds']['table5'][0]['totalRatings'];
+          }
+          else {
+            this.averageRating = 0;
+            this.totalRatedTask = 0;
+            this.totalRating = 0;
+          }
+        }
+        else if (response.messageType == MessageType.error)
+          this.toastr.error(response.message);
+        else
+          this.toastr.error('Something Went Wrong');
+      }
+      this.spinnerService.hide();
+    }
+    catch (error) {
+      this.spinnerService.hide();
+      this.errorService.error(error);
+    }
+  }
+  public async GetTask() {
+    try {
+      this.spinnerService.show();
+      let paraList = {
+        Type: 'GetTask',
+        ReportType: this.selectedReportType,
+        UserId: this.UserInfo.userId
+      }
+      let response: ApiResponse = await this.Service.Data(paraList);
+      if (response.isValidUser) {
+        if (response.messageType == MessageType.success) {
+          console.log(response.dataList['ds'])
+          this.tblTaskList = response.dataList['ds']['table'];
+          this.tblTaskList.forEach(element => {
+            element['devData'] = response.dataList['ds']['table1'].filter(f => f['taskId'] == element['id']);
+            element['disableComplete'] = element['devData'].find(f => f['completeDate'] == null) == undefined ? false : true;
+            if (response.dataList['ds']['table2'].length > 0) {
+              let utMin: Object = response.dataList['ds']['table2'].filter(d => d['taskId'] == element['id'])[0];
+              element['Progress'] = this.helper.getDecimal((utMin['usedMins'] * 100) / utMin['totalMins']).toFixed(2);
+              element['TotalHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalTotalHours']).toFixed(2);
+              element['UtilizeHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['utilizeHours']).toFixed(2);
+              element['PendingHours'] = this.helper.getDecimal(response.dataList['ds']['table2'].filter(f => f['taskId'] == element['id'])[0]['finalPendingHours']).toFixed(2);
+            }
+            element['Files'] = [];
+            if (this.helper.getStringOrEmpty(element['fileList']) != "") {
+              element['fileList'].split("|").forEach(f => {
+                element['Files'].push(f);
+              });
+            }
+          });
         }
         else if (response.messageType == MessageType.error)
           this.toastr.error(response.message);
@@ -242,6 +290,7 @@ export class DeveloperdashComponent implements OnInit {
           this.toastr.success(response.message);
           this.srNo = 0;
           await this.GetData();
+          await this.GetTask();
         }
         else if (response.messageType == MessageType.error)
           this.toastr.error(response.message);
@@ -268,6 +317,7 @@ export class DeveloperdashComponent implements OnInit {
           this.toastr.success(response.message);
           this.srNo = 0;
           await this.GetData();
+          await this.GetTask();
         }
         else if (response.messageType == MessageType.error)
           this.toastr.error(response.message);
@@ -316,6 +366,7 @@ export class DeveloperdashComponent implements OnInit {
     this.taskId = 0;
     this.selectedFiles = [];
     await this.GetData();
+    await this.GetTask();
   }
   public async yesClick() {
     if (this.confirmText.Method.toUpperCase() == "DELETECOMMENT")
