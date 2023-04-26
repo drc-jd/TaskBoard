@@ -8,6 +8,7 @@ import { ManagerdashComponent } from './Managerdash/managerdash.component';
 import { AuthoritydashComponent } from './Authoritydash/authoritydash.component';
 import { FormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
+import { SharedDirectiveModule } from 'src/app/Directive/shareddirecitve.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { StarRatingModule } from 'angular-star-rating';
     CommonModule,
     FormsModule,
     StarRatingModule,
+    SharedDirectiveModule,
     DashboardRoutingModule
   ]
 })
