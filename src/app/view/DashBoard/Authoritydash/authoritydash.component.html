@@ -72,16 +72,17 @@
                                         </star-rating-control>
                                     </p>
                                     <ul class="list-unstyled mb-3">
-                                        <li
-                                            class="bg-primary-light rounded-circle iq-card-icon-small manager-label mr-4">
-                                            <i class="las la-clipboard"></i>{{user.totalTasks}}
+                                        <li class="bg-primary-light rounded-circle iq-card-icon-small manager-label mr-4"
+                                            title="Total Task">
+                                            <i class="las la-clipboard-list"></i>{{user.totalTasks}}
                                         </li>
-                                        <li
-                                            class="bg-secondary-light rounded-circle iq-card-icon-small manager-label mr-4">
+                                        <li class="bg-secondary-light rounded-circle iq-card-icon-small manager-label mr-4"
+                                            title="Task InProgress">
                                             <i class="las la-hourglass-half"></i>{{user.inProgress}}
                                         </li>
-                                        <li class="bg-success-light rounded-circle iq-card-icon-small manager-label">
-                                            <i class="las la-check"></i>{{user.completedTask}}
+                                        <li class="bg-success-light rounded-circle iq-card-icon-small manager-label"
+                                            title="Completed Task">
+                                            <i class="las la-list-alt"></i>{{user.completedTask}}
                                         </li>
                                     </ul>
                                     <!-- <div class="pt-3 border-top">
