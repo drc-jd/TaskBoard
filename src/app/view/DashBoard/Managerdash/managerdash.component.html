@@ -40,21 +40,22 @@
                         <h5>Rating</h5>
                         <!-- <span class="badge badge-success">Today</span> -->
                     </div>
-                    <!-- <h3>
+                    <h3>
                         <star-rating-control size="large" [hoverEnabled]="true" [readOnly]="true" [starType]="'svg'"
-                            [rating]="averageRating" [showHalfStars]="true" [labelText]="averageRating">
+                            [rating]="averageRating" [showHalfStars]="true"
+                            [labelText]="averageRating | number:'1.1-1'">
                         </star-rating-control>
                     </h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <span>Total Task : {{totalRatedTask}}</span>
                         <span>Overall Rating : {{totalRating}}</span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-12" *ngIf="developerID==0">
             <div class="row">
-                <div class="col-lg-4 col-md-6" *ngFor="let user of tblUsers">
+                <div class="col-lg-3 col-md-6" *ngFor="let user of tblUsers">
                     <div class="card-transparent card-block card-stretch card-height">
                         <div class="card-body text-center p-0">
                             <div class="item">
@@ -63,11 +64,11 @@
                                         class="img-fluid rounded-circle avatar-90 m-auto" alt="image">
                                 </div>
                                 <div class="odr-content rounded usercard" (click)="DeveloperCardClick(user)">
-                                    <h4 class="mb-2">{{user.fullName}}</h4>
+                                    <h4 class="mb-2 overflow-text">{{user.fullName}}</h4>
                                     <p class="mb-3">
                                         <star-rating-control size="medium" [hoverEnabled]="true" [readOnly]="true"
                                             [starType]="'svg'" [rating]="user.rating" [showHalfStars]="true"
-                                            [labelText]="user.rating">
+                                            [labelText]="user.rating | number:'1.1-1'">
                                         </star-rating-control>
                                     </p>
                                     <ul class="list-unstyled mb-3">
@@ -99,7 +100,8 @@
                     <div class="header-title">
                         <h5><a style="color: #5773ff;font-weight: 700;cursor: pointer;" (click)="CloseUser()">Users</a>
                             <i class="las la-angle-right"></i>
-                            {{developerName}}</h5>
+                            {{developerName}}
+                        </h5>
                     </div>
                     <div class="d-flex">
                         <label class=" h5 mr-2" style="margin-bottom: 0;">Type</label>

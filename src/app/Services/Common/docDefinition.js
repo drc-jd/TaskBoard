@@ -154,6 +154,9 @@ export default function getDocDefinition(
         Bug: {
           fillColor: '#FABF8F'
         },
+        orange: {
+          fillColor: '#ffa500'
+        },
         Chktrue: {
           fillColor: '#80D58D'
         },
@@ -231,7 +234,7 @@ export default function getDocDefinition(
       }
       let rowToExport = columnsToExport.map(({ colId }) => {
         let cellValue = agGridApi.getValue(colId, node);
-        let tableCell = createTableCell(cellValue, colId);
+        let tableCell = createTableCell(cellValue, colId, node);
         return tableCell;
       });
       rowsToExport.push(rowToExport);
@@ -273,28 +276,29 @@ export default function getDocDefinition(
     return headerCell;
   }
 
-  function createTableCell(cellValue, colId) {
+  function createTableCell(cellValue, colId, node) {
+    let value = colId == "progress" ? agGridApi.getValue("isComplete", node) : cellValue
     let cellstyle = "";
     if (colId == "priority") {
-      if (cellValue == 'MEDIUM')
+      if (value == 'MEDIUM')
         cellstyle = "prioritymedium";
-      if (cellValue == 'HIGH')
+      if (value == 'HIGH')
         cellstyle = "priorityhigh";
-      if (cellValue == 'LOW')
+      if (value == 'LOW')
         cellstyle = "prioritylow";
     }
     if (colId == "taskType") {
-      if (cellValue == 'New')
+      if (value == 'New')
         cellstyle = "New";
-      if (cellValue == 'Bug')
+      if (value == 'Bug')
         cellstyle = "Bug";
-      if (cellValue == 'Change')
+      if (value == 'Change')
         cellstyle = "Change";
     }
-    if (colId == "isComplete") {
-      if (cellValue == true)
+    if (colId == "progress") {
+      if (value == true)
         cellstyle = "Chktrue";
-      if (cellValue == false)
+      if (value == false)
         cellstyle = "ChkFalse";
     }
     const tableCell = {

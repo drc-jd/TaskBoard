@@ -2,3 +2,28 @@
     border-radius: 10% !important;
     width: 60px !important;
 }
+
+.hours {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 20% !important;
+}
+
+.usercard:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@media screen and (min-width: 620px) and (max-width: 1522px) {
+    .manager-label {
+        width: 40px !important;
+        min-width: 35px !important;
+    }
+}
+
+.overflow-text {
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: ellipsis;
+    padding-left: 5px;
+}

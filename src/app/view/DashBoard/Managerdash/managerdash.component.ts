@@ -5,6 +5,7 @@ import { ApiResponse } from 'src/app/Class/Common/ApiResponse';
 import { UserInfo } from 'src/app/Class/Common/UserInfo';
 import { DashboardService } from 'src/app/Services/Common/Dashboard.service';
 import { ErrorDialogueService } from 'src/app/Services/Common/ErrorDiag.service';
+import { TaskService } from 'src/app/Services/Task/Task.service';
 import { Helper, MessageType } from 'src/environments/Helper';
 
 @Component({
@@ -24,6 +25,10 @@ export class ManagerdashComponent implements OnInit {
   public pendingTime: string = "0";
   public actualTime: string = "0";
 
+  public averageRating: number = 0;
+  public totalRatedTask: number = 0;
+  public totalRating: number = 0;
+
   public ddlReportType: string[] = ["In Progess", "Rating Pending", "Completed"]
   public selectedReportType: string = "In Progess";
 
@@ -38,7 +43,7 @@ export class ManagerdashComponent implements OnInit {
   constructor(private errorService: ErrorDialogueService,
     private spinnerService: NgxSpinnerService,
     private Service: DashboardService,
-    // private taskService: TaskService,
+    private taskService: TaskService,
     private toastr: ToastrService,
     private helper: Helper) { }
 
@@ -59,7 +64,7 @@ export class ManagerdashComponent implements OnInit {
       let response: ApiResponse = await this.Service.Data(paraList);
       if (response.isValidUser) {
         if (response.messageType == MessageType.success) {
-          console.log(response.dataList['ds']);
+          console.log(response.dataList['ds'])
           this.tblUsers = response.dataList['ds']['table'];
           if (response.dataList['ds']['table1'].length > 0) {
             this.totalTask = response.dataList['ds']['table1'][0]['totalTasks'];
@@ -70,6 +75,16 @@ export class ManagerdashComponent implements OnInit {
             this.totalTime = response.dataList['ds']['table1'][0]['approxHours'];
             this.pendingTime = response.dataList['ds']['table1'][0]['pendingHours'];
             this.actualTime = response.dataList['ds']['table1'][0]['spentHours'];
+          }
+          if (response.dataList['ds']['table2'].length > 0) {
+            this.averageRating = response.dataList['ds']['table2'][0]['average'];
+            this.totalRatedTask = response.dataList['ds']['table2'][0]['totalTask'];
+            this.totalRating = response.dataList['ds']['table2'][0]['totalRatings'];
+          }
+          else {
+            this.averageRating = 0;
+            this.totalRatedTask = 0;
+            this.totalRating = 0;
           }
         }
         else if (response.messageType == MessageType.error)
@@ -126,9 +141,20 @@ export class ManagerdashComponent implements OnInit {
       this.errorService.error(error);
     }
   }
+  public async DownloadFile(fileName: string) {
+    try {
+      this.spinnerService.show();
+      await this.taskService.Download(fileName)
+      this.spinnerService.hide();
+    }
+    catch (error) {
+      this.spinnerService.hide();
+      this.errorService.error(error);
+    }
+  }
   //#endregion
 
-  //#region Other Methods  
+  //#region Other Methods
   public async DeveloperCardClick(data: object) {
     this.developerID = data['id'];
     this.developerName = data['fullName'];
@@ -138,6 +164,7 @@ export class ManagerdashComponent implements OnInit {
     this.developerID = 0;
     this.developerName = null;
     this.tblTaskList = [];
+    this.selectedReportType = "In Progess";
   }
   //#endregion
 

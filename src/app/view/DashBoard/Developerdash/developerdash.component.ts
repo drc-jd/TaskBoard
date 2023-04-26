@@ -20,14 +20,14 @@ export class DeveloperdashComponent implements OnInit {
 
   //#region Declaration Methods
   @ViewChild(TooltipDirective) ToolTip;
-  public totalTask: string = "0";
-  public CompletedTask: string = "0";
-  public InProgress: string = "0";
+  public totalTask: number = 0;
+  public CompletedTask: number = 0;
+  public InProgress: number = 0;
   public ratio: number = 0;
 
-  public totalTime: string = "0";
-  public pendingTime: string = "0";
-  public actualTime: string = "0";
+  public totalTime: number = 0;
+  public pendingTime: number = 0;
+  public actualTime: number = 0;
 
   public averageRating: number = 0;
   public totalRatedTask: number = 0;
@@ -82,12 +82,6 @@ export class DeveloperdashComponent implements OnInit {
       let response: ApiResponse = await this.Service.Data(paraList);
       if (response.isValidUser) {
         if (response.messageType == MessageType.success) {
-          if (response.dataList['ds']['table'].length > 0) {
-            this.totalTask = response.dataList['ds']['table'][0]['total'];
-            this.CompletedTask = response.dataList['ds']['table'][0]['complete'];
-            this.InProgress = response.dataList['ds']['table'][0]['pending'];
-            this.ratio = response.dataList['ds']['table'][0]['ratio'];
-          }
           // this.tblTaskList = response.dataList['ds'][''];
           // this.tblTaskList.forEach(element => {
           //   element['devData'] = response.dataList['ds']['1'].filter(f => f['taskId'] == element['id']);
@@ -106,18 +100,30 @@ export class DeveloperdashComponent implements OnInit {
           //     });
           //   }
           // });
+          if (response.dataList['ds']['table'].length > 0) {
+            this.totalTask = response.dataList['ds']['table'][0]['total'];
+            this.CompletedTask = response.dataList['ds']['table'][0]['complete'];
+            this.InProgress = response.dataList['ds']['table'][0]['pending'];
+            this.ratio = response.dataList['ds']['table'][0]['ratio'];
+          }
+          else {
+            this.totalTask = 0;
+            this.CompletedTask = 0;
+            this.InProgress = 0;
+            this.ratio = 0;
+          }
           if (response.dataList['ds']['table4'].length > 0) {
             this.totalTime = response.dataList['ds']['table4'][0]['totalTime'];
             this.pendingTime = response.dataList['ds']['table4'][0]['pendingTime'];
             this.actualTime = response.dataList['ds']['table4'][0]['actualTime'];
           }
           else {
-            this.totalTime = "0";
-            this.pendingTime = "0";
-            this.actualTime = "0";
+            this.totalTime = 0;
+            this.pendingTime = 0;
+            this.actualTime = 0;
           }
           if (response.dataList['ds']['table5'].length > 0) {
-            this.averageRating = response.dataList['ds']['table5'][0]['average'];
+            this.averageRating =response.dataList['ds']['table5'][0]['average'];
             this.totalRatedTask = response.dataList['ds']['table5'][0]['totalTask'];
             this.totalRating = response.dataList['ds']['table5'][0]['totalRatings'];
           }
@@ -150,7 +156,6 @@ export class DeveloperdashComponent implements OnInit {
       let response: ApiResponse = await this.Service.Data(paraList);
       if (response.isValidUser) {
         if (response.messageType == MessageType.success) {
-          console.log(response.dataList['ds'])
           this.tblTaskList = response.dataList['ds']['table'];
           this.tblTaskList.forEach(element => {
             element['devData'] = response.dataList['ds']['table1'].filter(f => f['taskId'] == element['id']);
@@ -420,5 +425,4 @@ export class DeveloperdashComponent implements OnInit {
     this.comment = null;
   }
   //#endregion
-
 }

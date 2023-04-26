@@ -42,7 +42,8 @@
                     </div>
                     <h3>
                         <star-rating-control size="large" [hoverEnabled]="true" [readOnly]="true" [starType]="'svg'"
-                            [rating]="averageRating" [showHalfStars]="true" [labelText]="averageRating">
+                            [rating]="averageRating" [showHalfStars]="true"
+                            [labelText]="averageRating | number:'1.1-1'">
                         </star-rating-control>
                     </h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
