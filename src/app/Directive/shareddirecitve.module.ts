@@ -1,15 +1,17 @@
 import { NgModule } from "@angular/core";
+import { absolute } from "./absolute";
 import { TooltipDirective } from "./tooltip.directive";
 
 
 
 @NgModule({
   declarations: [
-    TooltipDirective
-
+    TooltipDirective,
+    absolute
   ],
   exports: [
-    TooltipDirective
+    TooltipDirective,
+    absolute
   ]
 })
 export class SharedDirectiveModule { }

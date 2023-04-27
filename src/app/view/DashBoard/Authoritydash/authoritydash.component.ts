@@ -16,17 +16,17 @@ import { Helper, MessageType } from 'src/environments/Helper';
 export class AuthoritydashComponent implements OnInit {
 
   //#region Declaration
-  public totalTask: string = "0";
-  public CompletedTask: string = "0";
-  public InProgress: string = "0";
+  public totalTask: number = 0;
+  public CompletedTask: number = 0;
+  public InProgress: number = 0;
   public ratio: number = 0;
 
   public totalRoutineTask: number = 0;
   public totalRoutineTime: number = 0;
 
-  public totalTime: string = "0";
-  public pendingTime: string = "0";
-  public actualTime: string = "0";
+  public totalTime: number = 0;
+  public pendingTime: number = 0;
+  public actualTime: number = 0;
 
   public averageRating: number = 0;
   public totalRatedTask: number = 0;

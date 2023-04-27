@@ -5,17 +5,18 @@
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Tasks</h5>
+                        <span><i class="las la-address-book mt-1" style="font-size: 28px;"></i></span>
                     </div>
                     <h3><span class="counter">{{totalTask}}</span></h3>
-                    <div class="d-flex align-items-center justify-content-between mt-1">
-                        <span class="">In Progress : {{InProgress}}</span>
-                        <span class="">Completed : {{CompletedTask}}</span>
-                        <span class="text-primary">{{ratio}}%</span>
-                    </div>
                     <div class="iq-progress-bar bg-primary-light mt-2">
                         <span class="bg-primary iq-progress progress-1" style="transition: width 2s ease 0s;"
                             [ngStyle]="{'width':ratio +'%'}"></span>
                     </div>
+                    <div class="d-flex align-items-center justify-content-between mt-2">
+                        <span class="dashboardboxlabel">In Progress : {{InProgress}}</span>
+                        <span class="dashboardboxlabel">Completed : {{CompletedTask}}</span>
+                        <span class="text-primary dashboardboxlabel">{{ratio}}%</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,11 +24,13 @@
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
-                        <h5>Routine</h5>
+                        <h5>Routine Task</h5>
+                        <span><i class="las la-calendar-week mt-1" style="font-size: 28px;"></i></span>
                     </div>
                     <h3><span class="counter">{{totalRoutineTime | number:'1.2-2'}} Hours</span></h3>
-                    <div class="d-flex align-items-center justify-content-between mt-1">
-                        <span>Total Tasks : {{totalRoutineTask}}</span>
+                    <hr class="classhr">
+                    <div class="d-flex align-items-center justify-content-between mt-3">
+                        <span class="dashboardboxlabel">Total Tasks : {{totalRoutineTask}}</span>
                     </div>
                 </div>
             </div>
@@ -36,12 +39,17 @@
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
-                        <h5>Duration</h5>
+                        <h5>Time Utilized</h5>
+                        <span class="dashboardboxlabel"><i class="las la-business-time mt-1"
+                                style="font-size: 28px;"></i></span>
                     </div>
-                    <h3><span class="counter">{{actualTime}} Hours</span></h3>
-                    <div class="d-flex align-items-center justify-content-between mt-1">
-                        <span>Approx Time : {{totalTime}}</span>
-                        <span>Extra Time : {{pendingTime}}</span>
+                    <h3><span class="counter">{{actualTime | number:'1.2-2'}} Hours</span></h3>
+                    <hr class="classhr">
+                    <div class="d-flex align-items-center justify-content-between mt-3">
+                        <span class="dashboardboxlabel">Approx Time : {{totalTime}}</span>
+                        <span class="dashboardboxlabel"
+                            [ngStyle]="{'color':pendingTime < 0?'brown':'green'}">{{pendingTime <
+                                0?"Exceed":"Unutilized"}} Time : {{pendingTime | abs}}</span>
                     </div>
                 </div>
             </div>
@@ -51,17 +59,17 @@
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Rating</h5>
-                        <!-- <span class="badge badge-success">Today</span> -->
+                        <span style="font-size: 28px;">{{averageRating | number:'1.1-1'}}</span>
                     </div>
-                    <h3>
+                    <h3 style="margin-bottom: 20px !important;">
                         <star-rating-control size="large" [hoverEnabled]="true" [readOnly]="true" [starType]="'svg'"
-                            [rating]="averageRating" [showHalfStars]="true"
-                            [labelText]="averageRating | number:'1.1-1'">
+                            [rating]="averageRating" [showHalfStars]="true">
                         </star-rating-control>
                     </h3>
-                    <div class="d-flex align-items-center justify-content-between mt-1">
-                        <span>Total Task : {{totalRatedTask}}</span>
-                        <span>Overall Rating : {{totalRating}}</span>
+                    <hr class="classhr">
+                    <div class="d-flex align-items-center justify-content-between mt-3">
+                        <span class="dashboardboxlabel">Total Task : {{totalRatedTask}}</span>
+                        <span class="dashboardboxlabel">Overall Rating : {{totalRating}}</span>
                     </div>
                 </div>
             </div>

@@ -437,6 +437,10 @@
      background-color: #B7DEE8;
  }
 
+ .typeroutine {
+     background-color: #C4BD97;
+ }
+
  ::ng-deep.progress-bar.active,
  .progress1.active .progress-bar {
      animation: progress-bar-stripes 2s linear infinite;
