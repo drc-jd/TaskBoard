@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-3">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -19,7 +19,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h5>Routine</h5>
+                    </div>
+                    <h3><span class="counter">{{totalRoutineTime | number:'1.2-2'}} Hours</span></h3>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                        <span>Total Tasks : {{totalRoutineTask}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -33,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-3">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -133,7 +146,8 @@
                                                         <h4 class="mb-2" style="font-weight: 700;">
                                                             {{task.taskName}}
                                                         </h4>
-                                                        <div class="btn bg-body mr-3" [ngClass]='{
+                                                        <div *ngIf="selectedReportType != 'Routine'"
+                                                            class="btn bg-body mr-3" [ngClass]='{
                                                         "priorityhigh" : task.Progress > 100,
                                                         "prioritylow" : task.Progress <=100
                                                         }' style="border: 1px solid #d3d3d3;text-align: right;">
@@ -143,8 +157,8 @@
                                                     <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
                                                         {{task.taskDescription}}</h6>
                                                     <div class="media align-items-center">
-                                                        <div class="btn bg-body mr-3"
-                                                            style="border: 1px solid #d3d3d3;">
+                                                        <div *ngIf="selectedReportType != 'Routine'"
+                                                            class="btn bg-body mr-3" style="border: 1px solid #d3d3d3;">
                                                             <svg class="svg-icon" width="20" height="20"
                                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 1 24 24"
                                                                 fill="none" stroke="currentColor" stroke-width="2"
@@ -158,20 +172,21 @@
                                                             style="border: 1px solid #d3d3d3;">
                                                             <i class="ri-survey-line mr-2"></i>{{task.projectName}}
                                                         </div>
-                                                        <div class="btn bg-body mr-3"
-                                                            style="border: 1px solid #d3d3d3;">
+                                                        <div *ngIf="selectedReportType != 'Routine'"
+                                                            class="btn bg-body mr-3" style="border: 1px solid #d3d3d3;">
                                                             <i style="font-size: 24px;"
                                                                 class="las la-code"></i>{{task.developer}}
                                                         </div>
-                                                        <div class="btn bg-body mr-3"
-                                                            style="border: 1px solid #b55f44;">
+                                                        <div *ngIf="selectedReportType != 'Routine'"
+                                                            class="btn bg-body mr-3" style="border: 1px solid #b55f44;">
                                                             <span>T :</span> {{task.TotalHours}}
                                                         </div>
                                                         <div class="btn bg-body mr-3"
                                                             style="border: 1px solid #0023d0;">
                                                             <span>W :</span> {{task.UtilizeHours}}
                                                         </div>
-                                                        <div class="btn bg-body mr-3" [ngClass]='{
+                                                        <div *ngIf="selectedReportType != 'Routine'"
+                                                            class="btn bg-body mr-3" [ngClass]='{
                                                                 "orangeborder" : task.totalPendingMinutes > 0,
                                                                 "greenborder" : task.totalPendingMinutes == 0,
                                                                 "redborder" : task.totalPendingMinutes < 0
@@ -205,8 +220,9 @@
                                                             {{task.PendingHours}}
                                                         </div>
                                                     </div> -->
-                                                <span *ngIf="selectedReportType!='Completed'" class="btn mr-3"
-                                                    [ngClass]='{
+                                                <span
+                                                    *ngIf="selectedReportType!='Completed' && selectedReportType != 'Routine'"
+                                                    class="btn mr-3" [ngClass]='{
                                                         "priority-high" : task.priority == 1,
                                                         "priority-medium" : task.priority == 2,
                                                         "priority-low" : task.priority == 3
@@ -253,7 +269,7 @@
                                                                         </td>
                                                                         <td style="width: 15%;">
                                                                             <div class="media align-items-center">
-                                                                                <div
+                                                                                <div *ngIf="selectedReportType != 'Routine'"
                                                                                     class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
                                                                                     {{data.totalTime}}
                                                                                 </div>
@@ -261,7 +277,7 @@
                                                                                     class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
                                                                                     {{data.usedTime}}
                                                                                 </div>
-                                                                                <div
+                                                                                <div *ngIf="selectedReportType != 'Routine'"
                                                                                     class="bg-success-light rounded-circle iq-card-icon-small hours">
                                                                                     {{data.pendingTime}}
                                                                                 </div>

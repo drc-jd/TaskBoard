@@ -321,6 +321,10 @@ export class ProjectlistComponent implements OnInit {
       this.ToolTip.show(document.getElementById("Impact"), "Select atleast one Value");
       return false;
     }
+    if (this.selectedDeveloper.length == 0) {
+      this.ToolTip.show(document.getElementById("Developer"), "Select atleast one Developer");
+      return false;
+    }
     return true;
   }
   //#endregion

@@ -168,6 +168,7 @@ export class PendingtaskComponent implements OnInit, OnDestroy {
               });
             }
           });
+          console.log(this.tblTaskList);
         }
         else if (response.messageType == MessageType.error)
           this.toastr.error(response.message);

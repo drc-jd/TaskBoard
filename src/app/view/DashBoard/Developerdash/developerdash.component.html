@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-3">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
@@ -19,13 +19,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-block card-stretch card-height">
+                <div class="card-body">
+                    <div class="top-block d-flex align-items-center justify-content-between">
+                        <h5>Routine</h5>
+                    </div>
+                    <h3><span class="counter">{{totalRoutineTime | number:'1.2-2'}} Hours</span></h3>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                        <span>Total Tasks : {{totalRoutineTask}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">
                         <h5>Duration</h5>
                     </div>
-                    <h3><span class="counter">{{actualTime}} Hours</span></h3>
+                    <h3><span class="counter">{{actualTime | number:'1.2-2'}} Hours</span></h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <span>Approx Time : {{totalTime}}</span>
                         <span>Extra Time : {{pendingTime}}</span>
@@ -33,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-6 col-lg-3">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <div class="top-block d-flex align-items-center justify-content-between">

@@ -21,6 +21,9 @@ export class AuthoritydashComponent implements OnInit {
   public InProgress: string = "0";
   public ratio: number = 0;
 
+  public totalRoutineTask: number = 0;
+  public totalRoutineTime: number = 0;
+
   public totalTime: string = "0";
   public pendingTime: string = "0";
   public actualTime: string = "0";
@@ -29,7 +32,7 @@ export class AuthoritydashComponent implements OnInit {
   public totalRatedTask: number = 0;
   public totalRating: number = 0;
 
-  public ddlReportType: string[] = ["In Progess", "Rating Pending", "Completed"]
+  public ddlReportType: string[] = ["In Progess", "Rating Pending", "Completed", "Routine"]
   public selectedReportType: string = "In Progess";
 
   public developerID: number = 0;
@@ -84,6 +87,14 @@ export class AuthoritydashComponent implements OnInit {
             this.averageRating = 0;
             this.totalRatedTask = 0;
             this.totalRating = 0;
+          }
+          if (response.dataList['ds']['table3'].length > 0) {
+            this.totalRoutineTask = this.helper.getDecimal(response.dataList['ds']['table3'][0]['totalTask']);
+            this.totalRoutineTime = this.helper.getDecimal(response.dataList['ds']['table3'][0]['totalTime']);
+          }
+          else {
+            this.totalRoutineTask = 0;
+            this.totalRoutineTime = 0;
           }
         }
         else if (response.messageType == MessageType.error)

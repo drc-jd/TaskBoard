@@ -25,6 +25,9 @@ export class DeveloperdashComponent implements OnInit {
   public InProgress: number = 0;
   public ratio: number = 0;
 
+  public totalRoutineTask: number = 0;
+  public totalRoutineTime: number = 0;
+
   public totalTime: number = 0;
   public pendingTime: number = 0;
   public actualTime: number = 0;
@@ -113,9 +116,9 @@ export class DeveloperdashComponent implements OnInit {
             this.ratio = 0;
           }
           if (response.dataList['ds']['table4'].length > 0) {
-            this.totalTime = response.dataList['ds']['table4'][0]['totalTime'];
-            this.pendingTime = response.dataList['ds']['table4'][0]['pendingTime'];
-            this.actualTime = response.dataList['ds']['table4'][0]['actualTime'];
+            this.totalTime = this.helper.getDecimal(response.dataList['ds']['table4'][0]['totalTime']);
+            this.pendingTime = this.helper.getDecimal(response.dataList['ds']['table4'][0]['pendingTime']);
+            this.actualTime = this.helper.getDecimal(response.dataList['ds']['table4'][0]['actualTime']);
           }
           else {
             this.totalTime = 0;
@@ -123,7 +126,7 @@ export class DeveloperdashComponent implements OnInit {
             this.actualTime = 0;
           }
           if (response.dataList['ds']['table5'].length > 0) {
-            this.averageRating =response.dataList['ds']['table5'][0]['average'];
+            this.averageRating = response.dataList['ds']['table5'][0]['average'];
             this.totalRatedTask = response.dataList['ds']['table5'][0]['totalTask'];
             this.totalRating = response.dataList['ds']['table5'][0]['totalRatings'];
           }
@@ -131,6 +134,14 @@ export class DeveloperdashComponent implements OnInit {
             this.averageRating = 0;
             this.totalRatedTask = 0;
             this.totalRating = 0;
+          }
+          if (response.dataList['ds']['table6'].length > 0) {
+            this.totalRoutineTask = this.helper.getDecimal(response.dataList['ds']['table6'][0]['totalTask']);
+            this.totalRoutineTime = this.helper.getDecimal(response.dataList['ds']['table6'][0]['totalTime']);
+          }
+          else {
+            this.totalRoutineTask = 0;
+            this.totalRoutineTime = 0;
           }
         }
         else if (response.messageType == MessageType.error)
