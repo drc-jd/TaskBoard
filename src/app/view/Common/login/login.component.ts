@@ -38,27 +38,51 @@ export class LoginComponent implements OnInit {
     try {
       this.spinnerService.show();
       if (await this.Validate()) {
-        let paramList = {
-          Type: 'Login',
-          UserName: this.username,
-          Password: this.password
-        }
-        let response: ApiResponse = await this.service.Data(paramList);
-        if (response.isValidUser) {
-          if (response.messageType == MessageType.success) {
-            if (Object.keys(response.dataList['tblData'][0]).includes("result")) {
-              this.toastr.error(response.dataList['tblData'][0]['result']);
-            }
-            else {
-              sessionStorage.setItem("UserInfo", JSON.stringify(response.dataList['tblData'][0]))
-              this.router.navigate(["Dashboard"]);
-            }
+        let data = await this.service.getToken(this.username, this.password);
+        if (data) {
+          let UserInfo: object = {};
+          let Access_token: object = {};
+          UserInfo = {
+            'firstName': data['firstName'],
+            'lastName': data['lastName'],
+            'profileImg': data['profileImg'],
+            'role': data['role'],
+            'userId': data['userId'],
+            'userName': data['userName']
           }
-          else if (response.messageType == MessageType.error)
-            this.toastr.error(response.message);
-          else
-            this.toastr.warning('Something Went Wrong');
+          Access_token = {
+            'Access_token': data['Access_token'],
+            'Client_id': data['Client_id'],
+            'Expires': data['Expires'],
+            'Expires_in': data['Expires_in'],
+            'Issued': data['Issued'],
+            'Token_type': data['Token_type']
+          }
+          sessionStorage.setItem("UserInfo", JSON.stringify(UserInfo))
+          sessionStorage.setItem("Access_token", JSON.stringify(Access_token));
+          this.router.navigate(["Dashboard"]);
         }
+        // let paramList = {
+        //   Type: 'Login',
+        //   UserName: this.username,
+        //   Password: this.password
+        // }
+        // let response: ApiResponse = await this.service.Data(paramList);
+        // if (response.isValidUser) {
+        //   if (response.messageType == MessageType.success) {
+        //     if (Object.keys(response.dataList['tblData'][0]).includes("result")) {
+        //       this.toastr.error(response.dataList['tblData'][0]['result']);
+        //     }
+        //     else {
+        //       sessionStorage.setItem("UserInfo", JSON.stringify(response.dataList['tblData'][0]))
+        //       this.router.navigate(["Dashboard"]);
+        //     }
+        //   }
+        //   else if (response.messageType == MessageType.error)
+        //     this.toastr.error(response.message);
+        //   else
+        //     this.toastr.warning('Something Went Wrong');
+        // }
       }
       this.spinnerService.hide();
     }
