@@ -154,6 +154,9 @@ export default function getDocDefinition(
         Bug: {
           fillColor: '#FABF8F'
         },
+        Routine: {
+          fillColor: '#C4BD97'
+        },
         orange: {
           fillColor: '#ffa500'
         },
@@ -294,6 +297,8 @@ export default function getDocDefinition(
         cellstyle = "Bug";
       if (value == 'Change')
         cellstyle = "Change";
+      if (value == 'Routine')
+        cellstyle = "Routine";
     }
     if (colId == "progress") {
       if (value == true)

@@ -32958,3 +32958,12 @@ ul.iq-contact-rest li a p {
 .percentage {
   width: attr(data-content) +'%' !important;
 }
+
+.classhr {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.dashboardboxlabel {
+  font-weight: 700;
+}

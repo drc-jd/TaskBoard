@@ -1,9 +1,9 @@
 <ng-container *ngIf="UserInfo.role=='Developer'">
     <app-developerdash></app-developerdash>
 </ng-container>
-<ng-container *ngIf="UserInfo.role=='Manager'">
+<!-- <ng-container *ngIf="UserInfo.role=='Manager'">
     <app-managerdash></app-managerdash>
-</ng-container>
-<ng-container *ngIf="UserInfo.role=='Approval Authority'">
+</ng-container> -->
+<ng-container *ngIf="UserInfo.role=='Approval Authority' || UserInfo.role=='Manager'">
     <app-authoritydash></app-authoritydash>
 </ng-container>

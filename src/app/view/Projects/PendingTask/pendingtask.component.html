@@ -47,7 +47,8 @@
                                                                 <h4 class="mb-2" style="font-weight: 700;">
                                                                     {{task.taskName}}
                                                                 </h4>
-                                                                <div class="btn bg-body mr-3" [ngClass]='{
+                                                                <div *ngIf="task.isDefaultTask == false"
+                                                                    class="btn bg-body mr-3" [ngClass]='{
                                                                 "priorityhigh" : task.Progress > 100,
                                                                 "prioritylow" : task.Progress <=100
                                                                 }'
@@ -58,7 +59,8 @@
                                                             <h6 class="mb-1" style="font-weight: 500;color: #605C8D;">
                                                                 {{task.taskDescription}}</h6>
                                                             <div class="media align-items-center">
-                                                                <div class="btn bg-body mr-3"
+                                                                <div *ngIf="task.isDefaultTask == false"
+                                                                    class="btn bg-body mr-3"
                                                                     style="border: 1px solid #d3d3d3;">
                                                                     <svg class="svg-icon" width="20" height="20"
                                                                         xmlns="http://www.w3.org/2000/svg"
@@ -71,12 +73,14 @@
                                                                         <circle cx="12" cy="7" r="4"></circle>
                                                                     </svg> {{task.incharge}}
                                                                 </div>
-                                                                <div class="btn bg-body mr-3"
+                                                                <div *ngIf="task.isDefaultTask == false"
+                                                                    class="btn bg-body mr-3"
                                                                     style="border: 1px solid #d3d3d3;">
                                                                     <i style="font-size: 24px;"
                                                                         class="las la-code"></i>{{task.developer}}
                                                                 </div>
-                                                                <div class="btn bg-body mr-3"
+                                                                <div *ngIf="task.isDefaultTask == false"
+                                                                    class="btn bg-body mr-3"
                                                                     style="border: 1px solid #b55f44;">
                                                                     <span>T :</span> {{task.TotalHours}}
                                                                 </div>
@@ -84,7 +88,8 @@
                                                                     style="border: 1px solid #0023d0;">
                                                                     <span>W :</span> {{task.UtilizeHours}}
                                                                 </div>
-                                                                <div class="btn bg-body mr-3" [ngClass]='{
+                                                                <div *ngIf="task.isDefaultTask == false"
+                                                                    class="btn bg-body mr-3" [ngClass]='{
                                                                     "orangeborder" : task.totalPendingMinutes > 0,
                                                                     "greenborder" : task.totalPendingMinutes == 0,
                                                                     "redborder" : task.totalPendingMinutes < 0
@@ -119,7 +124,8 @@
                                                                 {{task.PendingHours}}
                                                             </div>
                                                         </div> -->
-                                                        <span class="btn mr-3" [ngClass]='{
+                                                        <span *ngIf="task.isDefaultTask == false" class="btn mr-3"
+                                                            [ngClass]='{
                                                             "priority-high" : task.priority == 1,
                                                             "priority-medium" : task.priority == 2,
                                                             "priority-low" : task.priority == 3
@@ -164,7 +170,7 @@
                                                                                 <td style="width: 15%;">
                                                                                     <div
                                                                                         class="media align-items-center">
-                                                                                        <div
+                                                                                        <div *ngIf="task.isDefaultTask == false"
                                                                                             class="bg-secondary-light rounded-circle iq-card-icon-small mr-3 hours">
                                                                                             {{data.totalTime}}
                                                                                         </div>
@@ -172,7 +178,7 @@
                                                                                             class="bg-primary-light rounded-circle iq-card-icon-small mr-3 hours">
                                                                                             {{data.usedTime}}
                                                                                         </div>
-                                                                                        <div
+                                                                                        <div *ngIf="task.isDefaultTask == false"
                                                                                             class="bg-success-light rounded-circle iq-card-icon-small hours">
                                                                                             {{data.pendingTime}}
                                                                                         </div>
@@ -187,7 +193,7 @@
                                                                                         data-toggle="modal">Add
                                                                                         Comment</button>
                                                                                     <button
-                                                                                        *ngIf="data.completeDate == null"
+                                                                                        *ngIf="data.completeDate == null && task.isDefaultTask == false"
                                                                                         class="btn btn-success"
                                                                                         (click)="ConfirmDevComment(data.srNo)"
                                                                                         style="float: right;">Complete</button>

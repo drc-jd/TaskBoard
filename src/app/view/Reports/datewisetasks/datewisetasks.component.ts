@@ -135,6 +135,8 @@ export class DatewisetasksComponent implements OnInit {
               return 'typenew';
             else if (params.value == "Bug")
               return 'typebug';
+            else if (params.value == "Routine")
+              return 'typeroutine';
           }
         }
       if (_.indexOf(["PRIORITY"], columns[i].toUpperCase()) > -1)

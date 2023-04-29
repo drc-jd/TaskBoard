@@ -108,6 +108,7 @@ export class ViewComponent implements OnInit {
   //#region Other Methods
   public async LogOut() {
     sessionStorage.removeItem("UserInfo");
+    sessionStorage.removeItem("Access_token");
     this.router.navigate(["Login"]);
   }
   private async Validate(): Promise<boolean> {

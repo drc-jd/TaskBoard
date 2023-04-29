@@ -98,10 +98,11 @@ export class PmsreportComponent implements OnInit {
     try {
       this.spinnerService.show();
       if (await this.ValidateSearch()) {
+        debugger;
         let paraList = {
           Type: 'GetData',
           ProType: this.helper.getString(this.selectedType),
-          UserId: this.helper.getInt(this.selectedUserId),
+          UserId: this.helper.getStringOrEmpty(this.selectedType).toUpperCase() == "PROJECTWISE" ? (this.UserInfo.role == "Developer" ? this.UserInfo.userId : 0) : this.helper.getInt(this.selectedUserId),
           ProjectId: this.helper.getInt(this.selectedProjectId),
           SDate: this.SDate,
           EDate: this.EDate,
