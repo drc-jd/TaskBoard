@@ -102,7 +102,7 @@ export class UsersComponent implements OnInit {
         LastName: this.helper.getString(this.lastName),
         Email: this.helper.getString(this.email),
         UserName: this.helper.getString(this.username),
-        Password: "",
+        Password: "Win@Ddpl",
         MobileNo: this.helper.getString(this.mobileNo),
         ExtNo: this.helper.getString(this.extNo),
         Role: this.helper.getString(this.selectedRole),
@@ -346,10 +346,10 @@ export class UsersComponent implements OnInit {
       this.ToolTip.show(document.getElementById("role"), "Select Role");
       return false;
     }
-    if (this.selectedProjectList == null || this.selectedProjectList == undefined || this.selectedProjectList.length == 0) {
-      this.ToolTip.show(document.getElementById("ProjectList"), "Select atleast one project");
-      return false;
-    }
+    // if (this.selectedProjectList == null || this.selectedProjectList == undefined || this.selectedProjectList.length == 0) {
+    //   this.ToolTip.show(document.getElementById("ProjectList"), "Select atleast one project");
+    //   return false;
+    // }
     return true;
   }
   //#endregion
