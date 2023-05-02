@@ -64,7 +64,6 @@ export class ManagerdashComponent implements OnInit {
       let response: ApiResponse = await this.Service.Data(paraList);
       if (response.isValidUser) {
         if (response.messageType == MessageType.success) {
-          console.log(response.dataList['ds'])
           this.tblUsers = response.dataList['ds']['table'];
           if (response.dataList['ds']['table1'].length > 0) {
             this.totalTask = response.dataList['ds']['table1'][0]['totalTasks'];
