@@ -69,19 +69,19 @@ export class AuthoritydashComponent implements OnInit {
         if (response.messageType == MessageType.success) {
           this.tblUsers = response.dataList['ds']['table'];
           if (response.dataList['ds']['table1'].length > 0) {
-            this.totalTask = response.dataList['ds']['table1'][0]['totalTasks'];
-            this.CompletedTask = response.dataList['ds']['table1'][0]['completed'];
-            this.InProgress = response.dataList['ds']['table1'][0]['inProgress'];
-            this.ratio = response.dataList['ds']['table1'][0]['ratio'];
+            this.totalTask = this.helper.getDecimal(response.dataList['ds']['table1'][0]['totalTasks']);
+            this.CompletedTask = this.helper.getDecimal(response.dataList['ds']['table1'][0]['completed']);
+            this.InProgress = this.helper.getDecimal(response.dataList['ds']['table1'][0]['inProgress']);
+            this.ratio = this.helper.getDecimal(response.dataList['ds']['table1'][0]['ratio']);
 
-            this.totalTime = response.dataList['ds']['table1'][0]['approxHours'];
-            this.pendingTime = response.dataList['ds']['table1'][0]['pendingHours'];
-            this.actualTime = response.dataList['ds']['table1'][0]['spentHours'];
+            this.totalTime = this.helper.getDecimal(response.dataList['ds']['table1'][0]['approxHours']);
+            this.pendingTime = this.helper.getDecimal(response.dataList['ds']['table1'][0]['pendingHours']);
+            this.actualTime = this.helper.getDecimal(response.dataList['ds']['table1'][0]['spentHours']);
           }
           if (response.dataList['ds']['table2'].length > 0) {
-            this.averageRating = response.dataList['ds']['table2'][0]['average'];
-            this.totalRatedTask = response.dataList['ds']['table2'][0]['totalTask'];
-            this.totalRating = response.dataList['ds']['table2'][0]['totalRatings'];
+            this.averageRating = this.helper.getDecimal(response.dataList['ds']['table2'][0]['average']);
+            this.totalRatedTask = this.helper.getDecimal(response.dataList['ds']['table2'][0]['totalTask']);
+            this.totalRating = this.helper.getDecimal(response.dataList['ds']['table2'][0]['totalRatings']);
           }
           else {
             this.averageRating = 0;

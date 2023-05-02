@@ -2,11 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { ApiResponse } from 'src/app/Class/Common/ApiResponse';
 import { TooltipDirective } from 'src/app/Directive/tooltip.directive';
 import { ErrorDialogueService } from 'src/app/Services/Common/ErrorDiag.service';
 import { LoginService } from 'src/app/Services/Common/Login.service';
-import { Helper, MessageType } from 'src/environments/Helper';
+import { Helper } from 'src/environments/Helper';
 
 @Component({
   selector: 'app-login',
@@ -96,11 +95,11 @@ export class LoginComponent implements OnInit {
   //#region Other Methods
   private async Validate(): Promise<boolean> {
     if (this.helper.getStringOrEmpty(this.username) == "") {
-      this.ToolTip.show(document.getElementById("ProjectName"), "Enter Project Name");
+      this.ToolTip.show(document.getElementById("username"), "Enter User Name");
       return false;
     }
     if (this.helper.getStringOrEmpty(this.password) == "") {
-      this.ToolTip.show(document.getElementById("ProjectName"), "Enter Project Name");
+      this.ToolTip.show(document.getElementById("password"), "Enter Password");
       return false;
     }
     return true;
