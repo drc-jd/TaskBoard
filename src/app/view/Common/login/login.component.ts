@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { TooltipDirective } from 'src/app/Directive/tooltip.directive';
 import { ErrorDialogueService } from 'src/app/Services/Common/ErrorDiag.service';
 import { LoginService } from 'src/app/Services/Common/Login.service';
@@ -23,13 +23,14 @@ export class LoginComponent implements OnInit {
   constructor(private service: LoginService,
     private spinnerService: NgxSpinnerService,
     private errorService: ErrorDialogueService,
-    private toastr: ToastrService,
+    private titleService: Title,
     private router: Router,
     private helper: Helper) { }
 
   async ngOnInit() {
     if (sessionStorage.getItem("UserInfo"))
       this.router.navigate(["Dashboard"]);
+    this.titleService.setTitle('Taskboard | Login')
   }
 
   //#region API Methods

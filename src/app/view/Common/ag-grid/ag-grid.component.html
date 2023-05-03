@@ -1,48 +1,52 @@
 <div class="contain ag-gridcls">
-    <div class="filterpnl" *ngIf="filterShow">
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button title="Previous" *ngIf="isFilter && searchItem.length>0" (click)="prev()">
-                    <i class="icon-next p-0" style="transform: rotate(180deg);"></i>
+    <div class="filterpnl " *ngIf="filterShow">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <div class=" QuickSearchBtn">
+                <button title="Previous" class="btn" *ngIf="isFilter && searchItem.length>0" (click)="prev()">
+                    <i class="las la-arrow-left gridicon"></i>
                 </button>
-                <button class="QuickSearch" style="width: auto;">
-                    <input type="text" placeholder="Quick search grid" [ngModel]="mymodel"
-                        (ngModelChange)="valuechange($event)" class="k-textbox form-control QuickSearchtxt">
+                <div class="QuickSearch" style="width: auto;display: flex;">
+                    <input type="text" style="background-color: white;" placeholder="Quick search grid"
+                        [ngModel]="mymodel" (ngModelChange)="valuechange($event)"
+                        class="k-textbox form-control QuickSearchtxt">
                     <input type="checkbox" *ngIf="mymodel!=''" id="isFresh" [(ngModel)]="isFilter"
-                        (change)="isFilterChange($event)" style="margin-left: 7px;margin-right: 7px;" name="isfresh">
+                        (change)="isFilterChange($event)" style="margin-left: 7px;margin-right: 7px;height: 23px;"
+                        name="isfresh">
+                </div>
+            </div>
+            <div class="grid-btn">
+                <button title="Next" class="btn" *ngIf="isFilter && searchItem.length>0" (click)="next()">
+                    <i class="las la-arrow-right gridicon"></i>
                 </button>
-                <!-- <button title="Next" *ngIf="isFilter && searchItem.length>0" (click)="next()">
-                    <i class="icon-next p-0"></i>
+                <button title="Excel Download" class="btn" (click)="excel()">
+                    <i class="las la-file-excel gridicon"></i>
                 </button>
-                <button title="Excel Download" (click)="excel()">
-                    <i class="k-icon k-i-file-excel p-0"></i>
+                <button title="Resize Columns" class="btn" (click)="autoSize()" id=fullscreen-wrap>
+                    <i class="las la-arrows-alt gridicon"></i>
                 </button>
-                <button title="Resize Columns" (click)="autoSize()" id=fullscreen-wrap>
-                    <i class="fscreen p-0"></i>
+                <button hidden title="Hide-Show Columns" class="btn" (click)="toolPanel()" id=eye-wrap>
+                    <i class="feye p-0 gridicon"></i>
                 </button>
-                <button hidden title="Hide-Show Columns" (click)="toolPanel()" id=eye-wrap>
-                    <i class="feye p-0"></i>
-                </button>
-                <button title="Expand"
+                <button title="Expand" class="btn"
                     *ngIf="gridApi!=undefined && gridApi.columnController.groupDisplayColumns.length>0"
                     (click)="expand()" id=expand-wrap>
-                    <i class="fexpand p-0"></i>
+                    <i class="las la-plus-square gridicon"></i>
                 </button>
-                <button title="Collapse"
+                <button title="Collapse" class="btn"
                     *ngIf="gridApi!=undefined && gridApi.columnController.groupDisplayColumns.length>0"
                     (click)="collapse()" id=collapse-wrap>
-                    <i class="fcollapse p-0"></i>
+                    <i class="las la-minus-square gridicon"></i>
                 </button>
-                <button title="Select All" (click)="sAll()" id=select-wrap>
-                    <i class="fselect p-0"></i>
+                <button title="Select All" class="btn" (click)="sAll()" id=select-wrap>
+                    <i class="las la-check-square gridicon"></i>
                 </button>
-                <button title="DSelect All" (click)="dAll()" id=dselect-wrap>
-                    <i class="fdselect p-0"></i>
+                <button title="DSelect All" class="btn" (click)="dAll()" id=dselect-wrap>
+                    <i class="las la-stop gridicon"></i>
                 </button>
-                <button title="Inverse Selection" (click)="inverseAll()" id=iselect-wrap>
+            </div>
+            <!-- <button title="Inverse Selection" (click)="inverseAll()" id=iselect-wrap>
                     <i class="fiselect p-0"></i>
                 </button> -->
-            </div>
         </div>
     </div>
     <ag-grid-angular #agGrid style="width: 100% !important; height: 100% !important;" id="myGrid"
