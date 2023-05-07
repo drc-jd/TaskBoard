@@ -98,7 +98,6 @@ export class PmsreportComponent implements OnInit {
     try {
       this.spinnerService.show();
       if (await this.ValidateSearch()) {
-        debugger;
         let paraList = {
           Type: 'GetData',
           ProType: this.helper.getString(this.selectedType),
