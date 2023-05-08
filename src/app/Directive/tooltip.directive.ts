@@ -14,23 +14,9 @@ export class TooltipDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   show(element: ElementRef, str: string, isFocused: boolean = true) {
-    switch (element['tagName'].toUpperCase()) {
-      case 'INPUT':
-        element['scrollIntoView']({ behavior: "smooth", block: "center", inline: "nearest" });
-        if (isFocused)
-          element['focus']();
-        break;
-      case 'SELECT':
-        element['scrollIntoView']({ behavior: "smooth", block: "center", inline: "nearest" });
-        if (isFocused)
-          element['focus']();
-        break;
-      case 'TEXTAREA':
-        element['scrollIntoView']({ behavior: "smooth", block: "center", inline: "nearest" });
-        if (isFocused)
-          element['focus']();
-        break;
-    }
+    element['scrollIntoView']({ behavior: "smooth", block: "center", inline: "nearest" });
+    if (isFocused)
+      element['focus']();
     if (this.tooltip && this.tooltip != null)
       this.hide(false);
     this.create(str);

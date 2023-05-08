@@ -17,8 +17,11 @@ export class AuthoritydashComponent implements OnInit {
 
   //#region Declaration
   public totalTask: number = 0;
+  public DeveloperPending: number = 0;
+  public YetToApprove: number = 0;
   public CompletedTask: number = 0;
   public InProgress: number = 0;
+  public YetToStart: number = 0;
   public ratio: number = 0;
 
   public totalRoutineTask: number = 0;
@@ -55,7 +58,7 @@ export class AuthoritydashComponent implements OnInit {
     await this.GetData();
   }
 
-  //#region API Methods
+  //#region API Methods  
   private async GetData() {
     try {
       this.spinnerService.show();
@@ -68,11 +71,7 @@ export class AuthoritydashComponent implements OnInit {
       if (response.isValidUser) {
         if (response.messageType == MessageType.success) {
           this.tblUsers = response.dataList['ds']['table'];
-          if (response.dataList['ds']['table1'].length > 0) {
-            this.totalTask = this.helper.getDecimal(response.dataList['ds']['table1'][0]['totalTasks']);
-            this.CompletedTask = this.helper.getDecimal(response.dataList['ds']['table1'][0]['completed']);
-            this.InProgress = this.helper.getDecimal(response.dataList['ds']['table1'][0]['inProgress']);
-            this.ratio = this.helper.getDecimal(response.dataList['ds']['table1'][0]['ratio']);
+          if (response.dataList['ds']['table1'].length > 0) {            
 
             this.totalTime = this.helper.getDecimal(response.dataList['ds']['table1'][0]['approxHours']);
             this.pendingTime = this.helper.getDecimal(response.dataList['ds']['table1'][0]['pendingHours']);
@@ -95,6 +94,17 @@ export class AuthoritydashComponent implements OnInit {
           else {
             this.totalRoutineTask = 0;
             this.totalRoutineTime = 0;
+          }
+          if (response.dataList['ds']['table4'].length > 0) {
+            this.DeveloperPending = this.helper.getDecimal(response.dataList['ds']['table4'][0]['developerPending']);
+            this.totalTask = this.helper.getDecimal(response.dataList['ds']['table4'][0]['totalTasks']);
+            this.YetToApprove = this.helper.getDecimal(response.dataList['ds']['table4'][0]['yetToApprove']);
+          }
+          if (response.dataList['ds']['table5'].length > 0) {
+            this.ratio = this.helper.getDecimal(response.dataList['ds']['table5'][0]['ratio']);
+            this.CompletedTask = this.helper.getDecimal(response.dataList['ds']['table5'][0]['completed']);
+            this.InProgress = this.helper.getDecimal(response.dataList['ds']['table5'][0]['inProgress']);
+            this.YetToStart = this.helper.getDecimal(response.dataList['ds']['table5'][0]['yetToStart']);
           }
         }
         else if (response.messageType == MessageType.error)

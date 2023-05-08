@@ -21,8 +21,11 @@ export class DeveloperdashComponent implements OnInit {
   //#region Declaration Methods
   @ViewChild(TooltipDirective) ToolTip;
   public totalTask: number = 0;
+  public DeveloperPending: number = 0;
+  public YetToApprove: number = 0;
   public CompletedTask: number = 0;
   public InProgress: number = 0;
+  public YetToStart: number = 0;
   public ratio: number = 0;
 
   public totalRoutineTask: number = 0;
@@ -104,14 +107,14 @@ export class DeveloperdashComponent implements OnInit {
           //   }
           // });
           if (response.dataList['ds']['table'].length > 0) {
-            this.totalTask = response.dataList['ds']['table'][0]['total'];
-            this.CompletedTask = response.dataList['ds']['table'][0]['complete'];
-            this.InProgress = response.dataList['ds']['table'][0]['pending'];
+            this.CompletedTask = response.dataList['ds']['table'][0]['completedTask'];
+            this.YetToStart = response.dataList['ds']['table'][0]['yetToStart'];
+            this.InProgress = response.dataList['ds']['table'][0]['inProgress'];
             this.ratio = response.dataList['ds']['table'][0]['ratio'];
           }
           else {
-            this.totalTask = 0;
             this.CompletedTask = 0;
+            this.YetToStart = 0;
             this.InProgress = 0;
             this.ratio = 0;
           }
@@ -142,6 +145,16 @@ export class DeveloperdashComponent implements OnInit {
           else {
             this.totalRoutineTask = 0;
             this.totalRoutineTime = 0;
+          }
+          if (response.dataList['ds']['table7'].length > 0) {
+            this.totalTask = this.helper.getDecimal(response.dataList['ds']['table7'][0]['totalTask']);
+            this.YetToApprove = this.helper.getDecimal(response.dataList['ds']['table7'][0]['approvalPending']);
+            this.DeveloperPending = this.helper.getDecimal(response.dataList['ds']['table7'][0]['developerPending']);
+          }
+          else {
+            this.totalTask = 0;
+            this.YetToApprove = 0;
+            this.DeveloperPending = 0;
           }
         }
         else if (response.messageType == MessageType.error)
@@ -347,6 +360,33 @@ export class DeveloperdashComponent implements OnInit {
       this.errorService.error(error);
     }
   }
+  public async ReOpenTask() {
+    try {
+      this.spinnerService.show();
+      let paraList = {
+        Type: 'REOPENTASK',
+        SrNo: this.srNo
+      }
+      let response: ApiResponse = await this.Service.Data(paraList);
+      if (response.isValidUser) {
+        if (response.messageType == MessageType.success) {
+          this.toastr.success(response.message);
+          this.srNo = 0;
+          await this.GetData();
+          await this.GetTask();
+        }
+        else if (response.messageType == MessageType.error)
+          this.toastr.error(response.message);
+        else
+          this.toastr.error('Something Went Wrong');
+      }
+      this.spinnerService.hide();
+    }
+    catch (error) {
+      this.spinnerService.hide();
+      this.errorService.error(error);
+    }
+  }
   //#endregion
 
   //#region Other Methods
@@ -376,6 +416,13 @@ export class DeveloperdashComponent implements OnInit {
     }
     $("#openModal")[0].click();
   }
+  public async ConfirmReOpen(srNo: number) {
+    this.srNo = srNo;
+    this.confirmText = {
+      Header: 'ReOpen?', Body: 'Are you sure you want to Re-Open this Task?', Method: 'ReOpen'
+    }
+    $("#openModal")[0].click();
+  }
   public async closeDiag() {
     this.tblComments = [];
     this.refSrNo = 0;
@@ -391,6 +438,8 @@ export class DeveloperdashComponent implements OnInit {
       await this.CompleteDevComment();
     else if (this.confirmText.Method.toUpperCase() == "COMPLETETASK")
       await this.CompleteTask();
+    else if (this.confirmText.Method.toUpperCase() == "REOPEN")
+      await this.ReOpenTask();
   }
   public async upload(event: any) {
     this.selectedFiles = [];
