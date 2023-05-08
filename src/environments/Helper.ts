@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import * as _ from 'underscore';
-import { DatePipe } from "@angular/common";
 
 @Injectable()
 export class Helper {
