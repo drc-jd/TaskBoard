@@ -6,6 +6,7 @@ import { NotFoundComponent } from './view/404/404NotFound.component';
 const routes: Routes = [
   { path: '', loadChildren: () => import('./view/view.module').then(m => m.ViewModule), canActivate: [AuthGuard] },
   { path: 'Login', loadChildren: () => import('./view/Common/login/login.module').then(m => m.LoginModule) },
+  { path: 'Login/:id', loadChildren: () => import('./view/Common/login/login.module').then(m => m.LoginModule) },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found' },
 ];

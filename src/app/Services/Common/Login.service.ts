@@ -15,8 +15,8 @@ export class LoginService {
         return await this.http.post(environment.apiBaseUrl + "Login/Data", paramList)
             .toPromise() as ApiResponse;
     }
-    async getToken(UserName: string, Password: string): Promise<any> {
-        var data = "UserName=" + UserName + "&Password=" + Password + "&client_id=ngAuthApp";
+    async getToken(UserName: string, Password: string, Ecode: number): Promise<any> {
+        var data = "UserName=" + UserName + "&Password=" + Password + "&Ecode=" + Ecode + "&client_id=ngAuthApp";
         var reqHeader = new HttpHeaders({ "Content-Type": "application/x-www-form-urlencoded" });
         return await this.http.post(environment.apiBaseUrl + "token", data, { headers: reqHeader })
             .toPromise() as any;

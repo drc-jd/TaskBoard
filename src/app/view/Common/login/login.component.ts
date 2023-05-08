@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TooltipDirective } from 'src/app/Directive/tooltip.directive';
 import { ErrorDialogueService } from 'src/app/Services/Common/ErrorDiag.service';
@@ -12,12 +12,14 @@ import { Helper } from 'src/environments/Helper';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
   //#region Declaration
   @ViewChild(TooltipDirective) ToolTip;
   public username: string;
   public password: string;
+  public Ecode: number = 0;
+
   //#endregion
 
   constructor(private service: LoginService,
@@ -25,7 +27,14 @@ export class LoginComponent implements OnInit {
     private errorService: ErrorDialogueService,
     private titleService: Title,
     private router: Router,
+    private _Activatedroute: ActivatedRoute,
     private helper: Helper) { }
+  async ngAfterViewInit() {
+    this.Ecode = this.helper.getInt(this._Activatedroute.snapshot.paramMap.get("id"));
+    if (this.Ecode != 0) {
+      await this.Login();
+    }
+  }
 
   async ngOnInit() {
     if (sessionStorage.getItem("UserInfo"))
@@ -38,7 +47,7 @@ export class LoginComponent implements OnInit {
     try {
       this.spinnerService.show();
       if (await this.Validate()) {
-        let data = await this.service.getToken(this.username, this.password);
+        let data = await this.service.getToken(this.username, this.password, this.Ecode);
         if (data) {
           let UserInfo: object = {};
           let Access_token: object = {};
@@ -95,6 +104,8 @@ export class LoginComponent implements OnInit {
 
   //#region Other Methods
   private async Validate(): Promise<boolean> {
+    if (this.Ecode != 0)
+      return true;
     if (this.helper.getStringOrEmpty(this.username) == "") {
       this.ToolTip.show(document.getElementById("username"), "Enter User Name");
       return false;
