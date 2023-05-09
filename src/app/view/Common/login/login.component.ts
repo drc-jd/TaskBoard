@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild(TooltipDirective) ToolTip;
   public username: string;
   public password: string;
-  public Ecode: number = 0;
+  public GuId: string = '';
 
   //#endregion
 
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private _Activatedroute: ActivatedRoute,
     private helper: Helper) { }
   async ngAfterViewInit() {
-    this.Ecode = this.helper.getInt(this._Activatedroute.snapshot.paramMap.get("id"));
-    if (this.Ecode != 0) {
+    this.GuId = this.helper.getStringOrEmpty(this._Activatedroute.snapshot.paramMap.get("id"));
+    if (this.GuId != '') {
       await this.Login();
     }
   }
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     try {
       this.spinnerService.show();
       if (await this.Validate()) {
-        let data = await this.service.getToken(this.username, this.password, this.Ecode);
+        let data = await this.service.getToken(this.username, this.password, this.GuId);
         if (data) {
           let UserInfo: object = {};
           let Access_token: object = {};
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   //#region Other Methods
   private async Validate(): Promise<boolean> {
-    if (this.Ecode != 0)
+    if (this.GuId != '')
       return true;
     if (this.helper.getStringOrEmpty(this.username) == "") {
       this.ToolTip.show(document.getElementById("username"), "Enter User Name");
